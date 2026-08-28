@@ -210,8 +210,9 @@ jobs:
             -DANDROID_NDK_ROOT="$ANDROID_HOME/ndk/26.1.10909125"
           cmake --build build/android --target apk --parallel
           mkdir -p dist/android
-          find build/android -type f -name '*.apk' -exec install -m 0644 -t dist/android {} +
-          find dist/android -maxdepth 1 -type f -name '*.apk' | grep -q .
+          release_apk="$(find build/android -type f -name '*release-unsigned.apk' -print -quit)"
+          test -n "$release_apk"
+          install -m 0644 "$release_apk" dist/android/oscp-knowledge-paths-0.2.0-android-arm64-v8a-unsigned.apk
       - name: Sign Android release APK
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
