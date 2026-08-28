@@ -40,7 +40,7 @@ palette and stores progress and local notes in the current user profile:
 - Web PWA.
 - Linux x86_64 and ARM64.
 - Windows x86_64 portable bundle and MSI.
-- Android ARM64 APK for CI validation.
+- Android ARM64 APK signed with the dedicated project release key.
 - GitHub OIDC/Sigstore provenance for Linux binaries, the Windows MSI and Android APKs on `main`.
 
 The Web PWA is the only artifact deployed automatically, and only from `main`.
@@ -56,6 +56,9 @@ gh attestation verify ARTIFACT --repo 0xCyberBerserker/oscp-tool-cheatsheet
 
 The MSI provenance is not an embedded commercial Authenticode certificate, so Windows
 may still display an unknown-publisher warning.
+
+Android release certificate SHA-256 fingerprint:
+`08:26:6A:81:B6:E4:4E:80:81:42:CD:9E:2D:BB:D6:3E:7A:EF:16:01:98:25:12:EB:7A:69:BC:3C:FD:45:66:66`.
 
 ## Refresh the inventory
 
@@ -115,7 +118,7 @@ del sistema y guarda el progreso y las notas locales en el perfil actual:
 - PWA web.
 - Linux x86_64 y ARM64.
 - Windows x86_64 portable y MSI.
-- APK Android ARM64 para validación CI.
+- APK Android ARM64 firmado con la clave de release dedicada al proyecto.
 - Procedencia GitHub OIDC/Sigstore para binarios Linux, MSI de Windows y APK de Android en `main`.
 
 La PWA web es el único artefacto que se despliega automáticamente y solo desde `main`.
@@ -131,6 +134,9 @@ gh attestation verify ARTEFACTO --repo 0xCyberBerserker/oscp-tool-cheatsheet
 
 La procedencia del MSI no es un certificado Authenticode comercial embebido; Windows
 puede seguir mostrando el aviso de editor desconocido.
+
+Huella SHA-256 del certificado de release Android:
+`08:26:6A:81:B6:E4:4E:80:81:42:CD:9E:2D:BB:D6:3E:7A:EF:16:01:98:25:12:EB:7A:69:BC:3C:FD:45:66:66`.
 
 ## Actualizar el inventario
 

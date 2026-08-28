@@ -210,12 +210,34 @@ jobs:
           mkdir -p dist/android
           find build/android -type f -name '*.apk' -exec install -m 0644 -t dist/android {} +
           find dist/android -maxdepth 1 -type f -name '*.apk' | grep -q .
+      - name: Sign Android release APK
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_RELEASE_KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_RELEASE_KEY_ALIAS }}
+        run: |
+          test -n "$KEYSTORE_B64"
+          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/android-release.p12"
+          unsigned_apk="$(find dist/android -maxdepth 1 -type f -name '*.apk' -print -quit)"
+          test -n "$unsigned_apk"
+          signed_apk="dist/android/oscp-knowledge-paths-0.2.0-android-arm64-v8a.apk"
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" sign \
+            --ks "$RUNNER_TEMP/android-release.p12" \
+            --ks-pass "env:KEYSTORE_PASSWORD" \
+            --key-pass "env:KEY_PASSWORD" \
+            --ks-key-alias "$KEY_ALIAS" \
+            --out "$signed_apk" \
+            "$unsigned_apk"
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --verbose --print-certs "$signed_apk"
+          rm -- "$unsigned_apk"
       - name: Attest Android APK with GitHub OIDC
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         id: attest-android
         uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
         with:
-          subject-path: dist/android/*.apk
+          subject-path: dist/android/oscp-knowledge-paths-*-android-arm64-v8a.apk
       - name: Include Android attestation bundle
         if: steps.attest-android.outputs.bundle-path != ''
         run: cp "${{ steps.attest-android.outputs.bundle-path }}" dist/android/attestation.sigstore.json
