@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "oscp-arsenal-v1";
+const CACHE_NAME = "oscp-arsenal-v2";
 const APP_ASSETS = [
   "./",
   "./index.html",

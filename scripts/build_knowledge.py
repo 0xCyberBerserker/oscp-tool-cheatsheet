@@ -13,6 +13,7 @@ from build_data import PHASES
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 FOUNDATIONS = ROOT / "knowledge" / "packs" / "oscp-foundations.json"
 GUIDES = ROOT / "data" / "guides.json"
+INVENTORY = ROOT / "data" / "kali-tools.json"
 OUTPUT = ROOT / "knowledge" / "packs" / "oscp-interactive.json"
 WEB_OUTPUT = ROOT / "app" / "knowledge.js"
 
@@ -24,15 +25,21 @@ def slug(value: str) -> str:
 def card_body(guide: dict[str, object], language: str) -> str:
     label_index = 0 if language == "en" else 1
     heading = "Reviewed recipes" if language == "en" else "Recetas revisadas"
+    standard_heading = "Classic Linux fallback" if language == "en" else "Alternativa clásica de Linux"
     sections = [f"## {heading}"]
     for recipe in guide["recipes"]:
-        sections.append(f"### {recipe[label_index]}\n\n```text\n{recipe[2]}\n```")
+        section = f"### {recipe[label_index]}\n\n```text\n{recipe[2]}\n```"
+        if len(recipe) == 4:
+            section += f"\n\n#### {standard_heading}\n\n```text\n{recipe[3]}\n```"
+        sections.append(section)
     return "\n\n".join(sections)
 
 
 def main() -> int:
     pack = json.loads(FOUNDATIONS.read_text(encoding="utf-8"))
     guides = json.loads(GUIDES.read_text(encoding="utf-8"))
+    inventory = json.loads(INVENTORY.read_text(encoding="utf-8"))
+    packages = {item["name"].casefold(): item["package"] for item in inventory}
     phase_labels = {phase["id"]: phase for phase in PHASES}
 
     pack["id"] = "oscp-interactive"
@@ -56,7 +63,11 @@ def main() -> int:
                     "es": card_body(guide, "es"),
                 },
                 "tags": sorted(set(guide["phases"] + ["tool-reference"])),
-                "source": {"kind": "curated", "ref": f"data/guides.json:{guide['name']}"},
+                "source": {
+                    "kind": "curated",
+                    "ref": guide.get("sourceUrl")
+                    or f"https://www.kali.org/tools/{packages[guide['name'].casefold()]}/",
+                },
                 "visibility": "public",
             }
         )
@@ -79,7 +90,10 @@ def main() -> int:
         pack["paths"].append(
             {
                 "id": f"references.{phase_id}",
-                "title": {"en": labels["en"], "es": labels["es"]},
+                "title": {
+                    "en": f"{labels['en']} references",
+                    "es": f"Referencias de {labels['es'].lower()}",
+                },
                 "description": {
                     "en": "Reviewed offline tool references for this assessment phase.",
                     "es": "Referencias offline revisadas para esta fase de auditoría.",

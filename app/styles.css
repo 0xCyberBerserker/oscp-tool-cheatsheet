@@ -237,6 +237,48 @@ kbd {
 .path-button[aria-pressed="true"] { box-shadow: inset 3px 0 var(--accent); }
 
 .path-card { min-width: 0; border-top: 1px solid var(--line); }
+.roadmap-overview { padding: 24px 0; border-bottom: 1px solid var(--line); }
+.roadmap-heading { display: flex; justify-content: space-between; align-items: start; gap: 20px; }
+.roadmap-heading h2 { margin: 0; font-size: clamp(1.35rem, 2.4vw, 2rem); }
+.roadmap-heading output, #path-description { color: var(--muted); }
+#path-description { max-width: var(--reading-width); margin: 10px 0 16px; line-height: 1.55; }
+#path-progress { width: 100%; height: 6px; accent-color: var(--accent); }
+.step-roadmap {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0 0 6px;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none;
+}
+.step-roadmap::-webkit-scrollbar { display: none; }
+.roadmap-step { flex: 0 0 min(180px, 40vw); }
+.roadmap-step button {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  padding: 8px;
+  color: var(--muted);
+  text-align: left;
+}
+.roadmap-step button[aria-current="step"] { border-color: var(--accent); color: var(--text); }
+.roadmap-step button[data-completed="true"] .roadmap-step-number { background: var(--accent); color: var(--surface); }
+.roadmap-step-number {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 700;
+}
+.roadmap-step-title { overflow-wrap: anywhere; font-size: .78rem; line-height: 1.25; }
 .path-card-header {
   display: flex;
   justify-content: space-between;
@@ -378,6 +420,14 @@ kbd {
 .option-list dt, .option-list dd { margin: 0; padding: 5px 0; }
 .option-list dd { color: var(--muted); }
 .recipe { display: grid; grid-template-columns: minmax(130px, .32fr) minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+.recipe-standard {
+  display: grid;
+  grid-template-columns: minmax(130px, .32fr) minmax(0, 1fr);
+  grid-column: 1 / -1;
+  gap: 14px;
+  align-items: center;
+}
+.recipe-standard code { white-space: normal; }
 .recipe-label { color: var(--muted); font-size: .82rem; }
 .recipe code {
   max-width: 100%;

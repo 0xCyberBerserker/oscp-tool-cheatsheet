@@ -10,6 +10,10 @@ Todos los cambios relevantes siguen [Keep a Changelog](https://keepachangelog.co
 
 - Replaced the broadly named readable mode with an explicit local-font monospaced mode.
 - Sustituido el modo de lectura genérico por un modo monoespaciado explícito con fuentes locales.
+- Added a visual step roadmap, graph-aware next navigation and contextual per-step notes.
+- Added primary-source links and classic Linux fallbacks for enhanced workflow commands.
+- Añadidos un roadmap visual, navegación siguiente basada en el grafo y notas contextuales por paso.
+- Añadidos enlaces a fuentes primarias y alternativas clásicas de Linux para comandos de flujo mejorados.
 
 ### Added / Añadido
 

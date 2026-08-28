@@ -149,8 +149,8 @@
         "es": "Visor de archivos con resaltado, disponible sin sustituir cat."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### View a file\n\n```text\nbat FILE\n```",
-        "es": "## Recetas revisadas\n\n### Ver un archivo\n\n```text\nbat FILE\n```"
+        "en": "## Reviewed recipes\n\n### View a file\n\n```text\nbat FILE\n```\n\n#### Classic Linux fallback\n\n```text\ncat FILE\n```",
+        "es": "## Recetas revisadas\n\n### Ver un archivo\n\n```text\nbat FILE\n```\n\n#### Alternativa clásica de Linux\n\n```text\ncat FILE\n```"
       },
       "tags": [
         "tool-reference",
@@ -158,7 +158,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:bat"
+        "ref": "https://github.com/sharkdp/bat"
       },
       "visibility": "public"
     },
@@ -184,7 +184,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:bloodhound-python"
+        "ref": "https://www.kali.org/tools/bloodhound.py/"
       },
       "visibility": "public"
     },
@@ -211,7 +211,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:burpsuite"
+        "ref": "https://www.kali.org/tools/burpsuite/"
       },
       "visibility": "public"
     },
@@ -237,7 +237,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:cewl"
+        "ref": "https://www.kali.org/tools/cewl/"
       },
       "visibility": "public"
     },
@@ -263,7 +263,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:dnsrecon"
+        "ref": "https://www.kali.org/tools/dnsrecon/"
       },
       "visibility": "public"
     },
@@ -289,7 +289,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:enum4linux"
+        "ref": "https://www.kali.org/tools/enum4linux/"
       },
       "visibility": "public"
     },
@@ -316,7 +316,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:evil-winrm"
+        "ref": "https://www.kali.org/tools/evil-winrm/"
       },
       "visibility": "public"
     },
@@ -332,8 +332,8 @@
         "es": "Listado moderno de directorios, disponible sin sustituir ls."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Detailed tree\n\n```text\neza --tree --level=2 --long --git\n```",
-        "es": "## Recetas revisadas\n\n### Árbol detallado\n\n```text\neza --tree --level=2 --long --git\n```"
+        "en": "## Reviewed recipes\n\n### Detailed tree\n\n```text\neza --tree --level=2 --long --git\n```\n\n#### Classic Linux fallback\n\n```text\nfind . -maxdepth 2 -print\n```",
+        "es": "## Recetas revisadas\n\n### Árbol detallado\n\n```text\neza --tree --level=2 --long --git\n```\n\n#### Alternativa clásica de Linux\n\n```text\nfind . -maxdepth 2 -print\n```"
       },
       "tags": [
         "tool-reference",
@@ -341,7 +341,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:eza"
+        "ref": "https://github.com/eza-community/eza"
       },
       "visibility": "public"
     },
@@ -357,8 +357,8 @@
         "es": "Descubrimiento recursivo de contenido web."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Content discovery\n\n```text\nferoxbuster -u https://TARGET -w WORDLIST -x php,txt,html -o scans/ferox.txt\n```",
-        "es": "## Recetas revisadas\n\n### Descubrir contenido\n\n```text\nferoxbuster -u https://TARGET -w WORDLIST -x php,txt,html -o scans/ferox.txt\n```"
+        "en": "## Reviewed recipes\n\n### Content discovery\n\n```text\nmkdir -p scans && feroxbuster -u https://TARGET -w WORDLIST -x php,txt,html -o scans/ferox.txt\n```",
+        "es": "## Recetas revisadas\n\n### Descubrir contenido\n\n```text\nmkdir -p scans && feroxbuster -u https://TARGET -w WORDLIST -x php,txt,html -o scans/ferox.txt\n```"
       },
       "tags": [
         "enumeration",
@@ -367,7 +367,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:feroxbuster"
+        "ref": "https://www.kali.org/tools/feroxbuster/"
       },
       "visibility": "public"
     },
@@ -393,7 +393,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:ffuf"
+        "ref": "https://www.kali.org/tools/ffuf/"
       },
       "visibility": "public"
     },
@@ -419,7 +419,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:fping"
+        "ref": "https://www.kali.org/tools/fping/"
       },
       "visibility": "public"
     },
@@ -435,8 +435,8 @@
         "es": "Buscador difuso para archivos, historial y salida de comandos."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Search history\n\n```text\nCtrl+R\n```\n\n### Search files\n\n```text\nCtrl+T\n```",
-        "es": "## Recetas revisadas\n\n### Buscar historial\n\n```text\nCtrl+R\n```\n\n### Buscar archivos\n\n```text\nCtrl+T\n```"
+        "en": "## Reviewed recipes\n\n### Search history with shell integration\n\n```text\nCtrl+R\n```\n\n#### Classic Linux fallback\n\n```text\nhistory | grep PATTERN\n```\n\n### Search files with shell integration\n\n```text\nCtrl+T\n```\n\n#### Classic Linux fallback\n\n```text\nfind . -type f\n```",
+        "es": "## Recetas revisadas\n\n### Buscar historial con integración de shell\n\n```text\nCtrl+R\n```\n\n#### Alternativa clásica de Linux\n\n```text\nhistory | grep PATTERN\n```\n\n### Buscar archivos con integración de shell\n\n```text\nCtrl+T\n```\n\n#### Alternativa clásica de Linux\n\n```text\nfind . -type f\n```"
       },
       "tags": [
         "tool-reference",
@@ -444,7 +444,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:fzf"
+        "ref": "https://github.com/junegunn/fzf"
       },
       "visibility": "public"
     },
@@ -469,7 +469,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:hashcat"
+        "ref": "https://www.kali.org/tools/hashcat/"
       },
       "visibility": "public"
     },
@@ -494,7 +494,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:hydra"
+        "ref": "https://www.kali.org/tools/hydra/"
       },
       "visibility": "public"
     },
@@ -521,7 +521,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:impacket-psexec"
+        "ref": "https://www.kali.org/tools/python3-impacket/"
       },
       "visibility": "public"
     },
@@ -547,7 +547,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:impacket-smbserver"
+        "ref": "https://www.kali.org/tools/python3-impacket/"
       },
       "visibility": "public"
     },
@@ -572,7 +572,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:john"
+        "ref": "https://www.kali.org/tools/john/"
       },
       "visibility": "public"
     },
@@ -588,8 +588,8 @@
         "es": "Enumeración automatizada de escalada de privilegios en Linux."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Run locally\n\n```text\nlinpeas | tee linpeas.txt\n```",
-        "es": "## Recetas revisadas\n\n### Ejecutar localmente\n\n```text\nlinpeas | tee linpeas.txt\n```"
+        "en": "## Reviewed recipes\n\n### Run reviewed script\n\n```text\nbash ./linpeas.sh | tee linpeas.txt\n```",
+        "es": "## Recetas revisadas\n\n### Ejecutar script revisado\n\n```text\nbash ./linpeas.sh | tee linpeas.txt\n```"
       },
       "tags": [
         "post-exploitation",
@@ -598,7 +598,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:linpeas"
+        "ref": "https://www.kali.org/tools/peass/"
       },
       "visibility": "public"
     },
@@ -614,8 +614,8 @@
         "es": "Descubrimiento muy rápido de puertos antes de enumerar con Nmap."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Fast TCP discovery\n\n```text\nsudo masscan TARGET -p1-65535 --rate 1000 -oL scans/masscan.txt\n```",
-        "es": "## Recetas revisadas\n\n### Descubrimiento TCP rápido\n\n```text\nsudo masscan TARGET -p1-65535 --rate 1000 -oL scans/masscan.txt\n```"
+        "en": "## Reviewed recipes\n\n### Fast TCP discovery\n\n```text\nmkdir -p scans && sudo masscan TARGET -p1-65535 --rate 1000 -oL scans/masscan.txt\n```",
+        "es": "## Recetas revisadas\n\n### Descubrimiento TCP rápido\n\n```text\nmkdir -p scans && sudo masscan TARGET -p1-65535 --rate 1000 -oL scans/masscan.txt\n```"
       },
       "tags": [
         "enumeration",
@@ -624,7 +624,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:masscan"
+        "ref": "https://www.kali.org/tools/masscan/"
       },
       "visibility": "public"
     },
@@ -650,7 +650,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:metasploit-framework"
+        "ref": "https://www.kali.org/tools/metasploit-framework/"
       },
       "visibility": "public"
     },
@@ -676,7 +676,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:msfvenom"
+        "ref": "https://www.kali.org/tools/metasploit-framework/"
       },
       "visibility": "public"
     },
@@ -703,7 +703,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:netcat"
+        "ref": "https://www.kali.org/tools/netcat-traditional/"
       },
       "visibility": "public"
     },
@@ -731,7 +731,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:netexec"
+        "ref": "https://www.kali.org/tools/netexec/"
       },
       "visibility": "public"
     },
@@ -747,8 +747,8 @@
         "es": "Busca archivos y configuraciones web conocidas como riesgosas."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Web scan\n\n```text\nnikto -h https://TARGET -output scans/nikto.txt\n```",
-        "es": "## Recetas revisadas\n\n### Escaneo web\n\n```text\nnikto -h https://TARGET -output scans/nikto.txt\n```"
+        "en": "## Reviewed recipes\n\n### Web scan\n\n```text\nmkdir -p scans && nikto -h https://TARGET -output scans/nikto.txt\n```",
+        "es": "## Recetas revisadas\n\n### Escaneo web\n\n```text\nmkdir -p scans && nikto -h https://TARGET -output scans/nikto.txt\n```"
       },
       "tags": [
         "assessment",
@@ -757,7 +757,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:nikto"
+        "ref": "https://www.kali.org/tools/nikto/"
       },
       "visibility": "public"
     },
@@ -773,8 +773,8 @@
         "es": "Descubrimiento de hosts, escaneo de puertos y enumeración de servicios."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### All TCP ports\n\n```text\nnmap -Pn -p- --min-rate 1000 -T4 TARGET -oA scans/all-ports\n```\n\n### Service scripts\n\n```text\nnmap -Pn -sC -sV -p PORTS TARGET -oA scans/services\n```\n\n### Common UDP ports\n\n```text\nsudo nmap -Pn -sU --top-ports 100 TARGET -oA scans/udp-top100\n```",
-        "es": "## Recetas revisadas\n\n### Todos los puertos TCP\n\n```text\nnmap -Pn -p- --min-rate 1000 -T4 TARGET -oA scans/all-ports\n```\n\n### Servicios y scripts\n\n```text\nnmap -Pn -sC -sV -p PORTS TARGET -oA scans/services\n```\n\n### Puertos UDP comunes\n\n```text\nsudo nmap -Pn -sU --top-ports 100 TARGET -oA scans/udp-top100\n```"
+        "en": "## Reviewed recipes\n\n### All TCP ports\n\n```text\nmkdir -p scans && nmap -Pn -p- TARGET -oA scans/all-ports\n```\n\n### Service scripts\n\n```text\nmkdir -p scans && nmap -Pn -sC -sV -p PORTS TARGET -oA scans/services\n```\n\n### Common UDP ports\n\n```text\nmkdir -p scans && sudo nmap -Pn -sU --top-ports 100 TARGET -oA scans/udp-top100\n```",
+        "es": "## Recetas revisadas\n\n### Todos los puertos TCP\n\n```text\nmkdir -p scans && nmap -Pn -p- TARGET -oA scans/all-ports\n```\n\n### Servicios y scripts\n\n```text\nmkdir -p scans && nmap -Pn -sC -sV -p PORTS TARGET -oA scans/services\n```\n\n### Puertos UDP comunes\n\n```text\nmkdir -p scans && sudo nmap -Pn -sU --top-ports 100 TARGET -oA scans/udp-top100\n```"
       },
       "tags": [
         "assessment",
@@ -784,7 +784,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:nmap"
+        "ref": "https://www.kali.org/tools/nmap/"
       },
       "visibility": "public"
     },
@@ -810,7 +810,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:proxychains4"
+        "ref": "https://www.kali.org/tools/proxychains4/"
       },
       "visibility": "public"
     },
@@ -836,7 +836,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:responder"
+        "ref": "https://www.kali.org/tools/responder/"
       },
       "visibility": "public"
     },
@@ -862,7 +862,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:searchsploit"
+        "ref": "https://www.kali.org/tools/exploitdb/"
       },
       "visibility": "public"
     },
@@ -889,7 +889,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:smbclient"
+        "ref": "https://www.kali.org/tools/smbclient/"
       },
       "visibility": "public"
     },
@@ -914,7 +914,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:snmp-check"
+        "ref": "https://www.kali.org/tools/snmpcheck/"
       },
       "visibility": "public"
     },
@@ -941,7 +941,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:socat"
+        "ref": "https://www.kali.org/tools/socat/"
       },
       "visibility": "public"
     },
@@ -968,7 +968,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:sqlmap"
+        "ref": "https://www.kali.org/tools/sqlmap/"
       },
       "visibility": "public"
     },
@@ -984,8 +984,8 @@
         "es": "Prompt rápido con módulos contextuales para varias shells."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Configuration\n\n```text\nstarship config\n```",
-        "es": "## Recetas revisadas\n\n### Configuración\n\n```text\nstarship config\n```"
+        "en": "## Reviewed recipes\n\n### Edit configuration\n\n```text\nmkdir -p ~/.config && ${EDITOR:-vi} ~/.config/starship.toml\n```\n\n#### Classic Linux fallback\n\n```text\nPS1='\\u@\\h:\\w\\$ '\n```",
+        "es": "## Recetas revisadas\n\n### Editar configuración\n\n```text\nmkdir -p ~/.config && ${EDITOR:-vi} ~/.config/starship.toml\n```\n\n#### Alternativa clásica de Linux\n\n```text\nPS1='\\u@\\h:\\w\\$ '\n```"
       },
       "tags": [
         "tool-reference",
@@ -993,7 +993,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:starship"
+        "ref": "https://starship.rs/config/"
       },
       "visibility": "public"
     },
@@ -1020,7 +1020,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:tcpdump"
+        "ref": "https://www.kali.org/tools/tcpdump/"
       },
       "visibility": "public"
     },
@@ -1046,7 +1046,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:wafw00f"
+        "ref": "https://www.kali.org/tools/wafw00f/"
       },
       "visibility": "public"
     },
@@ -1072,7 +1072,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:whatweb"
+        "ref": "https://www.kali.org/tools/whatweb/"
       },
       "visibility": "public"
     },
@@ -1088,8 +1088,8 @@
         "es": "Enumeración automatizada de escalada de privilegios en Windows."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Locate installed payload\n\n```text\ndpkg -L peass | grep -i winPEAS\n```",
-        "es": "## Recetas revisadas\n\n### Localizar payload instalado\n\n```text\ndpkg -L peass | grep -i winPEAS\n```"
+        "en": "## Reviewed recipes\n\n### Locate installed payload\n\n```text\ndpkg -L peass | grep -i 'winPEAS.*exe'\n```\n\n### Run on the authorized Windows host\n\n```text\n.\\winPEASx64.exe | Tee-Object -FilePath winpeas.txt\n```",
+        "es": "## Recetas revisadas\n\n### Localizar payload instalado\n\n```text\ndpkg -L peass | grep -i 'winPEAS.*exe'\n```\n\n### Ejecutar en el host Windows autorizado\n\n```text\n.\\winPEASx64.exe | Tee-Object -FilePath winpeas.txt\n```"
       },
       "tags": [
         "post-exploitation",
@@ -1098,7 +1098,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:winpeas"
+        "ref": "https://www.kali.org/tools/peass/"
       },
       "visibility": "public"
     },
@@ -1125,7 +1125,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:wpscan"
+        "ref": "https://www.kali.org/tools/wpscan/"
       },
       "visibility": "public"
     },
@@ -1141,8 +1141,8 @@
         "es": "Espacio de trabajo y multiplexor de sesiones de terminal."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Start\n\n```text\nzellij\n```\n\n### Sessions\n\n```text\nzellij list-sessions\n```",
-        "es": "## Recetas revisadas\n\n### Iniciar\n\n```text\nzellij\n```\n\n### Sesiones\n\n```text\nzellij list-sessions\n```"
+        "en": "## Reviewed recipes\n\n### Start\n\n```text\nzellij\n```\n\n#### Classic Linux fallback\n\n```text\nbash\n```\n\n### Sessions\n\n```text\nzellij list-sessions\n```\n\n#### Classic Linux fallback\n\n```text\njobs -l\n```",
+        "es": "## Recetas revisadas\n\n### Iniciar\n\n```text\nzellij\n```\n\n#### Alternativa clásica de Linux\n\n```text\nbash\n```\n\n### Sesiones\n\n```text\nzellij list-sessions\n```\n\n#### Alternativa clásica de Linux\n\n```text\njobs -l\n```"
       },
       "tags": [
         "tool-reference",
@@ -1150,7 +1150,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:zellij"
+        "ref": "https://zellij.dev/documentation/"
       },
       "visibility": "public"
     },
@@ -1166,8 +1166,8 @@
         "es": "Navegador de directorios que aprende las rutas frecuentes."
       },
       "body": {
-        "en": "## Reviewed recipes\n\n### Jump by name\n\n```text\nz PARTIAL_PATH\n```\n\n### Interactive jump\n\n```text\nzi\n```",
-        "es": "## Recetas revisadas\n\n### Saltar por nombre\n\n```text\nz PARTIAL_PATH\n```\n\n### Salto interactivo\n\n```text\nzi\n```"
+        "en": "## Reviewed recipes\n\n### Jump by name\n\n```text\nz PARTIAL_PATH\n```\n\n#### Classic Linux fallback\n\n```text\ncd PATH\n```\n\n### Interactive jump\n\n```text\nzi\n```\n\n#### Classic Linux fallback\n\n```text\nfind . -type d -iname '*PARTIAL*'\n```",
+        "es": "## Recetas revisadas\n\n### Saltar por nombre\n\n```text\nz PARTIAL_PATH\n```\n\n#### Alternativa clásica de Linux\n\n```text\ncd PATH\n```\n\n### Salto interactivo\n\n```text\nzi\n```\n\n#### Alternativa clásica de Linux\n\n```text\nfind . -type d -iname '*PARTIAL*'\n```"
       },
       "tags": [
         "tool-reference",
@@ -1175,7 +1175,7 @@
       ],
       "source": {
         "kind": "curated",
-        "ref": "data/guides.json:zoxide"
+        "ref": "https://github.com/ajeetdsouza/zoxide"
       },
       "visibility": "public"
     }
@@ -1231,8 +1231,8 @@
     {
       "id": "references.recon",
       "title": {
-        "en": "Reconnaissance",
-        "es": "Reconocimiento"
+        "en": "Reconnaissance references",
+        "es": "Referencias de reconocimiento"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1299,8 +1299,8 @@
     {
       "id": "references.enumeration",
       "title": {
-        "en": "Enumeration",
-        "es": "Enumeración"
+        "en": "Enumeration references",
+        "es": "Referencias de enumeración"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1402,8 +1402,8 @@
     {
       "id": "references.assessment",
       "title": {
-        "en": "Assessment",
-        "es": "Análisis"
+        "en": "Assessment references",
+        "es": "Referencias de análisis"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1456,8 +1456,8 @@
     {
       "id": "references.web",
       "title": {
-        "en": "Web",
-        "es": "Web"
+        "en": "Web references",
+        "es": "Referencias de web"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1524,8 +1524,8 @@
     {
       "id": "references.credential-access",
       "title": {
-        "en": "Credentials",
-        "es": "Credenciales"
+        "en": "Credentials references",
+        "es": "Referencias de credenciales"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1578,8 +1578,8 @@
     {
       "id": "references.exploitation",
       "title": {
-        "en": "Exploitation",
-        "es": "Explotación"
+        "en": "Exploitation references",
+        "es": "Referencias de explotación"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1632,8 +1632,8 @@
     {
       "id": "references.post-exploitation",
       "title": {
-        "en": "Post-exploitation",
-        "es": "Post-explotación"
+        "en": "Post-exploitation references",
+        "es": "Referencias de post-explotación"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1714,8 +1714,8 @@
     {
       "id": "references.privilege-escalation",
       "title": {
-        "en": "Privilege escalation",
-        "es": "Escalada de privilegios"
+        "en": "Privilege escalation references",
+        "es": "Referencias de escalada de privilegios"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1740,8 +1740,8 @@
     {
       "id": "references.active-directory",
       "title": {
-        "en": "Active Directory",
-        "es": "Active Directory"
+        "en": "Active Directory references",
+        "es": "Referencias de active directory"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1801,8 +1801,8 @@
     {
       "id": "references.lateral-movement",
       "title": {
-        "en": "Lateral movement",
-        "es": "Movimiento lateral"
+        "en": "Lateral movement references",
+        "es": "Referencias de movimiento lateral"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1834,8 +1834,8 @@
     {
       "id": "references.pivoting",
       "title": {
-        "en": "Pivoting and tunnels",
-        "es": "Pivoting y túneles"
+        "en": "Pivoting and tunnels references",
+        "es": "Referencias de pivoting y túneles"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1860,8 +1860,8 @@
     {
       "id": "references.file-transfer",
       "title": {
-        "en": "File transfer",
-        "es": "Transferencia"
+        "en": "File transfer references",
+        "es": "Referencias de transferencia"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1893,8 +1893,8 @@
     {
       "id": "references.forensics",
       "title": {
-        "en": "Forensics",
-        "es": "Forense"
+        "en": "Forensics references",
+        "es": "Referencias de forense"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1912,8 +1912,8 @@
     {
       "id": "references.resource-development",
       "title": {
-        "en": "Payload resources",
-        "es": "Recursos y payloads"
+        "en": "Payload resources references",
+        "es": "Referencias de recursos y payloads"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",
@@ -1931,8 +1931,8 @@
     {
       "id": "references.workflow",
       "title": {
-        "en": "Workflow",
-        "es": "Flujo de trabajo"
+        "en": "Workflow references",
+        "es": "Referencias de flujo de trabajo"
       },
       "description": {
         "en": "Reviewed offline tool references for this assessment phase.",

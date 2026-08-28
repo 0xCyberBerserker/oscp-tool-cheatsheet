@@ -92,6 +92,18 @@
       </aside>
 
       <article class="path-card">
+        <section class="roadmap-overview" aria-labelledby="roadmap-title">
+          <div class="roadmap-heading">
+            <div>
+              <p class="eyebrow" id="roadmap-kicker">Ruta seleccionada</p>
+              <h2 id="roadmap-title"></h2>
+            </div>
+            <output id="path-progress-label"></output>
+          </div>
+          <p id="path-description"></p>
+          <progress id="path-progress" value="0" max="1"></progress>
+          <ol id="step-roadmap" class="step-roadmap"></ol>
+        </section>
         <header class="path-card-header">
           <div>
             <p class="eyebrow" id="path-kicker">Paso actual</p>
@@ -101,6 +113,7 @@
         </header>
         <p id="path-summary" class="path-summary"></p>
         <div id="path-body" class="path-body"></div>
+        <p id="path-source" class="source-note"></p>
         <section class="local-notes" aria-labelledby="notes-title">
           <div class="notes-heading">
             <h3 id="notes-title">Notas locales</h3>

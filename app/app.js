@@ -63,17 +63,21 @@
       quick: ["escanear puertos", "directorios web", "SMB", "contraseñas", "escalar Linux", "pivoting"],
       toolsMode: "Herramientas",
       pathsMode: "Rutas interactivas",
+      selectedPath: "Ruta seleccionada",
+      pathProgress: (completed, total) => `${completed}/${total} pasos completados`,
       pathPageTitle: "¿Qué quieres repasar?",
-      pathIntro: "Recorre metodología y referencias públicas. El progreso y las notas permanecen en este dispositivo.",
+      pathIntro: "Recorre metodología y referencias públicas. El progreso y las notas permanecen en este perfil del navegador.",
       pathIndex: "Rutas",
       pathCount: (count) => `${count} rutas`,
       currentStep: "Paso actual",
       stepCount: (current, total) => `${current} de ${total}`,
       notes: "Notas locales",
-      notesScope: "Solo en este dispositivo · no escribas secretos",
+      notesScope: "Solo en este perfil del navegador · no escribas secretos",
       notesPlaceholder: "Anota señales, hipótesis o próximos pasos…",
       saveNote: "Guardar nota",
       noteSaved: "Nota guardada localmente",
+      classicFallback: "Alternativa clásica de Linux",
+      reviewedSource: "Fuente revisada",
       previous: "Anterior",
       next: "Siguiente",
       complete: "Marcar completado",
@@ -108,17 +112,21 @@
       quick: ["scan ports", "web directories", "SMB", "passwords", "Linux privesc", "pivoting"],
       toolsMode: "Tools",
       pathsMode: "Interactive paths",
+      selectedPath: "Selected path",
+      pathProgress: (completed, total) => `${completed}/${total} steps completed`,
       pathPageTitle: "What do you want to review?",
-      pathIntro: "Navigate public methodology and references. Progress and notes stay on this device.",
+      pathIntro: "Navigate public methodology and references. Progress and notes stay in this browser profile.",
       pathIndex: "Paths",
       pathCount: (count) => `${count} paths`,
       currentStep: "Current step",
       stepCount: (current, total) => `${current} of ${total}`,
       notes: "Local notes",
-      notesScope: "This device only · do not write secrets",
+      notesScope: "This browser profile only · do not write secrets",
       notesPlaceholder: "Record signals, hypotheses or next steps…",
       saveNote: "Save note",
       noteSaved: "Note saved locally",
+      classicFallback: "Classic Linux fallback",
+      reviewedSource: "Reviewed source",
       previous: "Previous",
       next: "Next",
       complete: "Mark complete",
@@ -135,8 +143,10 @@
     "results-title", "result-count", "results", "empty-state", "scope-note", "language-toggle",
     "readable-toggle", "theme-toggle", "toast",
     "install-app", "tools-mode", "paths-mode", "tools-search", "tools-view", "paths-view",
-    "path-index-title", "path-count", "path-list", "path-kicker", "path-title", "step-count",
-    "path-summary", "path-body", "notes-title", "notes-scope", "local-note", "save-note",
+    "path-index-title", "path-count", "path-list", "roadmap-kicker", "roadmap-title",
+    "path-description", "path-progress", "path-progress-label", "step-roadmap", "path-kicker",
+    "path-title", "step-count", "path-summary", "path-body", "path-source", "notes-title",
+    "notes-scope", "local-note", "save-note",
     "previous-step", "complete-step", "next-step", "offline-status",
   ].map((id) => [id, document.getElementById(id)]));
 
@@ -242,7 +252,7 @@
 
     if (tool.recipes.length) {
       const recipes = element("div", "recipes");
-      tool.recipes.forEach(([labelEn, labelEs, command]) => {
+      tool.recipes.forEach(([labelEn, labelEs, command, classicFallback]) => {
         const row = element("div", "recipe");
         row.append(element("span", "recipe-label", state.language === "es" ? labelEs : labelEn));
         const code = element("code", "", command);
@@ -250,6 +260,14 @@
         button.type = "button";
         button.addEventListener("click", () => copyCommand(command));
         row.append(code, button);
+        if (classicFallback) {
+          const fallback = element("div", "recipe-standard");
+          fallback.append(
+            element("span", "recipe-label", text.classicFallback),
+            element("code", "", classicFallback),
+          );
+          row.append(fallback);
+        }
         recipes.append(row);
       });
       body.append(recipes);
@@ -318,6 +336,10 @@
     return `${path.id}:${step.id}`;
   }
 
+  function noteKey(path, step) {
+    return `${path.id}:${step.id}`;
+  }
+
   function syncUrl() {
     const next = new URL(window.location.href);
     next.searchParams.set("view", state.view);
@@ -354,6 +376,45 @@
         nodes["path-body"].append(wrapper);
       }
     });
+    nodes["path-source"].replaceChildren();
+    if (card.source?.ref?.startsWith("https://")) {
+      const link = element("a", "tool-link", `${copy[state.language].reviewedSource} ↗`);
+      link.href = card.source.ref;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      nodes["path-source"].append(link);
+    }
+  }
+
+  function renderStepRoadmap(selected) {
+    const { path } = selected;
+    const completed = path.steps.filter((step) => state.completed[completionKey(path, step)]).length;
+    nodes["roadmap-title"].textContent = knowledgeUi.localized(path.title, state.language);
+    nodes["path-description"].textContent = knowledgeUi.localized(path.description, state.language);
+    nodes["path-progress"].max = path.steps.length;
+    nodes["path-progress"].value = completed;
+    nodes["path-progress-label"].textContent = copy[state.language].pathProgress(completed, path.steps.length);
+    nodes["step-roadmap"].replaceChildren();
+    path.steps.forEach((step, index) => {
+      const card = knowledgeUi.cardMap(knowledge).get(step.cardId);
+      const item = element("li", "roadmap-step");
+      const button = element("button");
+      button.type = "button";
+      button.dataset.completed = String(Boolean(state.completed[completionKey(path, step)]));
+      if (index === selected.index) button.setAttribute("aria-current", "step");
+      button.append(
+        element("span", "roadmap-step-number", String(index + 1)),
+        element("span", "roadmap-step-title", knowledgeUi.localized(card?.title, state.language)),
+      );
+      button.addEventListener("click", () => {
+        persistCurrentNote(false);
+        state.stepIndex = index;
+        renderPaths();
+        syncUrl();
+      });
+      item.append(button);
+      nodes["step-roadmap"].append(item);
+    });
   }
 
   function renderPathList() {
@@ -369,6 +430,7 @@
         element("small", "", `${completed}/${path.steps.length}`),
       );
       button.addEventListener("click", () => {
+        persistCurrentNote(false);
         state.pathId = path.id;
         state.stepIndex = 0;
         renderPaths();
@@ -387,15 +449,29 @@
     state.pathId = selected.path.id;
     state.stepIndex = selected.index;
     const key = completionKey(selected.path, selected.step);
+    const currentNoteKey = noteKey(selected.path, selected.step);
     nodes["path-title"].textContent = knowledgeUi.localized(selected.card.title, state.language);
     nodes["path-summary"].textContent = knowledgeUi.localized(selected.card.summary, state.language);
     nodes["step-count"].textContent = text.stepCount(selected.index + 1, selected.path.steps.length);
-    nodes["local-note"].value = state.notes[selected.card.id] || "";
+    nodes["local-note"].value = state.notes[currentNoteKey] || state.notes[selected.card.id] || "";
     nodes["previous-step"].disabled = selected.index === 0;
-    nodes["next-step"].disabled = selected.index >= selected.path.steps.length - 1;
+    nodes["next-step"].disabled = selected.step.next.length === 0;
     nodes["complete-step"].setAttribute("aria-pressed", String(Boolean(state.completed[key])));
     nodes["complete-step"].textContent = state.completed[key] ? text.completed : text.complete;
+    renderStepRoadmap(selected);
     renderPathBody(selected.card);
+  }
+
+  function persistCurrentNote(showConfirmation) {
+    const selected = currentPathStep();
+    if (!selected?.card) return;
+    const key = noteKey(selected.path, selected.step);
+    const note = nodes["local-note"].value.trim();
+    if (note) state.notes[key] = note;
+    else delete state.notes[key];
+    delete state.notes[selected.card.id];
+    localStorage.setItem("oscp-path-notes", JSON.stringify(state.notes));
+    if (showConfirmation) showToast(copy[state.language].noteSaved);
   }
 
   function setView(view) {
@@ -424,6 +500,7 @@
     nodes["readable-toggle"].textContent = "Aa · Mono";
     nodes["tools-mode"].textContent = text.toolsMode;
     nodes["paths-mode"].textContent = text.pathsMode;
+    nodes["roadmap-kicker"].textContent = text.selectedPath;
     nodes["path-index-title"].textContent = text.pathIndex;
     nodes["path-kicker"].textContent = text.currentStep;
     nodes["notes-title"].textContent = text.notes;
@@ -491,6 +568,7 @@
   nodes["tools-mode"].addEventListener("click", () => setView("tools"));
   nodes["paths-mode"].addEventListener("click", () => setView("paths"));
   nodes["previous-step"].addEventListener("click", () => {
+    persistCurrentNote(false);
     state.stepIndex = Math.max(0, state.stepIndex - 1);
     renderPaths();
     syncUrl();
@@ -498,7 +576,10 @@
   nodes["next-step"].addEventListener("click", () => {
     const selected = currentPathStep();
     if (!selected) return;
-    state.stepIndex = Math.min(selected.path.steps.length - 1, selected.index + 1);
+    persistCurrentNote(false);
+    const nextId = selected.step.next[0];
+    const nextIndex = selected.path.steps.findIndex((step) => step.id === nextId);
+    state.stepIndex = nextIndex >= 0 ? nextIndex : selected.index;
     renderPaths();
     syncUrl();
   });
@@ -511,13 +592,7 @@
     renderPaths();
   });
   nodes["save-note"].addEventListener("click", () => {
-    const selected = currentPathStep();
-    if (!selected?.card) return;
-    const note = nodes["local-note"].value.trim();
-    if (note) state.notes[selected.card.id] = note;
-    else delete state.notes[selected.card.id];
-    localStorage.setItem("oscp-path-notes", JSON.stringify(state.notes));
-    showToast(copy[state.language].noteSaved);
+    persistCurrentNote(true);
   });
   window.addEventListener("online", renderCopy);
   window.addEventListener("offline", renderCopy);

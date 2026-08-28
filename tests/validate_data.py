@@ -36,10 +36,16 @@ def main() -> int:
         assert tool["sourceType"].strip(), f"{label}: missing source type"
         assert tool["sourceRef"].strip(), f"{label}: missing source reference"
         for recipe in tool["recipes"]:
-            assert len(recipe) == 3 and all(str(value).strip() for value in recipe), f"{label}: invalid recipe"
+            assert len(recipe) in {3, 4} and all(str(value).strip() for value in recipe), f"{label}: invalid recipe"
             assert not re.search(r"(?:^|\s)(?:--help|-h|-help)\s*$", recipe[2]), f"{label}: help-only recipe"
         for option in tool["options"]:
             assert len(option) == 3 and all(str(value).strip() for value in option), f"{label}: invalid option"
+
+    classic_fallbacks = {"starship", "zellij", "fzf", "zoxide", "eza", "bat"}
+    for tool in tools:
+        if tool["name"] in classic_fallbacks:
+            assert tool["officialUrl"].startswith("https://"), f"{tool['name']}: missing primary source"
+            assert all(len(recipe) == 4 for recipe in tool["recipes"]), f"{tool['name']}: missing classic fallback"
 
     print("data contract: OK")
     return 0

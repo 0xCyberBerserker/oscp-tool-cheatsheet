@@ -38,7 +38,8 @@ def main() -> int:
     parser.feed((app_dir / "index.html").read_text(encoding="utf-8"))
     required_ids = {
         "search", "phase-list", "results", "result-count", "language-toggle", "readable-toggle",
-        "tools-mode", "paths-mode", "paths-view", "path-list", "path-body", "local-note",
+        "tools-mode", "paths-mode", "paths-view", "path-list", "step-roadmap", "path-progress",
+        "path-body", "path-source", "local-note",
     }
     assert required_ids <= parser.ids, f"missing ids: {required_ids - parser.ids}"
     for asset in parser.scripts + parser.stylesheets:

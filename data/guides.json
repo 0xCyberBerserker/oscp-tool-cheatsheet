@@ -6,9 +6,9 @@
     "aliases": ["scan ports", "escanear puertos", "servicios", "versiones", "udp"],
     "phases": ["recon", "enumeration", "assessment"],
     "recipes": [
-      ["All TCP ports", "Todos los puertos TCP", "nmap -Pn -p- --min-rate 1000 -T4 TARGET -oA scans/all-ports"],
-      ["Service scripts", "Servicios y scripts", "nmap -Pn -sC -sV -p PORTS TARGET -oA scans/services"],
-      ["Common UDP ports", "Puertos UDP comunes", "sudo nmap -Pn -sU --top-ports 100 TARGET -oA scans/udp-top100"]
+      ["All TCP ports", "Todos los puertos TCP", "mkdir -p scans && nmap -Pn -p- TARGET -oA scans/all-ports"],
+      ["Service scripts", "Servicios y scripts", "mkdir -p scans && nmap -Pn -sC -sV -p PORTS TARGET -oA scans/services"],
+      ["Common UDP ports", "Puertos UDP comunes", "mkdir -p scans && sudo nmap -Pn -sU --top-ports 100 TARGET -oA scans/udp-top100"]
     ]
   },
   {
@@ -18,7 +18,7 @@
     "aliases": ["fast scan", "escaneo rápido", "todos los puertos"],
     "phases": ["recon", "enumeration"],
     "recipes": [
-      ["Fast TCP discovery", "Descubrimiento TCP rápido", "sudo masscan TARGET -p1-65535 --rate 1000 -oL scans/masscan.txt"]
+      ["Fast TCP discovery", "Descubrimiento TCP rápido", "mkdir -p scans && sudo masscan TARGET -p1-65535 --rate 1000 -oL scans/masscan.txt"]
     ]
   },
   {
@@ -112,7 +112,7 @@
     "aliases": ["directories", "directorios", "hidden files", "rutas ocultas", "fuzz web"],
     "phases": ["enumeration", "web"],
     "recipes": [
-      ["Content discovery", "Descubrir contenido", "feroxbuster -u https://TARGET -w WORDLIST -x php,txt,html -o scans/ferox.txt"]
+      ["Content discovery", "Descubrir contenido", "mkdir -p scans && feroxbuster -u https://TARGET -w WORDLIST -x php,txt,html -o scans/ferox.txt"]
     ]
   },
   {
@@ -143,7 +143,7 @@
     "aliases": ["web scanner", "escáner web", "misconfiguration", "configuración insegura"],
     "phases": ["assessment", "web"],
     "recipes": [
-      ["Web scan", "Escaneo web", "nikto -h https://TARGET -output scans/nikto.txt"]
+      ["Web scan", "Escaneo web", "mkdir -p scans && nikto -h https://TARGET -output scans/nikto.txt"]
     ]
   },
   {
@@ -300,7 +300,7 @@
     "aliases": ["linux privilege escalation", "privesc linux", "escalar privilegios", "peas"],
     "phases": ["privilege-escalation", "post-exploitation"],
     "recipes": [
-      ["Run locally", "Ejecutar localmente", "linpeas | tee linpeas.txt"]
+      ["Run reviewed script", "Ejecutar script revisado", "bash ./linpeas.sh | tee linpeas.txt"]
     ]
   },
   {
@@ -310,7 +310,8 @@
     "aliases": ["windows privilege escalation", "privesc windows", "escalar privilegios", "peas"],
     "phases": ["privilege-escalation", "post-exploitation"],
     "recipes": [
-      ["Locate installed payload", "Localizar payload instalado", "dpkg -L peass | grep -i winPEAS"]
+      ["Locate installed payload", "Localizar payload instalado", "dpkg -L peass | grep -i 'winPEAS.*exe'"],
+      ["Run on the authorized Windows host", "Ejecutar en el host Windows autorizado", ".\\winPEASx64.exe | Tee-Object -FilePath winpeas.txt"]
     ]
   },
   {
@@ -361,7 +362,8 @@
     "summaryEs": "Prompt rápido con módulos contextuales para varias shells.",
     "aliases": ["prompt", "terminal bonito", "shell prompt"],
     "phases": ["workflow"],
-    "recipes": [["Configuration", "Configuración", "starship config"]]
+    "sourceUrl": "https://starship.rs/config/",
+    "recipes": [["Edit configuration", "Editar configuración", "mkdir -p ~/.config && ${EDITOR:-vi} ~/.config/starship.toml", "PS1='\\u@\\h:\\w\\$ '"]]
   },
   {
     "name": "zellij",
@@ -369,7 +371,8 @@
     "summaryEs": "Espacio de trabajo y multiplexor de sesiones de terminal.",
     "aliases": ["multiplexer", "tmux alternative", "paneles terminal", "sesiones"],
     "phases": ["workflow"],
-    "recipes": [["Start", "Iniciar", "zellij"], ["Sessions", "Sesiones", "zellij list-sessions"]]
+    "sourceUrl": "https://zellij.dev/documentation/",
+    "recipes": [["Start", "Iniciar", "zellij", "bash"], ["Sessions", "Sesiones", "zellij list-sessions", "jobs -l"]]
   },
   {
     "name": "fzf",
@@ -377,7 +380,8 @@
     "summaryEs": "Buscador difuso para archivos, historial y salida de comandos.",
     "aliases": ["fuzzy finder", "buscar historial", "buscar archivos", "ctrl r"],
     "phases": ["workflow"],
-    "recipes": [["Search history", "Buscar historial", "Ctrl+R"], ["Search files", "Buscar archivos", "Ctrl+T"]]
+    "sourceUrl": "https://github.com/junegunn/fzf",
+    "recipes": [["Search history with shell integration", "Buscar historial con integración de shell", "Ctrl+R", "history | grep PATTERN"], ["Search files with shell integration", "Buscar archivos con integración de shell", "Ctrl+T", "find . -type f"]]
   },
   {
     "name": "zoxide",
@@ -385,7 +389,8 @@
     "summaryEs": "Navegador de directorios que aprende las rutas frecuentes.",
     "aliases": ["jump directory", "saltar carpeta", "cd inteligente", "z command"],
     "phases": ["workflow"],
-    "recipes": [["Jump by name", "Saltar por nombre", "z PARTIAL_PATH"], ["Interactive jump", "Salto interactivo", "zi"]]
+    "sourceUrl": "https://github.com/ajeetdsouza/zoxide",
+    "recipes": [["Jump by name", "Saltar por nombre", "z PARTIAL_PATH", "cd PATH"], ["Interactive jump", "Salto interactivo", "zi", "find . -type d -iname '*PARTIAL*'"]]
   },
   {
     "name": "eza",
@@ -393,7 +398,8 @@
     "summaryEs": "Listado moderno de directorios, disponible sin sustituir ls.",
     "aliases": ["list files", "listar archivos", "modern ls", "tree"],
     "phases": ["workflow"],
-    "recipes": [["Detailed tree", "Árbol detallado", "eza --tree --level=2 --long --git"]]
+    "sourceUrl": "https://github.com/eza-community/eza",
+    "recipes": [["Detailed tree", "Árbol detallado", "eza --tree --level=2 --long --git", "find . -maxdepth 2 -print"]]
   },
   {
     "name": "bat",
@@ -401,6 +407,7 @@
     "summaryEs": "Visor de archivos con resaltado, disponible sin sustituir cat.",
     "aliases": ["view file", "ver archivo", "syntax highlight", "cat color"],
     "phases": ["workflow"],
-    "recipes": [["View a file", "Ver un archivo", "bat FILE"]]
+    "sourceUrl": "https://github.com/sharkdp/bat",
+    "recipes": [["View a file", "Ver un archivo", "bat FILE", "cat FILE"]]
   }
 ]

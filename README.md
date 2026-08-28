@@ -37,18 +37,19 @@
 
 OSCP Arsenal is a dependency-free reference built from a verified Kali workstation inventory. It helps you find the right installed tool by name, audit phase or intent, even when the name is incomplete or slightly misspelled.
 
-It also includes interactive public methodology paths with device-local progress and notes. Nothing is uploaded: the PWA has no telemetry, remote fonts, CDN or runtime backend.
+It also includes interactive public methodology paths with browser-profile-local progress and contextual notes. Nothing is uploaded: the PWA has no telemetry, remote fonts, CDN or runtime backend.
 
 ### Highlights
 
 - 201 complete sheets with purpose, syntax, operational recipes and provenance.
 - English and Spanish search across tools, phases, objectives and synonyms.
 - Typo-tolerant fuzzy matching with bounded input and keyboard navigation.
-- 16 interactive paths covering assessment, reconnaissance, enumeration, web, credentials, exploitation, privilege escalation, Active Directory, pivoting and reporting.
+- 16 interactive paths with a visual step roadmap covering assessment, reconnaissance, enumeration, web, credentials, exploitation, privilege escalation, Active Directory, pivoting and reporting.
+- Primary-source links for reviewed recipes and classic Linux fallbacks where a direct fallback exists.
 - Installable PWA with verified offline reload.
 - Monospaced mode, light/dark themes and reduced-motion support.
 - Native Qt 6/QML reader for Linux, Windows and Android.
-- Local-only progress and notes; no accounts or synchronization.
+- Local-only progress and per-path-step notes; no accounts or synchronization.
 
 ### Use it
 
@@ -131,18 +132,19 @@ Command examples use placeholders and are intended only for systems and laborato
 
 OSCP Arsenal es una referencia sin dependencias construida desde un inventario verificado de una estación Kali. Permite encontrar la herramienta instalada adecuada por nombre, fase de auditoría o intención, incluso si el nombre está incompleto o contiene pequeños errores.
 
-También incluye rutas públicas de metodología interactiva con progreso y notas locales al dispositivo. Nada se sube: la PWA no contiene telemetría, fuentes remotas, CDN ni backend de runtime.
+También incluye rutas públicas de metodología interactiva con progreso y notas contextuales locales al perfil del navegador. Nada se sube: la PWA no contiene telemetría, fuentes remotas, CDN ni backend de runtime.
 
 ### Funciones principales
 
 - 201 fichas completas con propósito, sintaxis, recetas operativas y procedencia.
 - Búsqueda en English y Español por herramientas, fases, objetivos y sinónimos.
 - Búsqueda difusa tolerante a errores, con entrada limitada y navegación por teclado.
-- 16 rutas interactivas sobre evaluación, reconocimiento, enumeración, web, credenciales, explotación, escalada, Active Directory, pivoting e informes.
+- 16 rutas interactivas con roadmap visual sobre evaluación, reconocimiento, enumeración, web, credenciales, explotación, escalada, Active Directory, pivoting e informes.
+- Enlaces a fuentes primarias para las recetas revisadas y alternativas clásicas de Linux cuando existe una sustitución directa.
 - PWA instalable con recarga offline verificada.
 - Modo monoespaciado, temas claro/oscuro y soporte para movimiento reducido.
 - Lector nativo Qt 6/QML para Linux, Windows y Android.
-- Progreso y notas exclusivamente locales, sin cuentas ni sincronización.
+- Progreso y notas por paso y ruta exclusivamente locales, sin cuentas ni sincronización.
 
 ### Uso
 

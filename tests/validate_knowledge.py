@@ -30,6 +30,17 @@ def validate_pack(pack: dict[str, object]) -> set[str]:
             assert step["cardId"] in card_ids
             assert set(step["next"]) <= set(step_ids)
 
+        reachable = {path["entryStep"]}
+        pending = [path["entryStep"]]
+        steps_by_id = {step["id"]: step for step in path["steps"]}
+        while pending:
+            current = pending.pop()
+            for next_id in steps_by_id[current]["next"]:
+                if next_id not in reachable:
+                    reachable.add(next_id)
+                    pending.append(next_id)
+        assert reachable == set(step_ids), f"{path['id']}: unreachable steps"
+
     return set(card_ids)
 
 
@@ -46,6 +57,13 @@ def main() -> int:
     assert len(interactive_ids) == len(foundation_ids) + len(guides)
     assert interactive["id"] == "oscp-interactive"
     assert all(card["visibility"] == "public" for card in interactive["cards"])
+    references = [card for card in interactive["cards"] if card["kind"] == "reference"]
+    assert all(card["source"]["ref"].startswith("https://") for card in references)
+    classic_cards = {"reference.starship", "reference.zellij", "reference.fzf", "reference.zoxide", "reference.eza", "reference.bat"}
+    for card in references:
+        if card["id"] in classic_cards:
+            assert "Classic Linux fallback" in card["body"]["en"]
+            assert "Alternativa clásica de Linux" in card["body"]["es"]
 
     assert progress["schemaVersion"] == 1
     assert progress["packId"] == foundations["id"]
