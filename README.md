@@ -40,7 +40,7 @@ palette and stores progress and local notes in the current user profile:
 - Web PWA.
 - Linux x86_64 and ARM64.
 - Windows x86_64 portable bundle and MSI.
-- Android ARM64 APK signed with the dedicated project release key.
+- Android ARM64 APK, signed with the dedicated project release key only on non-PR `main` builds.
 - GitHub OIDC/Sigstore provenance for Linux binaries, the Windows MSI and Android APKs on `main`.
 
 The Web PWA is the only artifact deployed automatically, and only from `main`.
@@ -118,7 +118,7 @@ del sistema y guarda el progreso y las notas locales en el perfil actual:
 - PWA web.
 - Linux x86_64 y ARM64.
 - Windows x86_64 portable y MSI.
-- APK Android ARM64 firmado con la clave de release dedicada al proyecto.
+- APK Android ARM64, firmado con la clave de release dedicada solo en builds de `main` ajenas a una PR.
 - Procedencia GitHub OIDC/Sigstore para binarios Linux, MSI de Windows y APK de Android en `main`.
 
 La PWA web es el único artefacto que se despliega automáticamente y solo desde `main`.

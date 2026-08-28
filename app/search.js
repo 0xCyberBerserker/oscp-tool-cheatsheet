@@ -5,6 +5,9 @@
 }(typeof globalThis !== "undefined" ? globalThis : window, function createSearch() {
   "use strict";
 
+  const MAX_QUERY_LENGTH = 256;
+  const MAX_QUERY_TOKENS = 16;
+
   function normalize(value) {
     return String(value || "")
       .normalize("NFD")
@@ -54,14 +57,26 @@
   }
 
   function fuzzyDistance(token, word) {
+    const limit = threshold(token);
+    if (token.length > word.length + limit) return limit + 1;
     if (isAdjacentSwap(token, word)) return 1;
     const prefix = word.slice(0, token.length);
     if (isAdjacentSwap(token, prefix)) return 1;
     return Math.min(distance(token, word), distance(token, prefix));
   }
 
-  function score(tool, query) {
-    const normalizedQuery = normalize(query);
+  function boundedQuery(query) {
+    const rawQuery = String(query || "");
+    if (rawQuery.length > MAX_QUERY_LENGTH) return null;
+    const normalizedQuery = normalize(rawQuery);
+    if (normalizedQuery.length > MAX_QUERY_LENGTH) return null;
+    const tokens = normalizedQuery.split(" ").filter(Boolean);
+    if (tokens.length > MAX_QUERY_TOKENS) return null;
+    return { normalizedQuery, tokens };
+  }
+
+  function scoreBounded(tool, query) {
+    const { normalizedQuery, tokens } = query;
     if (!normalizedQuery) return tool.curated ? 2 : 1;
     const name = normalize(tool.name);
     const haystack = normalize(tool.searchText);
@@ -75,7 +90,6 @@
     if (haystack.includes(normalizedQuery)) return 55;
 
     const words = haystack.split(" ").filter(Boolean);
-    const tokens = normalizedQuery.split(" ").filter(Boolean);
     let total = 0;
     for (const token of tokens) {
       if (words.some((word) => word.startsWith(token))) {
@@ -89,13 +103,20 @@
     return total;
   }
 
+  function score(tool, query) {
+    const bounded = boundedQuery(query);
+    return bounded ? scoreBounded(tool, bounded) : 0;
+  }
+
   function search(tools, query) {
+    const bounded = boundedQuery(query);
+    if (!bounded) return [];
     return tools
-      .map((tool) => ({ tool, rank: score(tool, query) }))
+      .map((tool) => ({ tool, rank: scoreBounded(tool, bounded) }))
       .filter((entry) => entry.rank > 0)
       .sort((left, right) => right.rank - left.rank || left.tool.name.localeCompare(right.tool.name))
       .map((entry) => entry.tool);
   }
 
-  return { distance, normalize, score, search };
+  return { normalize, score, search };
 }));

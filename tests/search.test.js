@@ -29,6 +29,12 @@ function names(query) {
   return searchApi.search(tools, query).slice(0, 12).map((tool) => tool.name);
 }
 
+const boundaryTool = {
+  ...tools[0],
+  name: "a".repeat(256),
+  searchText: "a".repeat(256),
+};
+
 assert.equal(names("nmap")[0], "nmap");
 assert.equal(names("namp")[0], "nmap");
 assert.ok(names("ferx").includes("feroxbuster"));
@@ -36,5 +42,12 @@ assert.ok(names("escanear puertos").includes("nmap"));
 assert.ok(names("escalar linux").includes("linpeas"));
 assert.ok(names("directrios web").some((name) => ["feroxbuster", "ffuf"].includes(name)));
 assert.ok(names("contraseñas").some((name) => ["hydra", "john", "hashcat"].includes(name)));
+assert.ok(names("contrasen\u0303as").some((name) => ["hydra", "john", "hashcat"].includes(name)));
+assert.equal(searchApi.search([boundaryTool], "a".repeat(256))[0], boundaryTool);
+assert.deepEqual(names("a".repeat(257)), []);
+assert.ok(names(Array(16).fill("nmap").join(" ")).includes("nmap"));
+assert.deepEqual(names(Array(17).fill("a").join(" ")), []);
+assert.equal(searchApi.score(tools[0], "a".repeat(257)), 0);
+assert.deepEqual(Object.keys(searchApi).sort(), ["normalize", "score", "search"]);
 
 console.log("search tests: OK");

@@ -41,8 +41,8 @@ Personal writeups, private vaults and infrastructure-specific integrations are o
 this public repository. They belong only in a separate private Control Center adapter.
 
 The single CI workflow validates sources, emits separate Web, Linux, Windows and Android
-artifacts, and deploys only the Web PWA from `main`. Android CI packages are intentionally
-not release-signed; signing material remains outside the repository.
+artifacts, and deploys only the Web PWA from `main`. Android APKs are release-signed only
+for non-PR builds from `main`; signing material remains outside the repository.
 
 ## Español
 
@@ -74,5 +74,6 @@ infraestructura están fuera de este repositorio público. Solo pertenecerán a 
 privado e independiente de Control Center.
 
 El workflow único de CI valida las fuentes, genera artefactos separados para Web, Linux,
-Windows y Android y solo despliega la PWA web desde `main`. Los paquetes Android de CI no
-están firmados para release; el material de firma permanece fuera del repositorio.
+Windows y Android y solo despliega la PWA web desde `main`. Los APK Android se firman para
+release únicamente en builds de `main` que no procedan de una PR; el material de firma permanece
+fuera del repositorio.
