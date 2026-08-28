@@ -41,16 +41,19 @@ Project Pages under `https://0xcyberberserker.github.io` share one web origin ev
 when their repository paths differ. A separate custom origin is therefore required
 before treating browser storage as isolated from other Pages projects.
 
-### Planned optional synchronization
+### Optional encrypted profiles and prepared synchronization
 
 The design rule is **offline-first, serverless-second**. `Knowledge`, `Machine`,
 `User` and `Device` remain separate entities. A future machine may own roadmap state,
 notes, timestamps, interesting services and checkpoints, but never a writeup. The PWA
-will use IndexedDB, Qt will use SQLite, and a versioned JSON format will provide export.
-When enabled, GitHub authentication identifies the account while client-side encryption
-protects sensitive fields before an optional Worker synchronizes ciphertext with D1.
-The local database remains authoritative and an offline sync queue is required. This is
-an architectural target, not implemented behavior.
+uses IndexedDB, Qt will use SQLite, and a versioned JSON format will provide export.
+The PWA now includes dependency-free encrypted profiles. GitHub authentication maps the
+account to a pseudonymous HMAC subject and never derives encryption keys. AES-256-GCM
+protects the random data key and every private record. The optional Worker, OAuth flow
+and ciphertext-only D1 schema are prepared under `sync/`, but are not deployed. The local
+encrypted snapshot acts as a one-record durable outbox; general conflict resolution,
+recovery and native Qt encryption remain pending. See
+`docs/security-model.md`.
 
 The portable knowledge-path contract lives in `knowledge/`. It is UI-agnostic and
 separates reviewed content from device-local progress. `native/` contains the Qt 6/QML
@@ -95,16 +98,18 @@ Los proyectos Pages bajo `https://0xcyberberserker.github.io` comparten un mismo
 web aunque cambie la ruta del repositorio. Por ello hará falta un origen personalizado
 separado antes de considerar el almacenamiento aislado de otros proyectos Pages.
 
-### Sincronización opcional prevista
+### Perfiles cifrados opcionales y sincronización preparada
 
 La regla de diseño es **offline-first, serverless-second**. `Knowledge`, `Machine`,
 `User` y `Device` son entidades separadas. Una futura máquina podrá contener estado del
 roadmap, notas, marcas temporales, servicios interesantes y checkpoints, pero nunca un
-writeup. La PWA usará IndexedDB, Qt usará SQLite y un JSON versionado permitirá exportar.
-Cuando se active, la autenticación de GitHub identificará la cuenta, mientras el cifrado
-en cliente protegerá los campos sensibles antes de que un Worker sincronice el texto
-cifrado con D1. La base local seguirá siendo autoritativa y habrá una cola de sync
-offline. Es un objetivo arquitectónico, no una función implementada.
+writeup. La PWA usa IndexedDB, Qt usará SQLite y un JSON versionado permitirá exportar.
+La PWA ya incluye perfiles cifrados sin dependencias. GitHub liga la cuenta a un sujeto
+HMAC seudónimo y nunca deriva claves de cifrado. AES-256-GCM protege la clave de datos y
+cada registro privado. El Worker, OAuth y esquema D1 solo para ciphertext están
+preparados en `sync/`, pero no desplegados. El snapshot local cifrado funciona como
+outbox duradero de un registro; siguen pendientes la resolución general de conflictos,
+recovery y cifrado Qt nativo. Consulta `docs/security-model.md`.
 
 El contrato portable de rutas de conocimiento vive en `knowledge/`. Es independiente de
 la UI y separa el contenido revisado del progreso local de cada dispositivo. `native/`

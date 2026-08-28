@@ -12,6 +12,9 @@ python3 tests/validate_data.py
 python3 tests/validate_knowledge.py
 node tests/search.test.js
 node tests/knowledge-ui.test.js
+node tests/profile-crypto.test.js
+node tests/profile-store.test.js
+node tests/worker-policy.test.mjs
 jq empty data/kali-tools.json data/guides.json
 jq -e 'all(.[]; (.command | type == "string" and length > 0))' data/kali-tools.json >/dev/null
 

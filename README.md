@@ -49,7 +49,7 @@ It also includes interactive public methodology paths with browser-profile-local
 - Installable PWA with verified offline reload.
 - Monospaced mode, light/dark themes and reduced-motion support.
 - Native Qt 6/QML reader for Linux, Windows and Android.
-- Local-only progress and per-path-step notes; no accounts or synchronization.
+- Optional encrypted browser profiles bound to an opaque GitHub account subject; cloud deployment remains disabled by default.
 
 ### Use it
 
@@ -105,6 +105,7 @@ app/          Static PWA
 data/         Verified inventory and curated recipes
 knowledge/    Portable public knowledge packs and schemas
 native/       Qt 6/QML reader
+sync/         Optional GitHub identity Worker and ciphertext-only D1 schema
 packaging/    Desktop launchers
 scripts/      Build, test and installation commands
 tests/        Data, HTML, search and knowledge checks
@@ -144,7 +145,7 @@ También incluye rutas públicas de metodología interactiva con progreso y nota
 - PWA instalable con recarga offline verificada.
 - Modo monoespaciado, temas claro/oscuro y soporte para movimiento reducido.
 - Lector nativo Qt 6/QML para Linux, Windows y Android.
-- Progreso y notas por paso y ruta exclusivamente locales, sin cuentas ni sincronización.
+- Perfiles cifrados opcionales ligados a un sujeto opaco de cuenta GitHub; el despliegue cloud permanece desactivado por defecto.
 
 ### Uso
 
@@ -200,6 +201,7 @@ app/          PWA estática
 data/         Inventario verificado y recetas revisadas
 knowledge/    Paquetes públicos portables y esquemas
 native/       Lector Qt 6/QML
+sync/         Worker opcional de identidad GitHub y esquema D1 solo para ciphertext
 packaging/    Lanzadores de escritorio
 scripts/      Comandos de build, pruebas e instalación
 tests/        Comprobaciones de datos, HTML, búsqueda y conocimiento

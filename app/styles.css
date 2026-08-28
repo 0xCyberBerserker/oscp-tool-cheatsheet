@@ -14,6 +14,49 @@
   color-scheme: dark;
 }
 
+.profile-dialog {
+  width: min(32rem, calc(100vw - 2rem));
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 45%);
+}
+
+.profile-dialog::backdrop {
+  background: rgb(0 0 0 / 62%);
+}
+
+.profile-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.profile-heading h2 {
+  margin: 0;
+}
+
+#profile-unlock {
+  display: grid;
+  gap: 0.55rem;
+  margin-block: 1rem;
+}
+
+#profile-unlock[hidden] {
+  display: none;
+}
+
+.profile-dialog input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-dialog > button {
+  margin-inline-end: 0.5rem;
+}
+
 [data-theme="light"] {
   --bg: #f4f1e8;
   --surface: #fffdf7;

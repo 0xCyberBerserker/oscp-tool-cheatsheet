@@ -39,7 +39,7 @@ def main() -> int:
     required_ids = {
         "search", "phase-list", "results", "result-count", "language-toggle", "readable-toggle",
         "tools-mode", "paths-mode", "paths-view", "path-list", "step-roadmap", "path-progress",
-        "path-body", "path-source", "local-note",
+        "path-body", "path-source", "local-note", "profile-open", "profile-dialog",
     }
     assert required_ids <= parser.ids, f"missing ids: {required_ids - parser.ids}"
     for asset in parser.scripts + parser.stylesheets:
@@ -51,6 +51,10 @@ def main() -> int:
     for icon in manifest["icons"]:
         assert (app_dir / icon["src"]).is_file(), f"missing manifest icon: {icon['src']}"
     assert (app_dir / "service-worker.js").is_file(), "missing service worker"
+    service_worker = (app_dir / "service-worker.js").read_text(encoding="utf-8")
+    assert 'key.startsWith("oscp-arsenal-")' in service_worker, "cache cleanup is not scoped"
+    assert "profile-crypto.js" in parser.scripts, "missing encrypted-profile runtime"
+    assert "profile-store.js" in parser.scripts, "missing encrypted-profile storage"
     print("html checks: OK")
     return 0
 

@@ -2,3 +2,6 @@
 __pycache__/
 *.py[cod]
 .DS_Store
+sync/.dev.vars
+sync/.wrangler/
+sync/wrangler.jsonc

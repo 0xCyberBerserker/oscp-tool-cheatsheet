@@ -2,6 +2,7 @@
 <html lang="es" data-theme="dark" data-readable="true">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <meta name="theme-color" content="#0d1117">
@@ -24,6 +25,7 @@
       </div>
     </div>
     <div class="controls" aria-label="Display settings">
+      <button id="profile-open" type="button">Perfil cifrado</button>
       <button id="install-app" type="button" hidden>Instalar</button>
       <button id="language-toggle" type="button" aria-label="Switch language">EN</button>
       <button id="readable-toggle" type="button" aria-pressed="true">Aa · Mono</button>
@@ -137,11 +139,32 @@
     <span>Made with 🖤 in Barcelona City 🇪🇸</span>
   </footer>
 
+  <dialog id="profile-dialog" class="profile-dialog" aria-labelledby="profile-title">
+    <form method="dialog" class="profile-heading">
+      <h2 id="profile-title">Perfil cifrado</h2>
+      <button id="profile-close" type="submit" aria-label="Cerrar">×</button>
+    </form>
+    <p id="profile-status"></p>
+    <button id="github-connect" type="button">Conectar GitHub</button>
+    <div id="profile-unlock" hidden>
+      <label for="profile-passphrase" id="profile-passphrase-label">Frase de cifrado</label>
+      <input id="profile-passphrase" type="password" minlength="16" maxlength="1024" autocomplete="current-password">
+      <label for="profile-passphrase-confirm" id="profile-confirm-label">Repetir frase</label>
+      <input id="profile-passphrase-confirm" type="password" minlength="16" maxlength="1024" autocomplete="new-password">
+      <button id="profile-action" type="button">Desbloquear</button>
+    </div>
+    <button id="profile-lock" type="button" hidden>Bloquear</button>
+    <button id="github-logout" type="button" hidden>Cerrar sesión GitHub</button>
+    <p id="profile-warning" class="hint"></p>
+  </dialog>
+
   <div id="toast" role="status" aria-live="polite"></div>
   <script src="data.js"></script>
   <script src="knowledge.js"></script>
   <script src="search.js"></script>
   <script src="knowledge-ui.js"></script>
+  <script src="profile-crypto.js"></script>
+  <script src="profile-store.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

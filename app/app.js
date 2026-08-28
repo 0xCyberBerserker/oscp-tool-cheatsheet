@@ -21,6 +21,8 @@
 
   const requestedPath = params.get("path");
   const firstPath = knowledge.paths[0]?.id || "";
+  const legacyCompleted = storedObject("oscp-path-completed");
+  const legacyNotes = storedObject("oscp-path-notes");
   const state = {
     language: ["es", "en"].includes(requestedLanguage) ? requestedLanguage : (localStorage.getItem("oscp-language") || "es"),
     theme: localStorage.getItem("oscp-theme") || "dark",
@@ -31,10 +33,21 @@
     view: params.get("view") === "paths" ? "paths" : "tools",
     pathId: knowledge.paths.some((path) => path.id === requestedPath) ? requestedPath : firstPath,
     stepIndex: Math.max(Number.parseInt(params.get("step") || "0", 10) || 0, 0),
-    completed: storedObject("oscp-path-completed"),
-    notes: storedObject("oscp-path-notes"),
+    completed: {},
+    notes: {},
   };
   let installPrompt = null;
+  let profileStore = null;
+  let profileHasVault = false;
+  let profileUnlocked = false;
+  let authenticatedSubject = "";
+  let syncAvailable = false;
+  let profileSaveQueue = Promise.resolve();
+  let profileSaveFailed = false;
+  let profileInitialized = false;
+  let syncedVaultId = "";
+  let profileSyncConflict = false;
+  let profileStorageFailed = false;
 
   const copy = {
     es: {
@@ -85,6 +98,25 @@
       install: "Instalar",
       readyOffline: "Disponible sin conexión tras la primera carga.",
       offline: "Sin conexión · usando copia local.",
+      profile: "Perfil cifrado",
+      profileLocked: "Perfil cifrado bloqueado.",
+      profileUnlocked: "Perfil cifrado desbloqueado.",
+      profileAnonymous: "Sin sesión GitHub. Los datos locales aún no están cifrados.",
+      profileUnavailable: "La sincronización cifrada aún no está desplegada en este origen.",
+      profileChecking: "Comprobando el perfil local cifrado…",
+      profileConflict: "Conflicto de sincronización: se conserva la copia local sin sobrescribir la nube.",
+      profileReady: "Cuenta GitHub verificada. Crea el perfil cifrado.",
+      connectGithub: "Conectar GitHub",
+      passphrase: "Frase de cifrado independiente",
+      confirmPassphrase: "Repetir frase",
+      createProfile: "Crear y migrar",
+      unlockProfile: "Desbloquear",
+      lockProfile: "Bloquear",
+      logoutGithub: "Cerrar sesión GitHub",
+      profileWarning: "GitHub identifica la cuenta, pero no puede descifrar tus datos. Si pierdes la frase, pierdes el acceso.",
+      passphraseMismatch: "Las frases no coinciden o tienen menos de 16 caracteres.",
+      profileError: "No se pudo abrir el perfil cifrado.",
+      profileStorageError: "Almacenamiento cifrado no disponible. Edición bloqueada para evitar guardar datos en claro.",
     },
     en: {
       inventory: `${data.toolCount} tools · ${data.completeCount} complete sheets · ${data.sourceVerifiedCount} reviewed guides`,
@@ -134,6 +166,25 @@
       install: "Install",
       readyOffline: "Available offline after the first load.",
       offline: "Offline · using local copy.",
+      profile: "Encrypted profile",
+      profileLocked: "Encrypted profile locked.",
+      profileUnlocked: "Encrypted profile unlocked.",
+      profileAnonymous: "No GitHub session. Local data is not encrypted yet.",
+      profileUnavailable: "Encrypted sync is not deployed on this origin yet.",
+      profileChecking: "Checking the local encrypted profile…",
+      profileConflict: "Synchronization conflict: the local copy is preserved without overwriting cloud data.",
+      profileReady: "GitHub account verified. Create the encrypted profile.",
+      connectGithub: "Connect GitHub",
+      passphrase: "Independent encryption passphrase",
+      confirmPassphrase: "Repeat passphrase",
+      createProfile: "Create and migrate",
+      unlockProfile: "Unlock",
+      lockProfile: "Lock",
+      logoutGithub: "Sign out from GitHub",
+      profileWarning: "GitHub identifies the account but cannot decrypt your data. Losing the passphrase means losing access.",
+      passphraseMismatch: "Passphrases do not match or contain fewer than 16 characters.",
+      profileError: "Unable to open the encrypted profile.",
+      profileStorageError: "Encrypted storage is unavailable. Editing is blocked to prevent plaintext fallback.",
     },
   };
 
@@ -147,7 +198,10 @@
     "path-description", "path-progress", "path-progress-label", "step-roadmap", "path-kicker",
     "path-title", "step-count", "path-summary", "path-body", "path-source", "notes-title",
     "notes-scope", "local-note", "save-note",
-    "previous-step", "complete-step", "next-step", "offline-status",
+    "previous-step", "complete-step", "next-step", "offline-status", "profile-open",
+    "profile-dialog", "profile-title", "profile-status", "github-connect", "profile-unlock",
+    "profile-passphrase", "profile-passphrase-confirm", "profile-passphrase-label",
+    "profile-confirm-label", "profile-action", "profile-lock", "github-logout", "profile-warning",
   ].map((id) => [id, document.getElementById(id)]));
 
   function element(tag, className, text) {
@@ -463,6 +517,7 @@
   }
 
   function persistCurrentNote(showConfirmation) {
+    if (!profileInitialized) return;
     const selected = currentPathStep();
     if (!selected?.card) return;
     const key = noteKey(selected.path, selected.step);
@@ -470,8 +525,130 @@
     if (note) state.notes[key] = note;
     else delete state.notes[key];
     delete state.notes[selected.card.id];
-    localStorage.setItem("oscp-path-notes", JSON.stringify(state.notes));
-    if (showConfirmation) showToast(copy[state.language].noteSaved);
+    const persisted = persistPrivateState("oscp-path-notes", state.notes);
+    if (showConfirmation) persisted.then(() => {
+      if (!profileSaveFailed) showToast(copy[state.language].noteSaved);
+    });
+  }
+
+  function privateSnapshot() {
+    return { notes: state.notes, completed: state.completed };
+  }
+
+  async function syncPut(path, body) {
+    if (!syncAvailable || !authenticatedSubject) return null;
+    return fetch(path, {
+      method: "PUT",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  }
+
+  async function pushPrivateRecord() {
+    const envelope = await profileStore.exportRecord("private_state");
+    if (!envelope || envelope.subject !== authenticatedSubject || envelope.vaultId !== syncedVaultId) return false;
+    const baseRevision = await profileStore.getSyncRevision("private_state");
+    const response = await syncPut("/api/v1/records", {
+      recordId: envelope.recordId,
+      revision: envelope.revision,
+      baseRevision,
+      envelope,
+    });
+    if (response?.ok) {
+      await profileStore.setSyncRevision("private_state", envelope.revision);
+      profileSyncConflict = false;
+      return true;
+    }
+    if (response?.status === 409) profileSyncConflict = true;
+    return false;
+  }
+
+  async function pullPrivateRecords() {
+    if (!syncAvailable || !authenticatedSubject) return;
+    const response = await fetch("/api/v1/records", { credentials: "include", cache: "no-store" });
+    if (!response.ok || !response.headers.get("Content-Type")?.includes("application/json")) return;
+    const body = await response.json();
+    for (const record of Array.isArray(body.records) ? body.records : []) {
+      if (record?.envelope?.subject === authenticatedSubject) {
+        if (record.envelope.vaultId !== syncedVaultId) continue;
+        const local = await profileStore.exportRecord(record.envelope.recordId);
+        const confirmed = await profileStore.getSyncRevision(record.envelope.recordId);
+        if (local && local.revision === record.envelope.revision && local.ciphertext === record.envelope.ciphertext) {
+          await profileStore.setSyncRevision(record.envelope.recordId, record.envelope.revision);
+          continue;
+        }
+        if (local && local.revision > confirmed) {
+          if (record.envelope.revision > confirmed && record.envelope.ciphertext !== local.ciphertext) {
+            profileSyncConflict = true;
+          }
+          continue;
+        }
+        await profileStore.importRecord(record.envelope);
+        await profileStore.setSyncRevision(record.envelope.recordId, record.envelope.revision);
+      }
+    }
+  }
+
+  function persistPrivateState(legacyKey, legacyValue) {
+    if (!profileInitialized || profileStorageFailed) return Promise.resolve();
+    if (profileUnlocked) {
+      const snapshot = structuredClone(privateSnapshot());
+      profileSaveQueue = profileSaveQueue
+        .then(async () => {
+          await profileStore.save("private_state", snapshot);
+          const verified = await profileStore.load("private_state");
+          if (JSON.stringify(verified) !== JSON.stringify(snapshot)) throw new Error("Encrypted save verification failed");
+          profileSaveFailed = false;
+          try { await pushPrivateRecord(); } catch (_) { /* Local encrypted state remains authoritative. */ }
+        })
+        .catch(() => {
+          profileSaveFailed = true;
+          showToast(copy[state.language].profileError);
+        });
+      return profileSaveQueue;
+    } else if (!profileHasVault) {
+      localStorage.setItem(legacyKey, JSON.stringify(legacyValue));
+    }
+    return Promise.resolve();
+  }
+
+  function renderProfile() {
+    const text = copy[state.language];
+    nodes["profile-open"].textContent = text.profile;
+    nodes["profile-title"].textContent = text.profile;
+    nodes["github-connect"].textContent = text.connectGithub;
+    nodes["profile-passphrase-label"].textContent = text.passphrase;
+    nodes["profile-confirm-label"].textContent = text.confirmPassphrase;
+    nodes["profile-lock"].textContent = text.lockProfile;
+    nodes["github-logout"].textContent = text.logoutGithub;
+    nodes["profile-warning"].textContent = text.profileWarning;
+    nodes["profile-status"].textContent = profileStorageFailed
+      ? text.profileStorageError
+      : profileSyncConflict
+      ? text.profileConflict
+      : !profileInitialized
+      ? text.profileChecking
+      : profileUnlocked
+      ? text.profileUnlocked
+      : profileHasVault
+        ? text.profileLocked
+          : authenticatedSubject
+          ? text.profileReady
+          : syncAvailable
+            ? text.profileAnonymous
+            : text.profileUnavailable;
+    nodes["github-connect"].hidden = Boolean(authenticatedSubject) || !syncAvailable;
+    nodes["github-logout"].hidden = !authenticatedSubject;
+    nodes["profile-unlock"].hidden = profileUnlocked || (!profileHasVault && !authenticatedSubject);
+    nodes["profile-passphrase-confirm"].hidden = profileHasVault;
+    nodes["profile-confirm-label"].hidden = profileHasVault;
+    nodes["profile-action"].textContent = profileHasVault ? text.unlockProfile : text.createProfile;
+    nodes["profile-lock"].hidden = !profileUnlocked;
+    const privateStateLocked = !profileInitialized || profileStorageFailed || (profileHasVault && !profileUnlocked);
+    nodes["local-note"].disabled = privateStateLocked;
+    nodes["save-note"].disabled = privateStateLocked;
+    nodes["complete-step"].disabled = privateStateLocked;
   }
 
   function setView(view) {
@@ -511,6 +688,7 @@
     nodes["next-step"].textContent = text.next;
     nodes["install-app"].textContent = text.install;
     nodes["offline-status"].textContent = navigator.onLine ? text.readyOffline : text.offline;
+    renderProfile();
   }
 
   function render() {
@@ -588,11 +766,94 @@
     if (!selected) return;
     const key = completionKey(selected.path, selected.step);
     state.completed[key] = !state.completed[key];
-    localStorage.setItem("oscp-path-completed", JSON.stringify(state.completed));
+    persistPrivateState("oscp-path-completed", state.completed);
     renderPaths();
   });
   nodes["save-note"].addEventListener("click", () => {
     persistCurrentNote(true);
+  });
+  nodes["profile-open"].addEventListener("click", () => nodes["profile-dialog"].showModal());
+  nodes["profile-dialog"].addEventListener("close", () => {
+    nodes["profile-passphrase"].value = "";
+    nodes["profile-passphrase-confirm"].value = "";
+  });
+  nodes["github-connect"].addEventListener("click", () => window.location.assign("/auth/github/start"));
+  nodes["profile-action"].addEventListener("click", async () => {
+    const text = copy[state.language];
+    const passphrase = nodes["profile-passphrase"].value;
+    const confirmation = nodes["profile-passphrase-confirm"].value;
+    nodes["profile-action"].disabled = true;
+    try {
+      if (profileHasVault) {
+        const unlocked = await profileStore.unlock(passphrase);
+        if (authenticatedSubject && unlocked.subject !== authenticatedSubject) throw new Error("Account mismatch");
+      } else {
+        if (!authenticatedSubject || passphrase !== confirmation || [...passphrase].length < 16) {
+          showToast(text.passphraseMismatch);
+          return;
+        }
+        await profileStore.create(authenticatedSubject, passphrase, { private_state: privateSnapshot() });
+        const verified = await profileStore.load("private_state");
+        if (JSON.stringify(verified) !== JSON.stringify(privateSnapshot())) throw new Error("Migration verification failed");
+        localStorage.removeItem("oscp-path-notes");
+        localStorage.removeItem("oscp-path-completed");
+        profileHasVault = true;
+        try {
+          const localVault = await profileStore.exportVault();
+          const response = await syncPut("/api/v1/vault", { revision: 1, baseRevision: 0, envelope: localVault });
+          if (response?.ok) {
+            syncedVaultId = localVault.vaultId;
+            await pushPrivateRecord();
+          } else if (response?.status === 409) {
+            profileSyncConflict = true;
+          }
+        } catch (_) { /* Creation remains valid offline. */ }
+      }
+      try { await pullPrivateRecords(); } catch (_) { /* Use the verified local copy. */ }
+      const snapshot = await profileStore.load("private_state");
+      state.notes = snapshot?.notes || {};
+      state.completed = snapshot?.completed || {};
+      try { await pushPrivateRecord(); } catch (_) { /* Retry remains backed by the local encrypted record. */ }
+      profileUnlocked = true;
+      render();
+    } catch (_) {
+      if (profileStore) profileStore.lock();
+      profileUnlocked = false;
+      showToast(text.profileError);
+    } finally {
+      nodes["profile-passphrase"].value = "";
+      nodes["profile-passphrase-confirm"].value = "";
+      nodes["profile-action"].disabled = false;
+    }
+  });
+  nodes["profile-lock"].addEventListener("click", async () => {
+    await profileSaveQueue;
+    if (profileSaveFailed) {
+      showToast(copy[state.language].profileError);
+      return;
+    }
+    profileStore.lock();
+    profileUnlocked = false;
+    state.notes = {};
+    state.completed = {};
+    render();
+  });
+  nodes["github-logout"].addEventListener("click", async () => {
+    await profileSaveQueue;
+    if (profileSaveFailed) {
+      showToast(copy[state.language].profileError);
+      return;
+    }
+    try {
+      await fetch("/auth/logout", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: "{}" });
+    } finally {
+      authenticatedSubject = "";
+      if (profileStore) profileStore.lock();
+      profileUnlocked = false;
+      state.notes = {};
+      state.completed = {};
+      render();
+    }
   });
   window.addEventListener("online", renderCopy);
   window.addEventListener("offline", renderCopy);
@@ -628,6 +889,74 @@
   nodes.search.value = state.query;
   nodes["curated-only"].checked = state.verifiedOnly;
   render();
+
+  (async function initializeEncryptedProfile() {
+    try {
+      profileStore = window.OSCPProfileStore.createStore({
+        backend: window.OSCPProfileStore.indexedDbBackend(window.indexedDB),
+        crypto: window.OSCPProfileCrypto,
+      });
+      const localSubject = await profileStore.activeSubject();
+      if (localSubject) profileStore.selectSubject(localSubject);
+      profileHasVault = localSubject ? await profileStore.hasVault(localSubject) : false;
+      if (profileHasVault) {
+        state.notes = {};
+        state.completed = {};
+      } else {
+        state.notes = legacyNotes;
+        state.completed = legacyCompleted;
+      }
+      if (window.location.protocol.startsWith("http")) {
+        const response = await fetch("/api/v1/session", { credentials: "include", cache: "no-store" });
+        if (response.headers.get("Content-Type")?.includes("application/json")) {
+          syncAvailable = [200, 401].includes(response.status);
+        }
+        if (response.ok && syncAvailable) {
+          const session = await response.json();
+          authenticatedSubject = typeof session.subject === "string" ? session.subject : "";
+          if (/^gh1_[A-Za-z0-9_-]{43}$/u.test(authenticatedSubject)) {
+            profileStore.lock();
+            profileStore.selectSubject(authenticatedSubject);
+            profileHasVault = await profileStore.hasVault(authenticatedSubject);
+            if (profileHasVault) {
+              state.notes = {};
+              state.completed = {};
+            } else {
+              state.notes = legacyNotes;
+              state.completed = legacyCompleted;
+            }
+            const vaultResponse = await fetch("/api/v1/vault", { credentials: "include", cache: "no-store" });
+            if (vaultResponse.ok && vaultResponse.headers.get("Content-Type")?.includes("application/json")) {
+              const remote = await vaultResponse.json();
+              if (remote.envelope?.binding?.subject === authenticatedSubject) {
+                if (!profileHasVault) {
+                  await profileStore.importVault(remote.envelope);
+                  profileHasVault = true;
+                  state.notes = {};
+                  state.completed = {};
+                }
+                const localVault = await profileStore.exportVault();
+                if (localVault?.vaultId === remote.envelope.vaultId) syncedVaultId = localVault.vaultId;
+                else profileSyncConflict = true;
+              } else if (!remote.envelope && profileHasVault) {
+                const localVault = await profileStore.exportVault();
+                const upload = await syncPut("/api/v1/vault", { revision: 1, baseRevision: 0, envelope: localVault });
+                if (upload?.ok) syncedVaultId = localVault.vaultId;
+                else if (upload?.status === 409) profileSyncConflict = true;
+              }
+            }
+          }
+        }
+      }
+    } catch (_) {
+      profileStore = null;
+      profileStorageFailed = true;
+      state.notes = legacyNotes;
+      state.completed = legacyCompleted;
+    }
+    profileInitialized = true;
+    render();
+  })();
   if (window.location.protocol.startsWith("http") && "serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js");
   }

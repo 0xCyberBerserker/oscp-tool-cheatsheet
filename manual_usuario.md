@@ -20,7 +20,9 @@ When an enhanced workflow command has a direct classic Linux fallback, both are 
 
 ### Interactive paths and notes
 
-Open **Interactive paths**, choose a path and select any node in its visual roadmap. Completion is stored per path and step. Notes are stored per path and step after pressing **Save note**; switching steps also preserves the current draft. This data belongs to the current browser profile, is not encrypted or synchronized, and must not contain secrets.
+Open **Interactive paths**, choose a path and select any node in its visual roadmap. Completion is stored per path and step. Notes are stored after pressing **Save note**; switching steps also preserves the draft. Without an encrypted profile this remains plain browser-local data and must not contain secrets.
+
+When the app is served from its future dedicated sync origin, open **Encrypted profile**, connect GitHub and create an independent passphrase of at least 16 characters. Existing notes and progress are encrypted, verified and only then removed from legacy storage. GitHub is identity only: its password or token cannot unlock the profile. Lock the profile before leaving the device. Losing the encryption passphrase currently loses access permanently.
 
 ### Readability
 
@@ -52,7 +54,9 @@ Cuando un comando de flujo mejorado tiene una alternativa clásica directa de Li
 
 ### Rutas interactivas y notas
 
-Abre **Rutas interactivas**, elige una ruta y selecciona cualquier nodo del roadmap visual. El progreso se guarda por ruta y paso. Las notas se guardan por ruta y paso al pulsar **Guardar nota**; cambiar de paso también conserva el borrador actual. Los datos pertenecen al perfil actual del navegador, no están cifrados ni sincronizados y no deben contener secretos.
+Abre **Rutas interactivas**, elige una ruta y selecciona cualquier nodo del roadmap visual. El progreso se guarda por ruta y paso. Las notas se guardan al pulsar **Guardar nota**; cambiar de paso también conserva el borrador. Sin perfil cifrado siguen siendo datos locales en claro del navegador y no deben contener secretos.
+
+Cuando la app se sirva desde su futuro origen dedicado de sync, abre **Perfil cifrado**, conecta GitHub y crea una frase independiente de al menos 16 caracteres. Las notas y progreso existentes se cifran, se verifican y solo entonces se eliminan del almacenamiento legacy. GitHub solo aporta identidad: su contraseña o token no abren el perfil. Bloquea el perfil al dejar el dispositivo. Perder la frase implica actualmente perder el acceso para siempre.
 
 ### Legibilidad
 

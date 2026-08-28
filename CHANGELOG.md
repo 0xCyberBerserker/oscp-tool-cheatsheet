@@ -17,6 +17,11 @@ Todos los cambios relevantes siguen [Keep a Changelog](https://keepachangelog.co
 
 ### Added / Añadido
 
+- Dependency-free AES-256-GCM encrypted browser profiles bound to pseudonymous GitHub subjects, with tamper and migration tests.
+- Optional GitHub App Worker and ciphertext-only D1 schema, prepared but not deployed.
+- Perfiles web cifrados con AES-256-GCM y ligados a sujetos GitHub seudónimos, con pruebas de manipulación y migración.
+- Worker opcional para GitHub App y esquema D1 solo para ciphertext, preparado pero no desplegado.
+
 - Multi-platform CI artifacts for Web, Linux x86_64/ARM64, Windows x86_64 and Android ARM64.
 - Portable Windows Qt deployment and Android package metadata.
 - Artefactos CI multiplataforma para Web, Linux x86_64/ARM64, Windows x86_64 y Android ARM64.
