@@ -208,11 +208,8 @@ jobs:
             -DANDROID_NDK_ROOT="$ANDROID_HOME/ndk/26.1.10909125"
           cmake --build build/android --target apk --parallel
           mkdir -p dist/android
-          mapfile -t apks < <(rg --files build/android -g '*.apk')
-          test "${#apks[@]}" -gt 0
-          for apk in "${apks[@]}"; do
-            install -m 0644 "$apk" "dist/android/$(basename "$apk")"
-          done
+          find build/android -type f -name '*.apk' -exec install -m 0644 -t dist/android {} +
+          find dist/android -maxdepth 1 -type f -name '*.apk' | grep -q .
       - name: Attest Android APK with GitHub OIDC
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         id: attest-android
