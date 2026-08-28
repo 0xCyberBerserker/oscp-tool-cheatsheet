@@ -49,7 +49,7 @@ It also includes interactive public methodology paths with browser-profile-local
 - Installable PWA with verified offline reload.
 - Monospaced mode, light/dark themes and reduced-motion support.
 - Native Qt 6/QML reader for Linux, Windows and Android.
-- Optional encrypted browser profiles bound to an opaque GitHub account subject; cloud deployment remains disabled by default.
+- Optional encrypted browser profiles bound to an opaque GitHub account subject at [the isolated encrypted origin](https://oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev).
 
 ### Use it
 
@@ -145,7 +145,7 @@ También incluye rutas públicas de metodología interactiva con progreso y nota
 - PWA instalable con recarga offline verificada.
 - Modo monoespaciado, temas claro/oscuro y soporte para movimiento reducido.
 - Lector nativo Qt 6/QML para Linux, Windows y Android.
-- Perfiles cifrados opcionales ligados a un sujeto opaco de cuenta GitHub; el despliegue cloud permanece desactivado por defecto.
+- Perfiles cifrados opcionales ligados a un sujeto opaco de GitHub en [el origen cifrado aislado](https://oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev).
 
 ### Uso
 

@@ -25,8 +25,8 @@ Current limits:
   remains required before describing the KDF as memory-hard.
 - The encrypted local snapshot is the durable single-record sync outbox. Recovery keys,
   automatic multi-device conflict resolution and native Qt encryption are not implemented yet.
-- The GitHub Pages demo is not a suitable private-data origin. Production requires one
-  isolated custom origin serving both PWA and Worker routes.
+- The GitHub Pages demo is not a suitable private-data origin. Encrypted profiles use the
+  isolated production origin serving both PWA and Worker routes.
 - Losing the passphrase currently loses access permanently.
 
 ## Español
@@ -54,6 +54,6 @@ Límites actuales:
   auditado y empaquetado offline antes de llamar memory-hard a la KDF.
 - El snapshot local cifrado funciona como outbox duradero de un único registro. Aún faltan
   recovery key, resolución automática de conflictos multidispositivo y cifrado de la aplicación Qt nativa.
-- La demo de GitHub Pages no es un origen adecuado para datos privados. Producción exige
-  un único origen personalizado y aislado para PWA y rutas del Worker.
+- La demo de GitHub Pages no es un origen adecuado para datos privados. Los perfiles
+  cifrados usan el origen de producción aislado que sirve la PWA y las rutas del Worker.
 - Perder la frase de cifrado implica actualmente perder el acceso para siempre.

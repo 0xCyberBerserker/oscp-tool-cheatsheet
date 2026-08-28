@@ -50,7 +50,8 @@ uses IndexedDB, Qt will use SQLite, and a versioned JSON format will provide exp
 The PWA now includes dependency-free encrypted profiles. GitHub authentication maps the
 account to a pseudonymous HMAC subject and never derives encryption keys. AES-256-GCM
 protects the random data key and every private record. The optional Worker, OAuth flow
-and ciphertext-only D1 schema are prepared under `sync/`, but are not deployed. The local
+and ciphertext-only D1 schema live under `sync/` and are deployed on the isolated
+`oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev` origin. The local
 encrypted snapshot acts as a one-record durable outbox; general conflict resolution,
 recovery and native Qt encryption remain pending. See
 `docs/security-model.md`.
@@ -107,7 +108,8 @@ writeup. La PWA usa IndexedDB, Qt usará SQLite y un JSON versionado permitirá 
 La PWA ya incluye perfiles cifrados sin dependencias. GitHub liga la cuenta a un sujeto
 HMAC seudónimo y nunca deriva claves de cifrado. AES-256-GCM protege la clave de datos y
 cada registro privado. El Worker, OAuth y esquema D1 solo para ciphertext están
-preparados en `sync/`, pero no desplegados. El snapshot local cifrado funciona como
+incluidos en `sync/` y desplegados en el origen aislado
+`oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev`. El snapshot local cifrado funciona como
 outbox duradero de un registro; siguen pendientes la resolución general de conflictos,
 recovery y cifrado Qt nativo. Consulta `docs/security-model.md`.
 

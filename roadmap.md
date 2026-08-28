@@ -6,7 +6,6 @@
 
 - Evolve the generic path into pedagogical, decision-based machine roadmaps without writeups.
 - Add review metadata and more primary-source recipes with expected results and pitfalls.
-- Deploy the prepared GitHub App, Worker and D1 on one isolated custom origin.
 - Add an audited offline Argon2id KDF, recovery key and automatic multi-device conflict resolution.
 - Add optional keyboard-only command palette.
 - Re-run the live inventory after material Kali upgrades.
@@ -25,7 +24,6 @@
 
 - Evolucionar la ruta genérica a roadmaps pedagógicos y basados en decisiones por máquina, sin writeups.
 - Añadir metadatos de revisión y más recetas de fuentes primarias con resultados esperados y errores habituales.
-- Desplegar la GitHub App, Worker y D1 preparados sobre un origen personalizado aislado.
 - Añadir Argon2id offline auditado, recovery key y resolución automática de conflictos multidispositivo.
 - Añadir una paleta de comandos opcional controlable solo por teclado.
 - Regenerar el inventario vivo después de actualizaciones importantes de Kali.

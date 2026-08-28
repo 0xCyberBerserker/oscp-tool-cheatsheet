@@ -3,7 +3,9 @@
 ## English
 
 This Worker binds a GitHub account to an opaque HMAC subject and stores only encrypted
-profile envelopes in D1. It is intentionally not deployed from the public build workflow.
+profile envelopes in D1. Production runs at
+`https://oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev`; deployment remains
+manual and separate from the public build workflow.
 
 Before deployment:
 
@@ -21,7 +23,9 @@ Cloudflare dashboard login through GitHub does not create this GitHub App or its
 ## Español
 
 Este Worker vincula una cuenta GitHub a un sujeto HMAC opaco y solo guarda sobres de
-perfil cifrados en D1. No se despliega desde el workflow público de build.
+perfil cifrados en D1. Producción funciona en
+`https://oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev`; el despliegue sigue
+siendo manual y separado del workflow público de build.
 
 Antes del despliegue:
 
