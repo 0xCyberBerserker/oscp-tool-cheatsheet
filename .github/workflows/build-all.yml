@@ -134,7 +134,7 @@ jobs:
           python scripts/build_knowledge.py
           cmake -S native -B build/native -G Ninja -DCMAKE_BUILD_TYPE=Release
           cmake --build build/native --parallel
-          cmake --install build/native --prefix dist/windows
+          cmake --install build/native --prefix "$env:GITHUB_WORKSPACE/dist/windows"
           $env:QT_QPA_PLATFORM = 'offscreen'
           & './dist/windows/bin/oscp-knowledge-paths.exe' --smoke-test
       - name: Build MSI with WiX
