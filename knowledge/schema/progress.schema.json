@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xcyberberserker.github.io/oscp-tool-cheatsheet/schema/progress-v1.json",
+  "title": "OSCP Knowledge Progress",
+  "type": "object",
+  "required": ["schemaVersion", "packId", "packVersion", "deviceId", "updatedAt", "cards", "pinnedCardIds"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "packId": { "type": "string", "minLength": 1 },
+    "packVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "deviceId": { "type": "string", "minLength": 1 },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "currentPathId": { "type": ["string", "null"] },
+    "currentStepId": { "type": ["string", "null"] },
+    "pinnedCardIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "cards": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["status", "updatedAt"],
+        "additionalProperties": false,
+        "properties": {
+          "status": { "enum": ["not-started", "in-progress", "done", "skipped"] },
+          "note": { "type": "string" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

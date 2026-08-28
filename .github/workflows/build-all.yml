@@ -1,0 +1,239 @@
+name: Build all versions
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QT_VERSION: 6.8.3
+
+jobs:
+  validate:
+    name: Validate sources
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - run: ./scripts/test.sh
+
+  web:
+    name: Web PWA
+    needs: validate
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Build generated web data
+        run: |
+          python3 scripts/build_data.py
+          python3 scripts/build_knowledge.py
+      - name: Upload Web PWA
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: oscp-knowledge-web-pwa
+          path: app
+          retention-days: 14
+      - name: Configure GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+      - name: Upload GitHub Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
+        with:
+          path: app
+
+  linux:
+    name: Linux ${{ matrix.arch_name }}
+    needs: validate
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            qt_host: linux
+            qt_arch: linux_gcc_64
+            arch_name: x86_64
+          - runner: ubuntu-24.04-arm
+            qt_host: linux_arm64
+            qt_arch: linux_gcc_arm64
+            arch_name: arm64
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Install Qt
+        uses: jurplel/install-qt-action@48d3ad6db93f3627c8ee7a0454bc6f3744f7e730 # v4.3.1
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: ${{ matrix.qt_host }}
+          target: desktop
+          arch: ${{ matrix.qt_arch }}
+          cache: true
+          aqtversion: ==3.3.*
+          py7zrversion: ==1.1.0
+      - name: Build and stage Linux application
+        run: |
+          python3 scripts/build_knowledge.py
+          cmake -S native -B build/native -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/native --parallel
+          cmake --install build/native --prefix dist/linux
+          QT_QPA_PLATFORM=offscreen dist/linux/bin/oscp-knowledge-paths --smoke-test
+      - name: Attest Linux binary with GitHub OIDC
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        id: attest-linux
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
+        with:
+          subject-path: dist/linux/bin/oscp-knowledge-paths
+      - name: Include Linux attestation bundle
+        if: steps.attest-linux.outputs.bundle-path != ''
+        run: cp "${{ steps.attest-linux.outputs.bundle-path }}" dist/linux/attestation.sigstore.json
+      - name: Upload Linux ${{ matrix.arch_name }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: oscp-knowledge-linux-${{ matrix.arch_name }}
+          path: dist/linux
+          retention-days: 14
+
+  windows:
+    name: Windows x86_64
+    needs: validate
+    runs-on: windows-2025
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Install Qt
+        uses: jurplel/install-qt-action@48d3ad6db93f3627c8ee7a0454bc6f3744f7e730 # v4.3.1
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          cache: true
+          aqtversion: ==3.3.*
+          py7zrversion: ==1.1.0
+      - name: Build and stage Windows application
+        shell: pwsh
+        run: |
+          python scripts/build_knowledge.py
+          cmake -S native -B build/native -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/native --parallel
+          cmake --install build/native --prefix dist/windows
+          $env:QT_QPA_PLATFORM = 'offscreen'
+          & './dist/windows/bin/oscp-knowledge-paths.exe' --smoke-test
+      - name: Build MSI with WiX
+        shell: pwsh
+        run: |
+          dotnet tool install --tool-path "$env:RUNNER_TEMP/wix" wix --version 4.0.4
+          & "$env:RUNNER_TEMP/wix/wix.exe" extension add --global WixToolset.UI.wixext/4.0.4
+          $env:WIX = "$env:RUNNER_TEMP/wix"
+          cpack --config build/native/CPackConfig.cmake -G WIX -B dist/msi
+      - name: Attest Windows MSI with GitHub OIDC
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        id: attest-windows
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
+        with:
+          subject-path: dist/msi/*.msi
+      - name: Include Windows attestation bundle
+        if: steps.attest-windows.outputs.bundle-path != ''
+        shell: pwsh
+        run: Copy-Item '${{ steps.attest-windows.outputs.bundle-path }}' 'dist/msi/attestation.sigstore.json'
+      - name: Upload Windows portable x86_64
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: oscp-knowledge-windows-x86_64
+          path: dist/windows
+          retention-days: 14
+      - name: Upload Windows MSI x86_64
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: oscp-knowledge-windows-msi-x86_64
+          path: dist/msi
+          retention-days: 14
+
+  android:
+    name: Android arm64-v8a
+    needs: validate
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      artifact-metadata: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Install Qt for Android
+        uses: jurplel/install-qt-action@48d3ad6db93f3627c8ee7a0454bc6f3744f7e730 # v4.3.1
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: android
+          arch: android_arm64_v8a
+          cache: true
+          aqtversion: ==3.3.*
+          py7zrversion: ==1.1.0
+          extra: --autodesktop
+      - name: Install matching Android SDK and NDK
+        run: sdkmanager 'platform-tools' 'platforms;android-36' 'build-tools;36.0.0' 'ndk;26.1.10909125'
+      - name: Build Android APK
+        run: |
+          python3 scripts/build_knowledge.py
+          "$QT_ROOT_DIR/bin/qt-cmake" \
+            -S native \
+            -B build/android \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DANDROID_SDK_ROOT="$ANDROID_HOME" \
+            -DANDROID_NDK_ROOT="$ANDROID_HOME/ndk/26.1.10909125"
+          cmake --build build/android --target apk --parallel
+          mkdir -p dist/android
+          mapfile -t apks < <(rg --files build/android -g '*.apk')
+          test "${#apks[@]}" -gt 0
+          for apk in "${apks[@]}"; do
+            install -m 0644 "$apk" "dist/android/$(basename "$apk")"
+          done
+      - name: Attest Android APK with GitHub OIDC
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        id: attest-android
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d # v4.2.1
+        with:
+          subject-path: dist/android/*.apk
+      - name: Include Android attestation bundle
+        if: steps.attest-android.outputs.bundle-path != ''
+        run: cp "${{ steps.attest-android.outputs.bundle-path }}" dist/android/attestation.sigstore.json
+      - name: Upload Android arm64-v8a
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: oscp-knowledge-android-arm64-v8a-ci
+          path: dist/android
+          retention-days: 14
+
+  deploy-pages:
+    name: Deploy Web PWA
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: web
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5

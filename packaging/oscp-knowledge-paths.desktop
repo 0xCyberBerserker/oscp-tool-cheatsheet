@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=OSCP Knowledge Paths
+Name[es]=Rutas de conocimiento OSCP
+Name[ca]=Rutes de coneixement OSCP
+Comment=Navigate offline methodology and reference cards
+Comment[es]=Navega por metodología y tarjetas de referencia offline
+Comment[ca]=Navega per metodologia i targetes de referència offline
+Exec=oscp-knowledge-paths
+Icon=oscp-tool-cheatsheet
+Terminal=false
+Categories=Education;
+Keywords=OSCP;Security;Methodology;Cheatsheet;
+StartupNotify=true

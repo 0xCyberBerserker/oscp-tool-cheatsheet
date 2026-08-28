@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">OSCP Arsenal</title>
+  <rect width="128" height="128" rx="28" fill="#0d1117"/>
+  <circle cx="64" cy="64" r="42" fill="none" stroke="#64b5f6" stroke-width="6"/>
+  <path d="M52 43c-12 0-20 9-20 21s8 21 20 21 20-9 20-21-8-21-20-21Zm0 9c6 0 10 5 10 12s-4 12-10 12-10-5-10-12 4-12 10-12Zm32-10h9L76 87h-9Z" fill="#f3f6fa"/>
+</svg>

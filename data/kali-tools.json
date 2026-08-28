@@ -1,0 +1,2081 @@
+[
+  {
+    "categories": [
+      "wifi-credential-access"
+    ],
+    "command": "aircrack-ng --help",
+    "description": "A 802.11 WEP / WPA-PSK key cracker",
+    "launcher": "kali-aircrack-ng.desktop",
+    "name": "aircrack-ng",
+    "package": "aircrack-ng"
+  },
+  {
+    "categories": [
+      "discovery",
+      "identify",
+      "network-information",
+      "network-service-discovery"
+    ],
+    "command": "amass -h",
+    "description": "In-depth DNS Enumeration and Network Mapping",
+    "launcher": "kali-amass.desktop",
+    "name": "amass",
+    "package": "amass"
+  },
+  {
+    "categories": [
+      "discovery",
+      "remote-system-discovery"
+    ],
+    "command": "arping --help",
+    "description": "Sends arp and/or ip pings to a given host",
+    "launcher": "kali-arping.desktop",
+    "name": "arping",
+    "package": "arping"
+  },
+  {
+    "categories": [
+      "network-sniffing"
+    ],
+    "command": "sudo arpspoof",
+    "description": "Intercept packets on a switched LAN",
+    "launcher": "kali-arpspoof.desktop",
+    "name": "arpspoof",
+    "package": "dsniff"
+  },
+  {
+    "categories": [
+      "remote-system-discovery"
+    ],
+    "command": "atk6-thcping6 -h",
+    "description": "The Hacker Choice's IPv6 Attack Toolkit",
+    "launcher": "kali-atk6-thcping6.desktop",
+    "name": "atk6-thcping6",
+    "package": "thc-ipv6"
+  },
+  {
+    "categories": [
+      "forensics",
+      "sleuth-kit-suite"
+    ],
+    "command": "sudo autopsy",
+    "description": "Autopsy Forensic Browser",
+    "launcher": "kali-autopsy.desktop",
+    "name": "autopsy",
+    "package": "autopsy"
+  },
+  {
+    "categories": [
+      "forensics"
+    ],
+    "command": "binwalk -h",
+    "description": "Tool for searching binary images for embedded files and executable code",
+    "launcher": "kali-binwalk.desktop",
+    "name": "binwalk",
+    "package": "binwalk"
+  },
+  {
+    "categories": [
+      "forensics"
+    ],
+    "command": "binwalk3 -h",
+    "description": "tool library for analyzing binary blobs and executable code",
+    "launcher": "kali-binwalk3.desktop",
+    "name": "binwalk3",
+    "package": "binwalk3"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "blkcalc",
+    "description": "Converts between unallocated disk unit numbers and regular disk unit numbers.",
+    "launcher": "kali-blkcalc.desktop",
+    "name": "blkcalc",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "blkcat",
+    "description": "Display the contents of file system data unit in a disk image.",
+    "launcher": "kali-blkcat.desktop",
+    "name": "blkcat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "blkls",
+    "description": "List or output file system data units.",
+    "launcher": "kali-blkls.desktop",
+    "name": "blkls",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "blkstat",
+    "description": "Display details of a file system data unit (i.e. block or sector)",
+    "launcher": "kali-blkstat.desktop",
+    "name": "blkstat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "active-directory"
+    ],
+    "command": "bloodhound-python -h",
+    "description": "ingestor for BloodHound, based on Impacket (Python 3)",
+    "launcher": "kali-bloodhound-python.desktop",
+    "name": "bloodhound-python",
+    "package": "bloodhound.py"
+  },
+  {
+    "categories": [
+      "kali-offsec-links"
+    ],
+    "command": "x-www-browser https://bugs.kali.org/",
+    "description": "The Kali Linux bug tracker",
+    "launcher": "kali-bugs.desktop",
+    "name": "Kali Bugs",
+    "package": "kali-menu"
+  },
+  {
+    "categories": [
+      "forensics"
+    ],
+    "command": "bulk_extractor -h",
+    "description": "Scans a disk image for regular expressions and other content.",
+    "launcher": "kali-bulk_extractor.desktop",
+    "name": "bulk_extractor",
+    "package": "bulk-extractor"
+  },
+  {
+    "categories": [
+      "wifi-credential-access"
+    ],
+    "command": "bully -h",
+    "description": "Implementation of the WPS brute force attack, written in C",
+    "launcher": "kali-bully.desktop",
+    "name": "bully",
+    "package": "bully"
+  },
+  {
+    "categories": [
+      "reconnaissance",
+      "web-vulnerability-scanning"
+    ],
+    "command": "burpsuite",
+    "description": "platform for security testing of web applications",
+    "launcher": "kali-burpsuite.desktop",
+    "name": "burpsuite",
+    "package": "burpsuite"
+  },
+  {
+    "categories": [
+      "application-layer-protocol"
+    ],
+    "command": "cadaver",
+    "description": "A command-line WebDAV client for Unix.",
+    "launcher": "kali-cadaver.desktop",
+    "name": "cadaver",
+    "package": "cadaver"
+  },
+  {
+    "categories": [
+      "credential-access",
+      "password-profiling-wordlists"
+    ],
+    "command": "cewl -h",
+    "description": "Custom word list generator",
+    "launcher": "kali-cewl.desktop",
+    "name": "cewl",
+    "package": "cewl"
+  },
+  {
+    "categories": [
+      "os-credential-dumping"
+    ],
+    "command": "chntpw -h",
+    "description": "Utility to overwrite passwords of Windows systems",
+    "launcher": "kali-chntpw.desktop",
+    "name": "chntpw",
+    "package": "chntpw"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "clang++ --help",
+    "description": "C, C++ and Objective-C compiler (LLVM based), clang binary",
+    "launcher": "kali-clang++.desktop",
+    "name": "clang++",
+    "package": "clang"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "clang --help",
+    "description": "The Clang C, C++, and Objective-C compiler",
+    "launcher": "kali-clang.desktop",
+    "name": "clang",
+    "package": "clang"
+  },
+  {
+    "categories": [
+      "initial-access"
+    ],
+    "command": "commix --wizard",
+    "description": "Automated All-in-One OS Command Injection and Exploitation Tool",
+    "launcher": "kali-commix.desktop",
+    "name": "commix",
+    "package": "commix"
+  },
+  {
+    "categories": [
+      "os-credential-dumping"
+    ],
+    "command": "creddump7",
+    "description": "Python tool to extract credentials and secrets from Windows registry hives",
+    "launcher": "kali-creddump7.desktop",
+    "name": "creddump7",
+    "package": "creddump7"
+  },
+  {
+    "categories": [
+      "credential-access",
+      "password-profiling-wordlists"
+    ],
+    "command": "crunch",
+    "description": "Generate wordlists from a character set",
+    "launcher": "kali-crunch.desktop",
+    "name": "crunch",
+    "package": "crunch"
+  },
+  {
+    "categories": [
+      "protect"
+    ],
+    "command": "cryptsetup --help",
+    "description": "Utility for configuring and managing encrypted storage devices",
+    "launcher": "kali-cryptsetup.desktop",
+    "name": "cryptsetup",
+    "package": "cryptsetup-bin"
+  },
+  {
+    "categories": [
+      "reporting-tools"
+    ],
+    "command": "cutycapt --help",
+    "description": "Utility to capture WebKit's rendering of a web page",
+    "launcher": "kali-cutycapt.desktop",
+    "name": "cutycapt",
+    "package": "cutycapt"
+  },
+  {
+    "categories": [
+      "web-vulnerability-scanning"
+    ],
+    "command": "davtest",
+    "description": "Testing tool for WebDAV servers",
+    "launcher": "kali-davtest.desktop",
+    "name": "davtest",
+    "package": "davtest"
+  },
+  {
+    "categories": [
+      "non-application-layer-protocol"
+    ],
+    "command": "dbd -h",
+    "description": "Netcat clone with encryption",
+    "launcher": "kali-dbd.desktop",
+    "name": "dbd",
+    "package": "dbd"
+  },
+  {
+    "categories": [
+      "reconnaissance",
+      "web-scanning"
+    ],
+    "command": "dirb",
+    "description": "Web Content Scanner",
+    "launcher": "kali-dirb.desktop",
+    "name": "dirb",
+    "package": "dirb"
+  },
+  {
+    "categories": [
+      "reconnaissance",
+      "web-scanning"
+    ],
+    "command": "dirbuster",
+    "description": "Web server directory brute-forcer",
+    "launcher": "kali-dirbuster.desktop",
+    "name": "dirbuster",
+    "package": "dirbuster"
+  },
+  {
+    "categories": [
+      "web-scanning"
+    ],
+    "command": "dirsearch -h",
+    "description": "An advanced command-line tool designed to brute force directories and files in webservers",
+    "launcher": "kali-dirsearch.desktop",
+    "name": "dirsearch",
+    "package": "dirsearch"
+  },
+  {
+    "categories": [
+      "network-information"
+    ],
+    "command": "dmitry",
+    "description": "Deepmagic Information Gathering Tool",
+    "launcher": "kali-dmitry.desktop",
+    "name": "dmitry",
+    "package": "dmitry"
+  },
+  {
+    "categories": [
+      "initial-access"
+    ],
+    "command": "dns-rebind",
+    "description": "DNS rebinding tool",
+    "launcher": "kali-dns-rebind.desktop",
+    "name": "dns-rebind",
+    "package": "rebind"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "dns2tcpc",
+    "description": "A tunneling tool that encapsulate TCP traffic over DNS.",
+    "launcher": "kali-dns2tcpc.desktop",
+    "name": "dns2tcpc",
+    "package": "dns2tcp"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "dns2tcpd",
+    "description": "A tunneling tool that encapsulate TCP traffic over DNS.",
+    "launcher": "kali-dns2tcpd.desktop",
+    "name": "dns2tcpd",
+    "package": "dns2tcp"
+  },
+  {
+    "categories": [
+      "network-sniffing"
+    ],
+    "command": "dnschef -h",
+    "description": "DNS proxy for penetration testers",
+    "launcher": "kali-dnschef.desktop",
+    "name": "dnschef",
+    "package": "dnschef"
+  },
+  {
+    "categories": [
+      "network-information-dns"
+    ],
+    "command": "dnsenum -h",
+    "description": "- multithread script to enumerate information on a domain and to discover non-contiguous IP blocks",
+    "launcher": "kali-dnsenum.desktop",
+    "name": "dnsenum",
+    "package": "dnsenum"
+  },
+  {
+    "categories": [
+      "network-information-dns"
+    ],
+    "command": "dnsmap",
+    "description": "Scan for subdomains using bruteforcing techniques",
+    "launcher": "kali-dnsmap.desktop",
+    "name": "dnsmap",
+    "package": "dnsmap"
+  },
+  {
+    "categories": [
+      "network-information-dns"
+    ],
+    "command": "dnsrecon -h",
+    "description": "DNS Enumeration and Scanning Tool",
+    "launcher": "kali-dnsrecon.desktop",
+    "name": "dnsrecon",
+    "package": "dnsrecon"
+  },
+  {
+    "categories": [
+      "kali-offsec-links"
+    ],
+    "command": "x-www-browser https://www.kali.org/docs/",
+    "description": "Official Kali Linux documentation website",
+    "launcher": "kali-docs.desktop",
+    "name": "Kali Docs",
+    "package": "kali-menu"
+  },
+  {
+    "categories": [
+      "network-sniffing"
+    ],
+    "command": "dsniff -h",
+    "description": "Password sniffer",
+    "launcher": "kali-dsniff.desktop",
+    "name": "dsniff",
+    "package": "dsniff"
+  },
+  {
+    "categories": [
+      "discovery",
+      "network-share-discovery"
+    ],
+    "command": "enum4linux -h",
+    "description": "Enumerates info from Windows and Samba systems",
+    "launcher": "kali-enum4linux.desktop",
+    "name": "enum4linux",
+    "package": "enum4linux"
+  },
+  {
+    "categories": [
+      "application-layer-protocol",
+      "lateral-movement",
+      "pass-the-hash",
+      "pass-the-hash"
+    ],
+    "command": "evil-winrm -h",
+    "description": "ultimate WinRM shell for hacking/pentesting",
+    "launcher": "kali-evil-winrm.desktop",
+    "name": "evil-winrm",
+    "package": "evil-winrm"
+  },
+  {
+    "categories": [
+      "defense-evasion"
+    ],
+    "command": "exe2hex -h",
+    "description": "Convert EXE to bat",
+    "launcher": "kali-exe2hex.desktop",
+    "name": "exe2hex",
+    "package": "exe2hexbat"
+  },
+  {
+    "categories": [
+      "reporting-tools"
+    ],
+    "command": "eyewitness -h",
+    "description": "Rapid web application triage tool",
+    "launcher": "kali-eyewitness.desktop",
+    "name": "eyewitness",
+    "package": "eyewitness"
+  },
+  {
+    "categories": [
+      "reporting-tools",
+      "system-services"
+    ],
+    "command": "faraday-start",
+    "description": "Collaborative Penetration Test IDE",
+    "launcher": "kali-faraday-start.desktop",
+    "name": "faraday-start",
+    "package": "faraday"
+  },
+  {
+    "categories": [
+      "system-services"
+    ],
+    "command": "faraday-stop",
+    "description": "Collaborative Penetration Test IDE",
+    "launcher": "kali-faraday-stop.desktop",
+    "name": "faraday-stop",
+    "package": "faraday"
+  },
+  {
+    "categories": [
+      "wifi-credential-access"
+    ],
+    "command": "pkexec fern-wifi-cracker",
+    "description": "Automated Wi-Fi cracker",
+    "launcher": "kali-fern-wifi-cracker.desktop",
+    "name": "fern-wifi-cracker",
+    "package": "fern-wifi-cracker"
+  },
+  {
+    "categories": [
+      "web-scanning"
+    ],
+    "command": "feroxbuster -h",
+    "description": "Manual page for feroxbuster 2.13.1",
+    "launcher": "kali-feroxbuster.desktop",
+    "name": "feroxbuster",
+    "package": "feroxbuster"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "ffind",
+    "description": "Finds the name of the file or directory using a given inode",
+    "launcher": "kali-ffind.desktop",
+    "name": "ffind",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "reconnaissance",
+      "web-scanning"
+    ],
+    "command": "ffuf -h",
+    "description": "Fast web fuzzer written in Go",
+    "launcher": "kali-ffuf.desktop",
+    "name": "ffuf",
+    "package": "ffuf"
+  },
+  {
+    "categories": [
+      "discovery",
+      "remote-system-discovery"
+    ],
+    "command": "fierce -h",
+    "description": "DNS scanner that helps locate non-contiguous IP space and hostnames against specified domains.",
+    "launcher": "kali-fierce.desktop",
+    "name": "fierce",
+    "package": "fierce"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "fls",
+    "description": "List file and directory names in a disk image.",
+    "launcher": "kali-fls.desktop",
+    "name": "fls",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "kali-offsec-links"
+    ],
+    "command": "x-www-browser https://forums.kali.org/",
+    "description": "Get community support on forums",
+    "launcher": "kali-forums.desktop",
+    "name": "Kali Forums",
+    "package": "kali-menu"
+  },
+  {
+    "categories": [
+      "remote-system-discovery"
+    ],
+    "command": "fping -h",
+    "description": "Send ICMP ECHO_REQUEST packets to network hosts",
+    "launcher": "kali-fping.desktop",
+    "name": "fping",
+    "package": "fping"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "fsstat",
+    "description": "Display general details of a file system",
+    "launcher": "kali-fsstat.desktop",
+    "name": "fsstat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "generic_chunked",
+    "description": "Network protocol fuzzer",
+    "launcher": "kali-generic_chunked.desktop",
+    "name": "generic_chunked",
+    "package": "spike"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "generic_listen_tcp",
+    "description": "Network protocol fuzzer",
+    "launcher": "kali-generic_listen_tcp.desktop",
+    "name": "generic_listen_tcp",
+    "package": "spike"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "generic_send_tcp",
+    "description": "Network protocol fuzzer",
+    "launcher": "kali-generic_send_tcp.desktop",
+    "name": "generic_send_tcp",
+    "package": "spike"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "generic_send_udp",
+    "description": "Network protocol fuzzer",
+    "launcher": "kali-generic_send_udp.desktop",
+    "name": "generic_send_udp",
+    "package": "spike"
+  },
+  {
+    "categories": [
+      "reconnaissance",
+      "web-scanning"
+    ],
+    "command": "gobuster help",
+    "description": "Directory/file, DNS and virtual host brute-forcing tool written in Go",
+    "launcher": "kali-gobuster.desktop",
+    "name": "gobuster",
+    "package": "gobuster"
+  },
+  {
+    "categories": [
+      "initial-access",
+      "system-services"
+    ],
+    "command": "gophish-start",
+    "description": "Open-Source Phishing Toolkit",
+    "launcher": "kali-gophish-start.desktop",
+    "name": "gophish-start",
+    "package": "gophish"
+  },
+  {
+    "categories": [
+      "system-services"
+    ],
+    "command": "gophish-stop",
+    "description": "Open-Source Phishing Toolkit",
+    "launcher": "kali-gophish-stop.desktop",
+    "name": "gophish-stop",
+    "package": "gophish"
+  },
+  {
+    "categories": [
+      "hash-identification"
+    ],
+    "command": "hash-identifier",
+    "description": "Tool to identify hash types",
+    "launcher": "kali-hash-identifier.desktop",
+    "name": "hash-identifier",
+    "package": "hash-identifier"
+  },
+  {
+    "categories": [
+      "credential-access",
+      "password-cracking"
+    ],
+    "command": "hashcat -h",
+    "description": "Advanced CPU-based password recovery utility",
+    "launcher": "kali-hashcat.desktop",
+    "name": "hashcat",
+    "package": "hashcat"
+  },
+  {
+    "categories": [
+      "forensics"
+    ],
+    "command": "hashdeep -h",
+    "description": "Compute, compare, or audit multiple message digests",
+    "launcher": "kali-hashdeep.desktop",
+    "name": "hashdeep",
+    "package": "hashdeep"
+  },
+  {
+    "categories": [
+      "hash-identification"
+    ],
+    "command": "hashid -h",
+    "description": "Identify the different types of hashes used to encrypt data",
+    "launcher": "kali-hashid.desktop",
+    "name": "hashid",
+    "package": "hashid"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "hfind",
+    "description": "Lookup a hash value in a hash database",
+    "launcher": "kali-hfind.desktop",
+    "name": "hfind",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "discovery",
+      "remote-system-discovery"
+    ],
+    "command": "hping3 -h",
+    "description": "Send (almost) arbitrary TCP/IP packets to network hosts",
+    "launcher": "kali-hping3.desktop",
+    "name": "hping3",
+    "package": "hping3"
+  },
+  {
+    "categories": [
+      "brute-force",
+      "credential-access"
+    ],
+    "command": "/usr/share/kali-menu/helper-scripts/hydra.sh",
+    "description": "A very fast network logon cracker which supports many different services",
+    "launcher": "kali-hydra.desktop",
+    "name": "hydra",
+    "package": "hydra"
+  },
+  {
+    "categories": [
+      "respond",
+      "sleuth-kit-suite"
+    ],
+    "command": "icat",
+    "description": "Output the contents of a file based on its inode number.",
+    "launcher": "kali-icat.desktop",
+    "name": "icat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "ifind",
+    "description": "Find the meta-data structure that has allocated a given disk unit or file name.",
+    "launcher": "kali-ifind.desktop",
+    "name": "ifind",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "network-service-discovery"
+    ],
+    "command": "ike-scan -h",
+    "description": "Discover and fingerprint IKE hosts (IPsec VPN servers)",
+    "launcher": "kali-ike-scan.desktop",
+    "name": "ike-scan",
+    "package": "ike-scan"
+  },
+  {
+    "categories": [
+      "respond",
+      "sleuth-kit-suite"
+    ],
+    "command": "ils",
+    "description": "List inode information",
+    "launcher": "kali-ils.desktop",
+    "name": "ils",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "img_cat",
+    "description": "Output contents of an image file.",
+    "launcher": "kali-img_cat.desktop",
+    "name": "img_cat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "img_stat",
+    "description": "Display details of an image file",
+    "launcher": "kali-img_stat.desktop",
+    "name": "img_stat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "databases"
+    ],
+    "command": "impacket-mssqlclient -h",
+    "description": "Python3 module to easily build and dissect network protocols",
+    "launcher": "kali-impacket-mssqlclient.desktop",
+    "name": "impacket-mssqlclient",
+    "package": "python3-impacket"
+  },
+  {
+    "categories": [
+      "lateral-movement"
+    ],
+    "command": "impacket-psexec -h",
+    "description": "Python3 module to easily build and dissect network protocols",
+    "launcher": "kali-impacket-psexec.desktop",
+    "name": "impacket-psexec",
+    "package": "python3-impacket"
+  },
+  {
+    "categories": [
+      "application-layer-protocol",
+      "pass-the-hash",
+      "pass-the-hash",
+      "respond"
+    ],
+    "command": "/usr/share/kali-menu/helper-scripts/impacket-scripts.sh",
+    "description": "Links to useful impacket scripts examples",
+    "launcher": "kali-impacket-scripts.desktop",
+    "name": "impacket-scripts",
+    "package": "impacket-scripts"
+  },
+  {
+    "categories": [
+      "lateral-movement"
+    ],
+    "command": "impacket-smbexec -h",
+    "description": "Python3 module to easily build and dissect network protocols",
+    "launcher": "kali-impacket-smbexec.desktop",
+    "name": "impacket-smbexec",
+    "package": "python3-impacket"
+  },
+  {
+    "categories": [
+      "exfiltration"
+    ],
+    "command": "impacket-smbserver -h",
+    "description": "Python3 module to easily build and dissect network protocols",
+    "launcher": "kali-impacket-smbserver.desktop",
+    "name": "impacket-smbserver",
+    "package": "python3-impacket"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "iodine-client-start",
+    "description": "Start an iodine IPv4-over-DNS tunnel",
+    "launcher": "kali-iodine-client-start.desktop",
+    "name": "iodine-client-start",
+    "package": "iodine"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "istat",
+    "description": "Display details of a meta-data structure (i.e. inode)",
+    "launcher": "kali-istat.desktop",
+    "name": "istat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "jcat",
+    "description": "Show the contents of a block in the file system journal.",
+    "launcher": "kali-jcat.desktop",
+    "name": "jcat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "jls",
+    "description": "List the contents of a file system journal",
+    "launcher": "kali-jls.desktop",
+    "name": "jls",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "credential-access",
+      "password-cracking"
+    ],
+    "command": "/usr/share/kali-menu/helper-scripts/john.sh",
+    "description": "A tool to find weak passwords of your users",
+    "launcher": "kali-john.desktop",
+    "name": "john",
+    "package": "john"
+  },
+  {
+    "categories": [
+      "wifi"
+    ],
+    "command": "kismet -h",
+    "description": "Wireless sniffer and monitor",
+    "launcher": "kali-kismet.desktop",
+    "name": "kismet",
+    "package": "kismet-core"
+  },
+  {
+    "categories": [
+      "persistence"
+    ],
+    "command": "laudanum",
+    "description": "Collection of injectable web files",
+    "launcher": "kali-laudanum.desktop",
+    "name": "laudanum",
+    "package": "laudanum"
+  },
+  {
+    "categories": [
+      "web-scanning"
+    ],
+    "command": "lbd",
+    "description": "Load balancer detector",
+    "launcher": "kali-lbd.desktop",
+    "name": "lbd",
+    "package": "lbd"
+  },
+  {
+    "categories": [
+      "network-information",
+      "reconnaissance"
+    ],
+    "command": "pkexec legion",
+    "description": "semi-automated network penetration testing tool",
+    "launcher": "kali-legion.desktop",
+    "name": "legion",
+    "package": "legion"
+  },
+  {
+    "categories": [
+      "privilege-escalation"
+    ],
+    "command": "linpeas",
+    "description": "Privilege Escalation Awesome Scripts SUITE",
+    "launcher": "kali-linpeas.desktop",
+    "name": "linpeas",
+    "package": "peass"
+  },
+  {
+    "categories": [
+      "defense-evasion"
+    ],
+    "command": "macchanger -h",
+    "description": "MAC Changer",
+    "launcher": "kali-macchanger.desktop",
+    "name": "macchanger",
+    "package": "macchanger"
+  },
+  {
+    "categories": [
+      "respond",
+      "sleuth-kit-suite"
+    ],
+    "command": "mactime",
+    "description": "Create an ASCII time line of file activity",
+    "launcher": "kali-mactime.desktop",
+    "name": "mactime",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "forensic-carving-tools"
+    ],
+    "command": "magicrescue",
+    "description": "Scans a block device and extracts known file types by looking at magic bytes.",
+    "launcher": "kali-magicrescue.desktop",
+    "name": "magicrescue",
+    "package": "magicrescue"
+  },
+  {
+    "categories": [
+      "discovery",
+      "network-service-discovery"
+    ],
+    "command": "masscan --help",
+    "description": "Fast scan of the Internet",
+    "launcher": "kali-masscan.desktop",
+    "name": "masscan",
+    "package": "masscan"
+  },
+  {
+    "categories": [
+      "brute-force",
+      "credential-access"
+    ],
+    "command": "medusa",
+    "description": "Parallel Network Login Auditor",
+    "launcher": "kali-medusa.desktop",
+    "name": "medusa",
+    "package": "medusa"
+  },
+  {
+    "categories": [
+      "command-and-control",
+      "execution",
+      "initial-access",
+      "privilege-escalation"
+    ],
+    "command": "/usr/share/kali-menu/helper-scripts/metasploit-framework.sh",
+    "description": "Framework for exploit development and vulnerability research",
+    "launcher": "kali-metasploit-framework.desktop",
+    "name": "metasploit-framework",
+    "package": "metasploit-framework"
+  },
+  {
+    "categories": [
+      "os-credential-dumping",
+      "pass-the-hash",
+      "pass-the-hash"
+    ],
+    "command": "mimikatz",
+    "description": "Uses admin rights on Windows to display passwords in plaintext",
+    "launcher": "kali-mimikatz.desktop",
+    "name": "mimikatz",
+    "package": "mimikatz"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "miredo -h",
+    "description": "Teredo IPv6 tunneling for Unix",
+    "launcher": "kali-miredo.desktop",
+    "name": "miredo",
+    "package": "miredo"
+  },
+  {
+    "categories": [
+      "collection"
+    ],
+    "command": "mitmproxy -h",
+    "description": "SSL-capable man-in-the-middle HTTP proxy",
+    "launcher": "kali-mitmproxy.desktop",
+    "name": "mitmproxy",
+    "package": "mitmproxy"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "mmcat",
+    "description": "Output the contents of a partition to stdout",
+    "launcher": "kali-mmcat.desktop",
+    "name": "mmcat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "mmls",
+    "description": "Display the partition layout of a volume system (partition tables)",
+    "launcher": "kali-mmls.desktop",
+    "name": "mmls",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "mmstat",
+    "description": "Display details about the volume system (partition tables)",
+    "launcher": "kali-mmstat.desktop",
+    "name": "mmstat",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "msf-nasm_shell",
+    "description": "Framework for exploit development and vulnerability research",
+    "launcher": "kali-msf-nasm_shell.desktop",
+    "name": "msf-nasm_shell",
+    "package": "metasploit-framework"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "msfpc",
+    "description": "MSFvenom Payload Creator (MSFPC)",
+    "launcher": "kali-msfpc.desktop",
+    "name": "msfpc",
+    "package": "msfpc"
+  },
+  {
+    "categories": [
+      "defense-evasion",
+      "resource-development"
+    ],
+    "command": "msfvenom -h",
+    "description": "Payload Generator and Encoder",
+    "launcher": "kali-msfvenom.desktop",
+    "name": "msfvenom",
+    "package": "metasploit-framework"
+  },
+  {
+    "categories": [
+      "databases"
+    ],
+    "command": "mysql -h",
+    "description": "The MariaDB command-line tool (mysql is now a symlink to mariadb)",
+    "launcher": "kali-mysql.desktop",
+    "name": "mysql",
+    "package": "mariadb-client-core"
+  },
+  {
+    "categories": [
+      "network-share-discovery"
+    ],
+    "command": "nbtscan",
+    "description": "Scan networks for NetBIOS name information",
+    "launcher": "kali-nbtscan.desktop",
+    "name": "nbtscan",
+    "package": "nbtscan"
+  },
+  {
+    "categories": [
+      "brute-force",
+      "credential-access"
+    ],
+    "command": "ncrack -h",
+    "description": "Network authentication cracking tool",
+    "launcher": "kali-ncrack.desktop",
+    "name": "ncrack",
+    "package": "ncrack"
+  },
+  {
+    "categories": [
+      "exfiltration",
+      "non-application-layer-protocol"
+    ],
+    "command": "netcat -h",
+    "description": "TCP/IP swiss army knife",
+    "launcher": "kali-netcat.desktop",
+    "name": "netcat",
+    "package": "netcat-traditional"
+  },
+  {
+    "categories": [
+      "discovery",
+      "system-network-configuration-discovery"
+    ],
+    "command": "netdiscover -h",
+    "description": "Active/passive ARP reconnaissance tool",
+    "launcher": "kali-netdiscover.desktop",
+    "name": "netdiscover",
+    "package": "netdiscover"
+  },
+  {
+    "categories": [
+      "application-layer-protocol",
+      "brute-force",
+      "credential-access",
+      "lateral-movement",
+      "network-share-discovery",
+      "pass-the-hash",
+      "pass-the-hash"
+    ],
+    "command": "netexec -h",
+    "description": "Network Execution Tool",
+    "launcher": "kali-netexec.desktop",
+    "name": "netexec",
+    "package": "netexec"
+  },
+  {
+    "categories": [
+      "kali-offsec-links"
+    ],
+    "command": "x-www-browser https://www.kali.org/kali-nethunter/",
+    "description": "Penetration testing tools on mobile devices",
+    "launcher": "kali-nethunter.desktop",
+    "name": "NetHunter",
+    "package": "kali-menu"
+  },
+  {
+    "categories": [
+      "system-network-configuration-discovery"
+    ],
+    "command": "netmask -h",
+    "description": "A netmask generation and conversion program",
+    "launcher": "kali-netmask.desktop",
+    "name": "netmask",
+    "package": "netmask"
+  },
+  {
+    "categories": [
+      "network-sniffing",
+      "respond"
+    ],
+    "command": "netsniff-ng -h",
+    "description": "The packet sniffing beast",
+    "launcher": "kali-netsniff-ng.desktop",
+    "name": "netsniff-ng",
+    "package": "netsniff-ng"
+  },
+  {
+    "categories": [
+      "web-vulnerability-scanning"
+    ],
+    "command": "nikto --Help",
+    "description": "Scan web server for known vulnerabilities",
+    "launcher": "kali-nikto.desktop",
+    "name": "nikto",
+    "package": "nikto"
+  },
+  {
+    "categories": [
+      "discovery",
+      "network-information",
+      "network-service-discovery",
+      "reconnaissance",
+      "vulnerability-scanning"
+    ],
+    "command": "nmap -h",
+    "description": "Network exploration tool and security / port scanner",
+    "launcher": "kali-nmap.desktop",
+    "name": "nmap",
+    "package": "nmap"
+  },
+  {
+    "categories": [
+      "web-vulnerability-scanning"
+    ],
+    "command": "nuclei -h",
+    "description": "Fast and customizable vulnerability scanner based on simple YAML based DSL",
+    "launcher": "kali-nuclei.desktop",
+    "name": "nuclei",
+    "package": "nuclei"
+  },
+  {
+    "categories": [
+      "snmp"
+    ],
+    "command": "onesixtyone",
+    "description": "Fast and simple SNMP scanner",
+    "launcher": "kali-onesixtyone.desktop",
+    "name": "onesixtyone",
+    "package": "onesixtyone"
+  },
+  {
+    "categories": [
+      "password-cracking"
+    ],
+    "command": "ophcrack-cli -h",
+    "description": "A Microsoft Windows password cracker using rainbow tables.",
+    "launcher": "kali-ophcrack-cli.desktop",
+    "name": "ophcrack-cli",
+    "package": "ophcrack-cli"
+  },
+  {
+    "categories": [
+      "pass-the-hash",
+      "pass-the-hash"
+    ],
+    "command": "/usr/share/kali-menu/helper-scripts/passing-the-hash.sh",
+    "description": "Patched tools to use password hashes as authentication input",
+    "launcher": "kali-passing-the-hash.desktop",
+    "name": "passing-the-hash",
+    "package": "passing-the-hash"
+  },
+  {
+    "categories": [
+      "brute-force"
+    ],
+    "command": "patator",
+    "description": "Multi-purpose brute-forcer",
+    "launcher": "kali-patator.desktop",
+    "name": "patator",
+    "package": "patator"
+  },
+  {
+    "categories": [
+      "pdf-forensics-tools"
+    ],
+    "command": "pdf-parser -h",
+    "description": "Parses PDF files to identify fundamental elements",
+    "launcher": "kali-pdf-parser.desktop",
+    "name": "pdf-parser",
+    "package": "pdf-parser"
+  },
+  {
+    "categories": [
+      "pdf-forensics-tools"
+    ],
+    "command": "pdfid -h",
+    "description": "Scans PDF files for certain PDF keywords",
+    "launcher": "kali-pdfid.desktop",
+    "name": "pdfid",
+    "package": "pdfid"
+  },
+  {
+    "categories": [
+      "privilege-escalation"
+    ],
+    "command": "peass",
+    "description": "Privilege Escalation Awesome Scripts SUITE",
+    "launcher": "kali-peass.desktop",
+    "name": "peass",
+    "package": "peass"
+  },
+  {
+    "categories": [
+      "forensic-carving-tools"
+    ],
+    "command": "photorec -h",
+    "description": "Recover lost files from harddisk, digital camera and cdrom",
+    "launcher": "kali-photorec.desktop",
+    "name": "photorec",
+    "package": "testdisk"
+  },
+  {
+    "categories": [
+      "reporting-tools"
+    ],
+    "command": "pipal -h",
+    "description": "Statistical analysis on password dumps",
+    "launcher": "kali-pipal.desktop",
+    "name": "pipal",
+    "package": "pipal"
+  },
+  {
+    "categories": [
+      "wifi-credential-access"
+    ],
+    "command": "pixiewps --help",
+    "description": "Offline Wi-Fi Protected Setup bruteforce tool",
+    "launcher": "kali-pixiewps.desktop",
+    "name": "pixiewps",
+    "package": "pixiewps"
+  },
+  {
+    "categories": [
+      "command-and-control"
+    ],
+    "command": "powershell-empire server",
+    "description": "PowerShell and Python post-exploitation agent",
+    "launcher": "kali-powershell-empire.desktop",
+    "name": "powershell-empire",
+    "package": "powershell-empire"
+  },
+  {
+    "categories": [
+      "execution"
+    ],
+    "command": "powersploit",
+    "description": "PowerShell Post-Exploitation Framework",
+    "launcher": "kali-powersploit.desktop",
+    "name": "powersploit",
+    "package": "powersploit"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "proxychains4",
+    "description": "Redirect connections through proxy servers",
+    "launcher": "kali-proxychains4.desktop",
+    "name": "proxychains4",
+    "package": "proxychains4"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "proxytunnel -h",
+    "description": "Program to tunnel a connection through a standard HTTPS proxy",
+    "launcher": "kali-proxytunnel.desktop",
+    "name": "proxytunnel",
+    "package": "proxytunnel"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "ptunnel -h",
+    "description": "Tunnel TCP connections over ICMP echo request/reply packets.",
+    "launcher": "kali-ptunnel.desktop",
+    "name": "ptunnel",
+    "package": "ptunnel"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "pwnat -h",
+    "description": "Proxy server that works behind both client and server NATs",
+    "launcher": "kali-pwnat.desktop",
+    "name": "pwnat",
+    "package": "pwnat"
+  },
+  {
+    "categories": [
+      "services-and-other-tools"
+    ],
+    "command": "pwsh",
+    "description": "PowerShell command-line shell and .NET REPL",
+    "launcher": "kali-pwsh.desktop",
+    "name": "PowerShell",
+    "package": "powershell"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "pyinstaller -h",
+    "description": "Bundle a Python application and all its dependencies into a single package",
+    "launcher": "kali-pyinstaller.desktop",
+    "name": "pyinstaller",
+    "package": "pyinstaller"
+  },
+  {
+    "categories": [
+      "resource-development"
+    ],
+    "command": "radare2 -h",
+    "description": "Advanced command-line hexadecimal editor, disassembler and debugger",
+    "launcher": "kali-radare2.desktop",
+    "name": "radare2",
+    "package": "radare2"
+  },
+  {
+    "categories": [
+      "lateral-movement"
+    ],
+    "command": "rdesktop",
+    "description": "Remote Desktop Protocol client",
+    "launcher": "kali-rdesktop.desktop",
+    "name": "rdesktop",
+    "package": "rdesktop"
+  },
+  {
+    "categories": [
+      "wifi-credential-access"
+    ],
+    "command": "reaver -h",
+    "description": "WPS Cracker",
+    "launcher": "kali-reaver.desktop",
+    "name": "reaver",
+    "package": "reaver"
+  },
+  {
+    "categories": [
+      "reconnaissance",
+      "web-scanning"
+    ],
+    "command": "recon-ng",
+    "description": "Web Reconnaissance framework",
+    "launcher": "kali-recon-ng.desktop",
+    "name": "recon-ng",
+    "package": "recon-ng"
+  },
+  {
+    "categories": [
+      "reporting-tools"
+    ],
+    "command": "recordmydesktop -h",
+    "description": "Record desktop sessions to an Ogg Theora video file with Vorbis audio",
+    "launcher": "kali-recordmydesktop.desktop",
+    "name": "recordmydesktop",
+    "package": "recordmydesktop"
+  },
+  {
+    "categories": [
+      "credential-access"
+    ],
+    "command": "responder -h",
+    "description": "LLMNR/NBT-NS/mDNS Poisoner",
+    "launcher": "kali-responder.desktop",
+    "name": "responder",
+    "package": "responder"
+  },
+  {
+    "categories": [
+      "password-profiling-wordlists"
+    ],
+    "command": "rsmangler -h",
+    "description": "Wordlist mangling tool",
+    "launcher": "kali-rsmangler.desktop",
+    "name": "rsmangler",
+    "package": "rsmangler"
+  },
+  {
+    "categories": [
+      "os-credential-dumping"
+    ],
+    "command": "samdump2 -h",
+    "description": "Retrieves syskey and extract hashes from Windows 2k/NT/XP/Vista SAM.",
+    "launcher": "kali-samdump2.desktop",
+    "name": "samdump2",
+    "package": "samdump2"
+  },
+  {
+    "categories": [
+      "non-application-layer-protocol"
+    ],
+    "command": "sbd -h",
+    "description": "Secure backdoor for Linux and Windows",
+    "launcher": "kali-sbd.desktop",
+    "name": "sbd",
+    "package": "sbd"
+  },
+  {
+    "categories": [
+      "forensic-carving-tools"
+    ],
+    "command": "scalpel -h",
+    "description": "Recover files using a header/footer database",
+    "launcher": "kali-scalpel.desktop",
+    "name": "scalpel",
+    "package": "scalpel"
+  },
+  {
+    "categories": [
+      "impact",
+      "network-sniffing"
+    ],
+    "command": "scapy",
+    "description": "Interactive packet manipulation tool",
+    "launcher": "kali-scapy.desktop",
+    "name": "scapy",
+    "package": "python3-scapy"
+  },
+  {
+    "categories": [
+      "forensic-carving-tools",
+      "recover"
+    ],
+    "command": "scrounge-ntfs -h",
+    "description": "Helps retrieve data from corrupted NTFS partitions",
+    "launcher": "kali-scrounge-ntfs.desktop",
+    "name": "scrounge-ntfs",
+    "package": "scrounge-ntfs"
+  },
+  {
+    "categories": [
+      "identify",
+      "resource-development"
+    ],
+    "command": "searchsploit -h",
+    "description": "Exploit Database Archive Search",
+    "launcher": "kali-searchsploit.desktop",
+    "name": "searchsploit",
+    "package": "exploitdb"
+  },
+  {
+    "categories": [
+      "password-profiling-wordlists",
+      "persistence"
+    ],
+    "command": "seclists",
+    "description": "Collection of multiple types of security lists",
+    "launcher": "kali-seclists.desktop",
+    "name": "seclists",
+    "package": "seclists"
+  },
+  {
+    "categories": [
+      "initial-access"
+    ],
+    "command": "sudo setoolkit",
+    "description": "Social-Engineer Toolkit",
+    "launcher": "kali-setoolkit.desktop",
+    "name": "setoolkit",
+    "package": "set"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "sigfind",
+    "description": "Find a binary signature in a file",
+    "launcher": "kali-sigfind.desktop",
+    "name": "sigfind",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "web-vulnerability-scanning"
+    ],
+    "command": "skipfish -h",
+    "description": "Web application security scanner",
+    "launcher": "kali-skipfish.desktop",
+    "name": "skipfish",
+    "package": "skipfish"
+  },
+  {
+    "categories": [
+      "application-layer-protocol",
+      "network-share-discovery"
+    ],
+    "command": "smbclient",
+    "description": "Ftp-like client to access SMB/CIFS resources on servers",
+    "launcher": "kali-smbclient.desktop",
+    "name": "smbclient",
+    "package": "smbclient"
+  },
+  {
+    "categories": [
+      "network-share-discovery",
+      "pass-the-hash",
+      "pass-the-hash"
+    ],
+    "command": "smbmap -h",
+    "description": "SMB enumeration tool",
+    "launcher": "kali-smbmap.desktop",
+    "name": "smbmap",
+    "package": "smbmap"
+  },
+  {
+    "categories": [
+      "account-discovery",
+      "smtp"
+    ],
+    "command": "smtp-user-enum -h",
+    "description": "Username guessing tool for the SMTP service",
+    "launcher": "kali-smtp-user-enum.desktop",
+    "name": "smtp-user-enum",
+    "package": "smtp-user-enum"
+  },
+  {
+    "categories": [
+      "snmp"
+    ],
+    "command": "snmp-check -h",
+    "description": "SNMP device enumerator",
+    "launcher": "kali-snmp-check.desktop",
+    "name": "snmp-check",
+    "package": "snmpcheck"
+  },
+  {
+    "categories": [
+      "non-application-layer-protocol"
+    ],
+    "command": "socat -h",
+    "description": "Multipurpose relay (SOcket CAT)",
+    "launcher": "kali-socat.desktop",
+    "name": "socat",
+    "package": "socat"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "sorter",
+    "description": "Sort files in an image into categories based on file type",
+    "launcher": "kali-sorter.desktop",
+    "name": "sorter",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "host-information",
+      "identify"
+    ],
+    "command": "spiderfoot-cli",
+    "description": "OSINT collection and reconnaissance tool",
+    "launcher": "kali-spiderfoot-cli.desktop",
+    "name": "spiderfoot-cli",
+    "package": "spiderfoot"
+  },
+  {
+    "categories": [
+      "host-information",
+      "identify"
+    ],
+    "command": "spiderfoot -h",
+    "description": "OSINT collection and reconnaissance tool",
+    "launcher": "kali-spiderfoot.desktop",
+    "name": "spiderfoot",
+    "package": "spiderfoot"
+  },
+  {
+    "categories": [
+      "bluetooth"
+    ],
+    "command": "spooftooph -h",
+    "description": "Automates spoofing or cloning Bluetooth devices",
+    "launcher": "kali-spooftooph.desktop",
+    "name": "spooftooph",
+    "package": "spooftooph"
+  },
+  {
+    "categories": [
+      "initial-access"
+    ],
+    "command": "sqlmap --wizard",
+    "description": "Automatic SQL injection tool",
+    "launcher": "kali-sqlmap.desktop",
+    "name": "sqlmap",
+    "package": "sqlmap"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "srch_strings -h",
+    "description": "Display printable strings in files",
+    "launcher": "kali-srch_strings.desktop",
+    "name": "srch_strings",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "collection"
+    ],
+    "command": "ssldump -h",
+    "description": "Dump SSL traffic on a network",
+    "launcher": "kali-ssldump.desktop",
+    "name": "ssldump",
+    "package": "ssldump"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "sslh -h",
+    "description": "Protocol demultiplexer",
+    "launcher": "kali-sslh.desktop",
+    "name": "sslh",
+    "package": "sslh"
+  },
+  {
+    "categories": [
+      "ssl-tls"
+    ],
+    "command": "sslscan --help",
+    "description": "Fast SSL/TLS scanner",
+    "launcher": "kali-sslscan.desktop",
+    "name": "sslscan",
+    "package": "sslscan"
+  },
+  {
+    "categories": [
+      "collection"
+    ],
+    "command": "sslsplit -h",
+    "description": "- transparent SSL/TLS interception",
+    "launcher": "kali-sslsplit.desktop",
+    "name": "sslsplit",
+    "package": "sslsplit"
+  },
+  {
+    "categories": [
+      "ssl-tls"
+    ],
+    "command": "sslyze -h",
+    "description": "Fast and full-featured SSL scanner",
+    "launcher": "kali-sslyze.desktop",
+    "name": "sslyze",
+    "package": "sslyze"
+  },
+  {
+    "categories": [
+      "command-and-control",
+      "system-services"
+    ],
+    "command": "starkiller-start",
+    "description": "PowerShell and Python post-exploitation agent",
+    "launcher": "kali-starkiller-start.desktop",
+    "name": "starkiller-start",
+    "package": "powershell-empire"
+  },
+  {
+    "categories": [
+      "system-services"
+    ],
+    "command": "starkiller-stop",
+    "description": "PowerShell and Python post-exploitation agent",
+    "launcher": "kali-starkiller-stop.desktop",
+    "name": "starkiller-stop",
+    "package": "powershell-empire"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "stunnel4 -help",
+    "description": "TLS offloading and load-balancing proxy",
+    "launcher": "kali-stunnel4.desktop",
+    "name": "stunnel4",
+    "package": "stunnel"
+  },
+  {
+    "categories": [
+      "smtp"
+    ],
+    "command": "swaks --help",
+    "description": "Swiss Army Knife SMTP, the all-purpose SMTP transaction tester",
+    "launcher": "kali-swaks.desktop",
+    "name": "swaks",
+    "package": "swaks"
+  },
+  {
+    "categories": [
+      "discovery",
+      "network-sniffing"
+    ],
+    "command": "tcpdump -h",
+    "description": "Dump traffic on a network",
+    "launcher": "kali-tcpdump.desktop",
+    "name": "tcpdump",
+    "package": "tcpdump"
+  },
+  {
+    "categories": [
+      "network-security-appliances"
+    ],
+    "command": "tcpreplay -h",
+    "description": "Replay network traffic stored in pcap files",
+    "launcher": "kali-tcpreplay.desktop",
+    "name": "tcpreplay",
+    "package": "tcpreplay"
+  },
+  {
+    "categories": [
+      "forensic-carving-tools"
+    ],
+    "command": "testdisk -h",
+    "description": "Scan and repair disk partitions",
+    "launcher": "kali-testdisk.desktop",
+    "name": "testdisk",
+    "package": "testdisk"
+  },
+  {
+    "categories": [
+      "brute-force"
+    ],
+    "command": "thc-pptp-bruter",
+    "description": "THC PPTP Brute Force",
+    "launcher": "kali-thc-pptp-bruter.desktop",
+    "name": "thc-pptp-bruter",
+    "package": "thc-pptp-bruter"
+  },
+  {
+    "categories": [
+      "network-information"
+    ],
+    "command": "theHarvester -h",
+    "description": "tool for gathering e-mail accounts and subdomain names from public sources",
+    "launcher": "kali-theHarvester.desktop",
+    "name": "theHarvester",
+    "package": "theharvester"
+  },
+  {
+    "categories": [
+      "kali-offsec-links"
+    ],
+    "command": "x-www-browser https://www.kali.org/tools/",
+    "description": "Discover tools available in Kali Linux",
+    "launcher": "kali-tools.desktop",
+    "name": "Kali Tools",
+    "package": "kali-menu"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "tsk_comparedir",
+    "description": "Compare the contents of a directory with the contents of an image or local device.",
+    "launcher": "kali-tsk_comparedir.desktop",
+    "name": "tsk_comparedir",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "tsk_gettimes",
+    "description": "Collect MAC times from a disk image into a body file.",
+    "launcher": "kali-tsk_gettimes.desktop",
+    "name": "tsk_gettimes",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "tsk_loaddb",
+    "description": "Populate a SQLite database with metadata from a disk image",
+    "launcher": "kali-tsk_loaddb.desktop",
+    "name": "tsk_loaddb",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "sleuth-kit-suite"
+    ],
+    "command": "tsk_recover",
+    "description": "Export files from an image into a local directory",
+    "launcher": "kali-tsk_recover.desktop",
+    "name": "tsk_recover",
+    "package": "sleuthkit"
+  },
+  {
+    "categories": [
+      "services-and-other-tools"
+    ],
+    "command": "x-terminal-emulator -e kali-tweaks -title 'Kali Tweaks'",
+    "description": "Tool to adjust advanced configuration settings for Kali Linux",
+    "launcher": "kali-tweaks.desktop",
+    "name": "Kali Tweaks",
+    "package": "kali-tweaks"
+  },
+  {
+    "categories": [
+      "protocol-tunneling"
+    ],
+    "command": "udptunnel -h",
+    "description": "Tunnel UDP packets over a TCP connection",
+    "launcher": "kali-udptunnel.desktop",
+    "name": "udptunnel",
+    "package": "udptunnel"
+  },
+  {
+    "categories": [
+      "network-information",
+      "network-service-discovery"
+    ],
+    "command": "unicornscan -h",
+    "description": "Userland distributed TCP/IP stack",
+    "launcher": "kali-unicornscan.desktop",
+    "name": "unicornscan",
+    "package": "unicornscan"
+  },
+  {
+    "categories": [
+      "privilege-escalation"
+    ],
+    "command": "unix-privesc-check",
+    "description": "Script to check for simple privilege escalation vectors",
+    "launcher": "kali-unix-privesc-check.desktop",
+    "name": "unix-privesc-check",
+    "package": "unix-privesc-check"
+  },
+  {
+    "categories": [
+      "voip"
+    ],
+    "command": "voiphopper -h",
+    "description": "Runs a VLAN hop security test",
+    "launcher": "kali-voiphopper.desktop",
+    "name": "voiphopper",
+    "package": "voiphopper"
+  },
+  {
+    "categories": [
+      "network-security-appliances"
+    ],
+    "command": "wafw00f -h",
+    "description": "Identify and fingerprint Web Application Firewall products",
+    "launcher": "kali-wafw00f.desktop",
+    "name": "wafw00f",
+    "package": "wafw00f"
+  },
+  {
+    "categories": [
+      "identify",
+      "web-vulnerability-scanning"
+    ],
+    "command": "wapiti -h",
+    "description": "A web application vulnerability scanner in Python",
+    "launcher": "kali-wapiti.desktop",
+    "name": "wapiti",
+    "package": "wapiti"
+  },
+  {
+    "categories": [
+      "wifi"
+    ],
+    "command": "wash -h",
+    "description": "brute force attack tool against Wi-Fi Protected Setup PIN number",
+    "launcher": "kali-wash.desktop",
+    "name": "wash",
+    "package": "reaver"
+  },
+  {
+    "categories": [
+      "persistence"
+    ],
+    "command": "webshells",
+    "description": "Collection of webshells",
+    "launcher": "kali-webshells.desktop",
+    "name": "webshells",
+    "package": "webshells"
+  },
+  {
+    "categories": [
+      "persistence"
+    ],
+    "command": "weevely terminal -h",
+    "description": "Weaponized web shell",
+    "launcher": "kali-weevely.desktop",
+    "name": "weevely",
+    "package": "weevely"
+  },
+  {
+    "categories": [
+      "web-scanning"
+    ],
+    "command": "wfuzz -h",
+    "description": "A web application bruteforcer",
+    "launcher": "kali-wfuzz.desktop",
+    "name": "wfuzz",
+    "package": "wfuzz"
+  },
+  {
+    "categories": [
+      "web-vulnerability-scanning"
+    ],
+    "command": "whatweb -h",
+    "description": "Next generation Web scanner. Identify technologies used by websites.",
+    "launcher": "kali-whatweb.desktop",
+    "name": "whatweb",
+    "package": "whatweb"
+  },
+  {
+    "categories": [
+      "wifi-credential-access"
+    ],
+    "command": "wifite -h",
+    "description": "Python script to automate wireless auditing using aircrack-ng tools",
+    "launcher": "kali-wifite.desktop",
+    "name": "wifite",
+    "package": "wifite"
+  },
+  {
+    "categories": [
+      "privilege-escalation"
+    ],
+    "command": "winpeas",
+    "description": "Privilege Escalation Awesome Scripts SUITE",
+    "launcher": "kali-winpeas.desktop",
+    "name": "winpeas",
+    "package": "peass"
+  },
+  {
+    "categories": [
+      "credential-access",
+      "password-profiling-wordlists"
+    ],
+    "command": "wordlists",
+    "description": "Contains the rockyou wordlist",
+    "launcher": "kali-wordlists.desktop",
+    "name": "wordlists",
+    "package": "wordlists"
+  },
+  {
+    "categories": [
+      "web-vulnerability-scanning"
+    ],
+    "command": "wpscan -h",
+    "description": "WordPress Security Scanner",
+    "launcher": "kali-wpscan.desktop",
+    "name": "wpscan",
+    "package": "wpscan"
+  },
+  {
+    "categories": [
+      "kali-offsec-links"
+    ],
+    "command": "x-www-browser https://www.kali.org/",
+    "description": "The official web site of Kali Linux",
+    "launcher": "kali-www.desktop",
+    "name": "Kali Linux",
+    "package": "kali-menu"
+  }
+]

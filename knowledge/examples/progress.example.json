@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "packId": "oscp-foundations",
+  "packVersion": "0.1.0",
+  "deviceId": "example-device",
+  "updatedAt": "2026-08-28T10:00:00Z",
+  "currentPathId": "machine-assessment",
+  "currentStepId": "enumeration",
+  "pinnedCardIds": ["method.recon"],
+  "cards": {
+    "method.recon": {
+      "status": "done",
+      "note": "Example local note. Never ship real engagement data.",
+      "updatedAt": "2026-08-28T09:30:00Z"
+    },
+    "method.enumeration": {
+      "status": "in-progress",
+      "updatedAt": "2026-08-28T10:00:00Z"
+    }
+  }
+}

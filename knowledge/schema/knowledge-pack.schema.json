@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xcyberberserker.github.io/oscp-tool-cheatsheet/schema/knowledge-pack-v1.json",
+  "title": "OSCP Knowledge Pack",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "defaultLanguage", "languages", "title", "cards", "paths"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "defaultLanguage": { "type": "string", "minLength": 2 },
+    "languages": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 2 }
+    },
+    "title": { "$ref": "#/$defs/localized" },
+    "cards": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/card" }
+    },
+    "paths": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/path" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+    },
+    "localized": {
+      "type": "object",
+      "required": ["en", "es"],
+      "additionalProperties": { "type": "string" },
+      "properties": {
+        "en": { "type": "string", "minLength": 1 },
+        "es": { "type": "string", "minLength": 1 }
+      }
+    },
+    "card": {
+      "type": "object",
+      "required": ["id", "kind", "title", "summary", "body", "tags", "source", "visibility"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["method", "reference", "note"] },
+        "title": { "$ref": "#/$defs/localized" },
+        "summary": { "$ref": "#/$defs/localized" },
+        "body": { "$ref": "#/$defs/localized" },
+        "tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "source": {
+          "type": "object",
+          "required": ["kind", "ref"],
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "enum": ["curated", "generated"] },
+            "ref": { "type": "string", "minLength": 1 }
+          }
+        },
+        "visibility": { "enum": ["public", "private"] }
+      }
+    },
+    "path": {
+      "type": "object",
+      "required": ["id", "title", "description", "entryStep", "steps"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "$ref": "#/$defs/localized" },
+        "description": { "$ref": "#/$defs/localized" },
+        "entryStep": { "$ref": "#/$defs/id" },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "cardId", "next"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "$ref": "#/$defs/id" },
+              "cardId": { "$ref": "#/$defs/id" },
+              "optional": { "type": "boolean", "default": false },
+              "next": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": { "$ref": "#/$defs/id" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

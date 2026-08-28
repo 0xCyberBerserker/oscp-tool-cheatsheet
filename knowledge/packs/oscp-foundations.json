@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "id": "oscp-foundations",
+  "version": "0.1.0",
+  "defaultLanguage": "es",
+  "languages": ["en", "es"],
+  "title": {
+    "en": "OSCP Method Foundations",
+    "es": "Fundamentos de metodología OSCP"
+  },
+  "cards": [
+    {
+      "id": "method.recon",
+      "kind": "method",
+      "title": { "en": "Reconnaissance", "es": "Reconocimiento" },
+      "summary": {
+        "en": "Establish scope, reachability and the initial service map.",
+        "es": "Establece el alcance, la conectividad y el mapa inicial de servicios."
+      },
+      "body": {
+        "en": "## Goal\nBuild a reproducible first picture before choosing a service to enumerate.\n\n- Confirm scope.\n- Record reachability.\n- Inventory exposed services.\n- Preserve raw evidence.",
+        "es": "## Objetivo\nConstruye una primera imagen reproducible antes de elegir qué servicio enumerar.\n\n- Confirma el alcance.\n- Registra la conectividad.\n- Inventaría los servicios expuestos.\n- Conserva la evidencia original."
+      },
+      "tags": ["recon", "methodology"],
+      "source": { "kind": "curated", "ref": "maintained-guide" },
+      "visibility": "public"
+    },
+    {
+      "id": "method.enumeration",
+      "kind": "method",
+      "title": { "en": "Enumeration", "es": "Enumeración" },
+      "summary": {
+        "en": "Turn each exposed service into testable hypotheses.",
+        "es": "Convierte cada servicio expuesto en hipótesis comprobables."
+      },
+      "body": {
+        "en": "## Goal\nEnumerate by service and record evidence, assumptions and dead ends.\n\n- Identify versions and configuration.\n- Follow protocol-specific checks.\n- Separate facts from hypotheses.",
+        "es": "## Objetivo\nEnumera por servicio y registra evidencias, supuestos y vías descartadas.\n\n- Identifica versiones y configuración.\n- Sigue comprobaciones específicas del protocolo.\n- Separa hechos de hipótesis."
+      },
+      "tags": ["enumeration", "methodology"],
+      "source": { "kind": "curated", "ref": "maintained-guide" },
+      "visibility": "public"
+    },
+    {
+      "id": "method.exploitation",
+      "kind": "method",
+      "title": { "en": "Initial access", "es": "Acceso inicial" },
+      "summary": {
+        "en": "Validate the smallest authorized path from a finding to a foothold.",
+        "es": "Valida la ruta autorizada mínima desde un hallazgo hasta un acceso inicial."
+      },
+      "body": {
+        "en": "## Goal\nChoose a supported hypothesis and test it with a reversible, documented action.\n\n- State the expected result.\n- Keep the original evidence.\n- Record the exact outcome.",
+        "es": "## Objetivo\nElige una hipótesis respaldada y pruébala mediante una acción reversible y documentada.\n\n- Declara el resultado esperado.\n- Conserva la evidencia original.\n- Registra el resultado exacto."
+      },
+      "tags": ["exploitation", "methodology"],
+      "source": { "kind": "curated", "ref": "maintained-guide" },
+      "visibility": "public"
+    },
+    {
+      "id": "method.privesc",
+      "kind": "method",
+      "title": { "en": "Privilege escalation", "es": "Escalada de privilegios" },
+      "summary": {
+        "en": "Enumerate the local context before selecting an escalation path.",
+        "es": "Enumera el contexto local antes de seleccionar una vía de escalada."
+      },
+      "body": {
+        "en": "## Goal\nMap identities, privileges, services, secrets and trust boundaries.\n\n- Verify the current identity.\n- Inspect platform-specific controls.\n- Rank findings by evidence and impact.",
+        "es": "## Objetivo\nMapea identidades, privilegios, servicios, secretos y límites de confianza.\n\n- Verifica la identidad actual.\n- Inspecciona controles específicos de la plataforma.\n- Ordena hallazgos por evidencia e impacto."
+      },
+      "tags": ["privilege-escalation", "methodology"],
+      "source": { "kind": "curated", "ref": "maintained-guide" },
+      "visibility": "public"
+    },
+    {
+      "id": "method.postmortem",
+      "kind": "method",
+      "title": { "en": "Post-mortem", "es": "Post-mortem" },
+      "summary": {
+        "en": "Convert the completed path into reusable knowledge.",
+        "es": "Convierte la ruta completada en conocimiento reutilizable."
+      },
+      "body": {
+        "en": "## Goal\nCapture the decisive signal, mistakes, reusable commands and defensive mitigation.\n\n- Summarize the chain.\n- Record what was missed.\n- Extract reusable lessons.",
+        "es": "## Objetivo\nCaptura la señal decisiva, los errores, los comandos reutilizables y la mitigación defensiva.\n\n- Resume la cadena.\n- Registra qué se pasó por alto.\n- Extrae lecciones reutilizables."
+      },
+      "tags": ["postmortem", "methodology"],
+      "source": { "kind": "curated", "ref": "maintained-guide" },
+      "visibility": "public"
+    }
+  ],
+  "paths": [
+    {
+      "id": "machine-assessment",
+      "title": { "en": "Machine assessment", "es": "Evaluación de máquina" },
+      "description": {
+        "en": "A navigable learning path from scope to reusable lessons.",
+        "es": "Una ruta navegable desde el alcance hasta las lecciones reutilizables."
+      },
+      "entryStep": "recon",
+      "steps": [
+        { "id": "recon", "cardId": "method.recon", "next": ["enumeration"] },
+        { "id": "enumeration", "cardId": "method.enumeration", "next": ["initial-access"] },
+        { "id": "initial-access", "cardId": "method.exploitation", "next": ["privilege-escalation"] },
+        { "id": "privilege-escalation", "cardId": "method.privesc", "next": ["postmortem"] },
+        { "id": "postmortem", "cardId": "method.postmortem", "next": [] }
+      ]
+    }
+  ]
+}

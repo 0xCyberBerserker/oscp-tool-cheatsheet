@@ -1,0 +1,406 @@
+[
+  {
+    "name": "nmap",
+    "summaryEn": "Host discovery, port scanning and service enumeration.",
+    "summaryEs": "Descubrimiento de hosts, escaneo de puertos y enumeración de servicios.",
+    "aliases": ["scan ports", "escanear puertos", "servicios", "versiones", "udp"],
+    "phases": ["recon", "enumeration", "assessment"],
+    "recipes": [
+      ["All TCP ports", "Todos los puertos TCP", "nmap -Pn -p- --min-rate 1000 -T4 TARGET -oA scans/all-ports"],
+      ["Service scripts", "Servicios y scripts", "nmap -Pn -sC -sV -p PORTS TARGET -oA scans/services"],
+      ["Common UDP ports", "Puertos UDP comunes", "sudo nmap -Pn -sU --top-ports 100 TARGET -oA scans/udp-top100"]
+    ]
+  },
+  {
+    "name": "masscan",
+    "summaryEn": "Very fast port discovery before detailed Nmap enumeration.",
+    "summaryEs": "Descubrimiento muy rápido de puertos antes de enumerar con Nmap.",
+    "aliases": ["fast scan", "escaneo rápido", "todos los puertos"],
+    "phases": ["recon", "enumeration"],
+    "recipes": [
+      ["Fast TCP discovery", "Descubrimiento TCP rápido", "sudo masscan TARGET -p1-65535 --rate 1000 -oL scans/masscan.txt"]
+    ]
+  },
+  {
+    "name": "fping",
+    "summaryEn": "Fast ICMP discovery across a network range.",
+    "summaryEs": "Descubrimiento ICMP rápido sobre un rango de red.",
+    "aliases": ["ping sweep", "hosts vivos", "descubrir hosts"],
+    "phases": ["recon", "enumeration"],
+    "recipes": [
+      ["Live hosts", "Hosts activos", "fping -a -g CIDR 2>/dev/null"]
+    ]
+  },
+  {
+    "name": "dnsrecon",
+    "summaryEn": "DNS record and subdomain enumeration.",
+    "summaryEs": "Enumeración de registros DNS y subdominios.",
+    "aliases": ["dns", "subdomains", "subdominios", "records", "registros"],
+    "phases": ["recon", "enumeration"],
+    "recipes": [
+      ["Standard enumeration", "Enumeración estándar", "dnsrecon -d DOMAIN -t std"],
+      ["Wordlist brute force", "Fuerza bruta con diccionario", "dnsrecon -d DOMAIN -D WORDLIST -t brt"]
+    ]
+  },
+  {
+    "name": "enum4linux",
+    "summaryEn": "SMB and Windows host enumeration.",
+    "summaryEs": "Enumeración SMB y de hosts Windows.",
+    "aliases": ["smb", "windows", "shares", "recursos compartidos", "usuarios"],
+    "phases": ["enumeration", "active-directory"],
+    "recipes": [
+      ["Full enumeration", "Enumeración completa", "enum4linux -a TARGET"]
+    ]
+  },
+  {
+    "name": "smbclient",
+    "summaryEn": "List and access SMB shares.",
+    "summaryEs": "Lista y accede a recursos compartidos SMB.",
+    "aliases": ["smb", "shares", "carpetas compartidas", "windows files"],
+    "phases": ["enumeration", "active-directory", "post-exploitation"],
+    "recipes": [
+      ["Anonymous shares", "Recursos anónimos", "smbclient -N -L //TARGET"],
+      ["Open a share", "Abrir un recurso", "smbclient //TARGET/SHARE -U 'DOMAIN/USER%PASSWORD'"]
+    ]
+  },
+  {
+    "name": "netexec",
+    "summaryEn": "Enumerate and validate access across Windows network services.",
+    "summaryEs": "Enumera y valida acceso en servicios de redes Windows.",
+    "aliases": ["nxc", "crackmapexec", "cme", "smb auth", "credenciales smb"],
+    "phases": ["enumeration", "credential-access", "active-directory", "lateral-movement"],
+    "recipes": [
+      ["SMB host overview", "Resumen de host SMB", "nxc smb TARGET"],
+      ["Enumerate shares", "Enumerar recursos", "nxc smb TARGET -u USER -p PASSWORD --shares"],
+      ["Enumerate users", "Enumerar usuarios", "nxc smb TARGET -u USER -p PASSWORD --users"]
+    ]
+  },
+  {
+    "name": "snmp-check",
+    "summaryEn": "Enumerate information exposed by SNMP.",
+    "summaryEs": "Enumera información expuesta mediante SNMP.",
+    "aliases": ["snmp", "udp 161", "community string", "public"],
+    "phases": ["enumeration"],
+    "recipes": [
+      ["Default community", "Comunidad predeterminada", "snmp-check -c public TARGET"]
+    ]
+  },
+  {
+    "name": "whatweb",
+    "summaryEn": "Identify web technologies and server fingerprints.",
+    "summaryEs": "Identifica tecnologías web y huellas del servidor.",
+    "aliases": ["web technology", "cms", "tecnologías", "fingerprint"],
+    "phases": ["recon", "web"],
+    "recipes": [
+      ["Verbose fingerprint", "Huella detallada", "whatweb -a 3 https://TARGET"]
+    ]
+  },
+  {
+    "name": "wafw00f",
+    "summaryEn": "Detect web application firewalls.",
+    "summaryEs": "Detecta firewalls de aplicaciones web.",
+    "aliases": ["waf", "firewall web", "protección web"],
+    "phases": ["recon", "web"],
+    "recipes": [
+      ["Detect WAF", "Detectar WAF", "wafw00f https://TARGET"]
+    ]
+  },
+  {
+    "name": "feroxbuster",
+    "summaryEn": "Recursive web content discovery.",
+    "summaryEs": "Descubrimiento recursivo de contenido web.",
+    "aliases": ["directories", "directorios", "hidden files", "rutas ocultas", "fuzz web"],
+    "phases": ["enumeration", "web"],
+    "recipes": [
+      ["Content discovery", "Descubrir contenido", "feroxbuster -u https://TARGET -w WORDLIST -x php,txt,html -o scans/ferox.txt"]
+    ]
+  },
+  {
+    "name": "ffuf",
+    "summaryEn": "Fast web fuzzer for paths, parameters, hosts and values.",
+    "summaryEs": "Fuzzer web rápido para rutas, parámetros, hosts y valores.",
+    "aliases": ["fuzz", "directories", "directorios", "vhost", "virtual hosts", "parámetros"],
+    "phases": ["enumeration", "web"],
+    "recipes": [
+      ["Paths", "Rutas", "ffuf -u https://TARGET/FUZZ -w WORDLIST -fc 404"],
+      ["Virtual hosts", "Hosts virtuales", "ffuf -u https://TARGET -H 'Host: FUZZ.DOMAIN' -w WORDLIST -fs SIZE"]
+    ]
+  },
+  {
+    "name": "burpsuite",
+    "summaryEn": "Intercept, inspect and replay HTTP traffic.",
+    "summaryEs": "Intercepta, inspecciona y repite tráfico HTTP.",
+    "aliases": ["burp", "proxy web", "interceptar http", "repeater", "intruder"],
+    "phases": ["web", "assessment", "exploitation"],
+    "recipes": [
+      ["Launch", "Abrir", "burpsuite"]
+    ]
+  },
+  {
+    "name": "nikto",
+    "summaryEn": "Check web servers for known risky files and configurations.",
+    "summaryEs": "Busca archivos y configuraciones web conocidas como riesgosas.",
+    "aliases": ["web scanner", "escáner web", "misconfiguration", "configuración insegura"],
+    "phases": ["assessment", "web"],
+    "recipes": [
+      ["Web scan", "Escaneo web", "nikto -h https://TARGET -output scans/nikto.txt"]
+    ]
+  },
+  {
+    "name": "wpscan",
+    "summaryEn": "Enumerate WordPress versions, users, themes and plugins.",
+    "summaryEs": "Enumera versiones, usuarios, temas y plugins de WordPress.",
+    "aliases": ["wordpress", "wp", "plugins", "temas", "usuarios wordpress"],
+    "phases": ["enumeration", "web", "assessment"],
+    "recipes": [
+      ["WordPress enumeration", "Enumerar WordPress", "wpscan --url https://TARGET --enumerate vp,vt,u"]
+    ]
+  },
+  {
+    "name": "sqlmap",
+    "summaryEn": "Confirm and exploit SQL injection in authorized labs.",
+    "summaryEs": "Confirma y explota inyección SQL en laboratorios autorizados.",
+    "aliases": ["sqli", "sql injection", "inyección sql", "database", "base de datos"],
+    "phases": ["web", "assessment", "exploitation"],
+    "recipes": [
+      ["Test a request file", "Probar una petición", "sqlmap -r request.txt --batch --dbs"],
+      ["Test a parameter", "Probar un parámetro", "sqlmap -u 'https://TARGET/page?id=1' -p id --batch"]
+    ]
+  },
+  {
+    "name": "searchsploit",
+    "summaryEn": "Search the local Exploit-DB mirror.",
+    "summaryEs": "Busca en la copia local de Exploit-DB.",
+    "aliases": ["exploit db", "exploit version", "buscar exploit", "cve"],
+    "phases": ["assessment", "exploitation"],
+    "recipes": [
+      ["Search product and version", "Buscar producto y versión", "searchsploit PRODUCT VERSION"],
+      ["Copy an exploit", "Copiar un exploit", "searchsploit -m EXPLOIT_PATH"]
+    ]
+  },
+  {
+    "name": "metasploit-framework",
+    "summaryEn": "Exploit research, validation and controlled post-exploitation framework.",
+    "summaryEs": "Framework de investigación, validación y post-explotación controlada.",
+    "aliases": ["metasploit", "msfconsole", "exploit framework", "módulos"],
+    "phases": ["exploitation", "post-exploitation"],
+    "recipes": [
+      ["Launch console", "Abrir consola", "msfconsole -q"],
+      ["Search modules", "Buscar módulos", "search type:exploit platform:windows PRODUCT"]
+    ]
+  },
+  {
+    "name": "msfvenom",
+    "summaryEn": "Generate and transform payloads for controlled labs.",
+    "summaryEs": "Genera y transforma payloads para laboratorios controlados.",
+    "aliases": ["payload", "shellcode", "reverse shell", "generar payload"],
+    "phases": ["exploitation", "resource-development"],
+    "recipes": [
+      ["List payloads", "Listar payloads", "msfvenom -l payloads"],
+      ["Inspect payload options", "Revisar opciones", "msfvenom -p PAYLOAD --list-options"]
+    ]
+  },
+  {
+    "name": "hydra",
+    "summaryEn": "Online authentication testing across network services.",
+    "summaryEs": "Pruebas de autenticación online sobre servicios de red.",
+    "aliases": ["password spray", "brute force", "fuerza bruta", "login", "ssh password"],
+    "phases": ["credential-access"],
+    "recipes": [
+      ["Single user over SSH", "Usuario único por SSH", "hydra -l USER -P WORDLIST ssh://TARGET -t 4"]
+    ]
+  },
+  {
+    "name": "john",
+    "summaryEn": "Offline password hash auditing.",
+    "summaryEs": "Auditoría offline de hashes de contraseñas.",
+    "aliases": ["john the ripper", "crack hash", "romper hash", "contraseñas offline"],
+    "phases": ["credential-access"],
+    "recipes": [
+      ["Wordlist mode", "Modo diccionario", "john --wordlist=WORDLIST hashes.txt"],
+      ["Show recovered values", "Mostrar valores recuperados", "john --show hashes.txt"]
+    ]
+  },
+  {
+    "name": "hashcat",
+    "summaryEn": "GPU-accelerated offline hash auditing.",
+    "summaryEs": "Auditoría offline de hashes acelerada por GPU.",
+    "aliases": ["gpu password", "crack hash", "romper hash", "hash mode"],
+    "phases": ["credential-access"],
+    "recipes": [
+      ["Identify hash modes", "Buscar modos de hash", "hashcat --example-hashes | less"],
+      ["Dictionary attack", "Ataque de diccionario", "hashcat -m MODE hashes.txt WORDLIST"]
+    ]
+  },
+  {
+    "name": "cewl",
+    "summaryEn": "Build a target-specific wordlist from website text.",
+    "summaryEs": "Genera un diccionario específico desde el texto de una web.",
+    "aliases": ["wordlist", "diccionario", "web words", "password list"],
+    "phases": ["recon", "credential-access"],
+    "recipes": [
+      ["Website wordlist", "Diccionario desde web", "cewl https://TARGET -d 2 -m 5 -w words.txt"]
+    ]
+  },
+  {
+    "name": "bloodhound-python",
+    "summaryEn": "Collect Active Directory relationships for BloodHound analysis.",
+    "summaryEs": "Recoge relaciones de Active Directory para analizarlas en BloodHound.",
+    "aliases": ["bloodhound", "active directory graph", "ad paths", "rutas de ataque"],
+    "phases": ["active-directory", "enumeration"],
+    "recipes": [
+      ["Collect AD data", "Recoger datos de AD", "bloodhound-python -u USER -p PASSWORD -d DOMAIN -ns DC_IP -c All --zip"]
+    ]
+  },
+  {
+    "name": "impacket-smbserver",
+    "summaryEn": "Serve files over SMB from Kali.",
+    "summaryEs": "Comparte archivos desde Kali mediante SMB.",
+    "aliases": ["file transfer", "transferir archivos", "smb server", "share files"],
+    "phases": ["file-transfer", "post-exploitation"],
+    "recipes": [
+      ["Temporary SMB share", "Recurso SMB temporal", "impacket-smbserver share \"$PWD\" -smb2support"]
+    ]
+  },
+  {
+    "name": "impacket-psexec",
+    "summaryEn": "Remote Windows execution with authorized administrative credentials.",
+    "summaryEs": "Ejecución remota Windows con credenciales administrativas autorizadas.",
+    "aliases": ["psexec", "remote windows", "ejecución remota", "impacket"],
+    "phases": ["lateral-movement", "post-exploitation", "active-directory"],
+    "recipes": [
+      ["Authenticated execution", "Ejecución autenticada", "impacket-psexec 'DOMAIN/USER:PASSWORD@TARGET'"]
+    ]
+  },
+  {
+    "name": "evil-winrm",
+    "summaryEn": "Interactive PowerShell over WinRM.",
+    "summaryEs": "PowerShell interactivo mediante WinRM.",
+    "aliases": ["winrm", "powershell remote", "shell windows", "5985"],
+    "phases": ["exploitation", "post-exploitation", "active-directory"],
+    "recipes": [
+      ["Password authentication", "Autenticación con contraseña", "evil-winrm -i TARGET -u USER -p PASSWORD"]
+    ]
+  },
+  {
+    "name": "responder",
+    "summaryEn": "Analyze and poison local name-resolution protocols in authorized labs.",
+    "summaryEs": "Analiza y envenena protocolos locales de resolución en laboratorios autorizados.",
+    "aliases": ["llmnr", "nbt-ns", "mdns", "capture hashes", "capturar hashes"],
+    "phases": ["credential-access", "active-directory"],
+    "recipes": [
+      ["Analyze mode first", "Primero modo análisis", "sudo responder -I INTERFACE -A"],
+      ["Authorized lab run", "Ejecución en laboratorio", "sudo responder -I INTERFACE -wF"]
+    ]
+  },
+  {
+    "name": "linpeas",
+    "summaryEn": "Automated Linux privilege-escalation enumeration.",
+    "summaryEs": "Enumeración automatizada de escalada de privilegios en Linux.",
+    "aliases": ["linux privilege escalation", "privesc linux", "escalar privilegios", "peas"],
+    "phases": ["privilege-escalation", "post-exploitation"],
+    "recipes": [
+      ["Run locally", "Ejecutar localmente", "linpeas | tee linpeas.txt"]
+    ]
+  },
+  {
+    "name": "winpeas",
+    "summaryEn": "Automated Windows privilege-escalation enumeration.",
+    "summaryEs": "Enumeración automatizada de escalada de privilegios en Windows.",
+    "aliases": ["windows privilege escalation", "privesc windows", "escalar privilegios", "peas"],
+    "phases": ["privilege-escalation", "post-exploitation"],
+    "recipes": [
+      ["Locate installed payload", "Localizar payload instalado", "dpkg -L peass | grep -i winPEAS"]
+    ]
+  },
+  {
+    "name": "proxychains4",
+    "summaryEn": "Route supported TCP clients through configured proxies.",
+    "summaryEs": "Enruta clientes TCP compatibles mediante proxies configurados.",
+    "aliases": ["pivot", "tunnel", "túnel", "socks", "proxy"],
+    "phases": ["pivoting", "lateral-movement"],
+    "recipes": [
+      ["Run through proxy", "Ejecutar mediante proxy", "proxychains4 -q nmap -sT -Pn -p PORTS TARGET"]
+    ]
+  },
+  {
+    "name": "socat",
+    "summaryEn": "Bidirectional relay for ports, sockets and terminal channels.",
+    "summaryEs": "Relé bidireccional para puertos, sockets y canales de terminal.",
+    "aliases": ["relay", "port forward", "reenviar puerto", "listener", "tty"],
+    "phases": ["pivoting", "file-transfer", "post-exploitation"],
+    "recipes": [
+      ["TCP port relay", "Relé de puerto TCP", "socat TCP-LISTEN:LOCAL_PORT,fork TCP:DESTINATION:DEST_PORT"]
+    ]
+  },
+  {
+    "name": "netcat",
+    "summaryEn": "General TCP/UDP client and listener for lab diagnostics.",
+    "summaryEs": "Cliente y listener TCP/UDP general para diagnóstico de laboratorio.",
+    "aliases": ["nc", "listener", "escuchar puerto", "connect port", "banner"],
+    "phases": ["enumeration", "file-transfer", "post-exploitation"],
+    "recipes": [
+      ["Listen on a port", "Escuchar un puerto", "nc -lvnp PORT"],
+      ["Connect and inspect", "Conectar e inspeccionar", "nc -nv TARGET PORT"]
+    ]
+  },
+  {
+    "name": "tcpdump",
+    "summaryEn": "Capture and inspect packets from the command line.",
+    "summaryEs": "Captura e inspecciona paquetes desde terminal.",
+    "aliases": ["pcap", "capture traffic", "capturar tráfico", "packets", "paquetes"],
+    "phases": ["recon", "post-exploitation", "forensics"],
+    "recipes": [
+      ["Capture to file", "Capturar a archivo", "sudo tcpdump -i INTERFACE -nn -w capture.pcap"],
+      ["Read a capture", "Leer una captura", "tcpdump -nn -r capture.pcap"]
+    ]
+  },
+  {
+    "name": "starship",
+    "summaryEn": "Fast cross-shell prompt with contextual modules.",
+    "summaryEs": "Prompt rápido con módulos contextuales para varias shells.",
+    "aliases": ["prompt", "terminal bonito", "shell prompt"],
+    "phases": ["workflow"],
+    "recipes": [["Configuration", "Configuración", "starship config"]]
+  },
+  {
+    "name": "zellij",
+    "summaryEn": "Terminal workspace and session multiplexer.",
+    "summaryEs": "Espacio de trabajo y multiplexor de sesiones de terminal.",
+    "aliases": ["multiplexer", "tmux alternative", "paneles terminal", "sesiones"],
+    "phases": ["workflow"],
+    "recipes": [["Start", "Iniciar", "zellij"], ["Sessions", "Sesiones", "zellij list-sessions"]]
+  },
+  {
+    "name": "fzf",
+    "summaryEn": "Fuzzy finder for files, history and command output.",
+    "summaryEs": "Buscador difuso para archivos, historial y salida de comandos.",
+    "aliases": ["fuzzy finder", "buscar historial", "buscar archivos", "ctrl r"],
+    "phases": ["workflow"],
+    "recipes": [["Search history", "Buscar historial", "Ctrl+R"], ["Search files", "Buscar archivos", "Ctrl+T"]]
+  },
+  {
+    "name": "zoxide",
+    "summaryEn": "Directory jumper that learns frequently used paths.",
+    "summaryEs": "Navegador de directorios que aprende las rutas frecuentes.",
+    "aliases": ["jump directory", "saltar carpeta", "cd inteligente", "z command"],
+    "phases": ["workflow"],
+    "recipes": [["Jump by name", "Saltar por nombre", "z PARTIAL_PATH"], ["Interactive jump", "Salto interactivo", "zi"]]
+  },
+  {
+    "name": "eza",
+    "summaryEn": "Modern directory listing command, available without replacing ls.",
+    "summaryEs": "Listado moderno de directorios, disponible sin sustituir ls.",
+    "aliases": ["list files", "listar archivos", "modern ls", "tree"],
+    "phases": ["workflow"],
+    "recipes": [["Detailed tree", "Árbol detallado", "eza --tree --level=2 --long --git"]]
+  },
+  {
+    "name": "bat",
+    "summaryEn": "Syntax-highlighted file viewer, available without replacing cat.",
+    "summaryEs": "Visor de archivos con resaltado, disponible sin sustituir cat.",
+    "aliases": ["view file", "ver archivo", "syntax highlight", "cat color"],
+    "phases": ["workflow"],
+    "recipes": [["View a file", "Ver un archivo", "bat FILE"]]
+  }
+]
