@@ -1,68 +1,117 @@
-# OSCP Tool Cheatsheet
+<div align="center">
+  <img src="app/icon.svg" width="96" alt="OSCP Arsenal logo">
+  <h1>OSCP Arsenal</h1>
+  <p><strong>Offline-first OSCP tool reference and interactive methodology.</strong><br>
+  Referencia OSCP offline con buscador y rutas interactivas.</p>
 
-Offline-first searchable reference for the security tools actually installed on a Kali workstation. Search by tool name, audit phase or intent—even with partial names and small typos.
+  <p>
+    <a href="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/actions/workflows/build-all.yml"><img alt="Build" src="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/actions/workflows/build-all.yml/badge.svg"></a>
+    <a href="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/releases"><img alt="Release" src="https://img.shields.io/github/v/release/0xCyberBerserker/oscp-tool-cheatsheet?color=58a6ff"></a>
+    <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-58a6ff.svg"></a>
+    <img alt="No telemetry" src="https://img.shields.io/badge/telemetry-none-2ea043.svg">
+  </p>
 
-## Features
+  <p>
+    <a href="https://0xcyberberserker.github.io/oscp-tool-cheatsheet/"><strong>Open the PWA</strong></a>
+    ·
+    <a href="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/releases/latest">Downloads</a>
+    ·
+    <a href="#español">Español</a>
+  </p>
+</div>
 
-- Verified live inventory rather than a generic Kali catalog.
-- Search in English and Spanish across names, phases, objectives and synonyms.
-- Fuzzy matching for forgotten or misspelled program names.
-- OSCP-oriented phases: reconnaissance, enumeration, web, exploitation, post-exploitation, privilege escalation, Active Directory, pivoting and more.
-- A complete sheet for all 201 tools: purpose, syntax, key options or controls, an operational template, and source provenance.
-- Reviewed operational guides are repository-authored; the remaining inventory entries are identified as package references rather than copied documentation.
-- Readable mode enabled by default, full keyboard navigation and reduced-motion support.
-- Installable PWA with 16 interactive public paths, device-local progress and notes, and verified offline fallback.
-- No telemetry, CDN, remote fonts or runtime network requirement.
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/search.png" alt="Bilingual fuzzy tool search"></td>
+    <td width="50%"><img src="docs/screenshots/interactive-paths.png" alt="Interactive OSCP methodology paths"></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>201 searchable tool sheets</strong></td>
+    <td align="center"><strong>16 interactive paths</strong></td>
+  </tr>
+</table>
 
-## Quick start
+## English
+
+### What it is
+
+OSCP Arsenal is a dependency-free reference built from a verified Kali workstation inventory. It helps you find the right installed tool by name, audit phase or intent, even when the name is incomplete or slightly misspelled.
+
+It also includes interactive public methodology paths with device-local progress and notes. Nothing is uploaded: the PWA has no telemetry, remote fonts, CDN or runtime backend.
+
+### Highlights
+
+- 201 complete sheets with purpose, syntax, operational recipes and provenance.
+- English and Spanish search across tools, phases, objectives and synonyms.
+- Typo-tolerant fuzzy matching with bounded input and keyboard navigation.
+- 16 interactive paths covering assessment, reconnaissance, enumeration, web, credentials, exploitation, privilege escalation, Active Directory, pivoting and reporting.
+- Installable PWA with verified offline reload.
+- Readable mode, light/dark themes and reduced-motion support.
+- Native Qt 6/QML reader for Linux, Windows and Android.
+- Local-only progress and notes; no accounts or synchronization.
+
+### Use it
+
+The fastest option is the hosted PWA:
+
+**[Launch OSCP Arsenal](https://0xcyberberserker.github.io/oscp-tool-cheatsheet/)**
+
+For offline desktop use from this repository:
 
 ```bash
 ./scripts/test.sh
 ./scripts/install.sh
 ```
 
-The installer creates application-menu and desktop launchers. The site also works directly through `app/index.html`. When served through HTTPS or localhost, it can be installed as a PWA; the `file://` workflow remains supported.
+The installer creates application-menu and desktop launchers. `app/index.html` also works directly through `file://`; installation as a PWA requires HTTPS or localhost.
 
-### Native knowledge paths preview
-
-The Qt 6/QML client reads the versioned packs in `knowledge/`, follows the system
-palette and stores progress and local notes in the current user profile:
+Native Qt preview:
 
 ```bash
 ./scripts/test-native.sh
 ./scripts/install-native.sh
 ```
 
-### CI artifacts
+### Build and verify
 
-`.github/workflows/build-all.yml` builds separate artifacts for:
+```bash
+python3 scripts/build_data.py
+python3 scripts/build_knowledge.py
+./scripts/test.sh
+```
 
-- Web PWA.
-- Linux x86_64 and ARM64.
-- Windows x86_64 portable bundle and MSI.
-- Android ARM64 APK, signed with the dedicated project release key only on non-PR `main` builds.
-- GitHub OIDC/Sigstore provenance for Linux binaries, the Windows MSI and Android APKs on `main`.
+GitHub Actions builds separate Web PWA, Linux x86_64/ARM64, Windows portable/MSI and Android ARM64 artifacts. Release builds from `main` include GitHub OIDC/Sigstore provenance; the Android APK is release-signed only on non-PR `main` builds.
 
-The Web PWA is the only artifact deployed automatically, and only from `main`.
-Linux artifacts require a compatible Qt 6.8 runtime.
-
-Release provenance is keyless: GitHub Actions requests a short-lived Sigstore
-certificate bound to this repository and workflow. No private signing key is stored.
-Verify a downloaded binary, MSI or APK with:
+Verify a downloaded artifact:
 
 ```bash
 gh attestation verify ARTIFACT --repo 0xCyberBerserker/oscp-tool-cheatsheet
 ```
 
-The MSI provenance is not an embedded commercial Authenticode certificate, so Windows
-may still display an unknown-publisher warning.
+<details>
+<summary>Android release certificate fingerprint</summary>
 
-Android release certificate SHA-256 fingerprint:
-`08:26:6A:81:B6:E4:4E:80:81:42:CD:9E:2D:BB:D6:3E:7A:EF:16:01:98:25:12:EB:7A:69:BC:3C:FD:45:66:66`.
+```text
+08:26:6A:81:B6:E4:4E:80:81:42:CD:9E:2D:BB:D6:3E:7A:EF:16:01:98:25:12:EB:7A:69:BC:3C:FD:45:66:66
+```
 
-## Refresh the inventory
+</details>
 
-Run the inventory collector on the Kali system, copy the JSON file into `data/`, then rebuild:
+### Repository map
+
+```text
+app/          Static PWA
+data/         Verified inventory and curated recipes
+knowledge/    Portable public knowledge packs and schemas
+native/       Qt 6/QML reader
+packaging/    Desktop launchers
+scripts/      Build, test and installation commands
+tests/        Data, HTML, search and knowledge checks
+```
+
+### Refresh the Kali inventory
+
+Run the collector on Kali, review the generated data, then rebuild:
 
 ```bash
 python3 scripts/inventory_kali.py /tmp/kali-tools.json
@@ -70,77 +119,93 @@ python3 scripts/build_data.py
 ./scripts/test.sh
 ```
 
-## Safety
+### Authorized use only
 
-Command examples use placeholders and are intended only for systems and laboratories where testing is explicitly authorized.
+Command examples use placeholders and are intended only for systems and laboratories where testing is explicitly authorized. Personal writeups, private targets, credentials and infrastructure-specific integrations do not belong in this public repository.
 
 ---
 
-# Cheatsheet de herramientas OSCP
+## Español
 
-Referencia buscable y preparada para uso offline de las herramientas de seguridad realmente instaladas en una estación Kali. Permite buscar por programa, fase de auditoría o intención, incluso con nombres incompletos y pequeños errores.
+### Qué es
 
-## Funciones
+OSCP Arsenal es una referencia sin dependencias construida desde un inventario verificado de una estación Kali. Permite encontrar la herramienta instalada adecuada por nombre, fase de auditoría o intención, incluso si el nombre está incompleto o contiene pequeños errores.
 
-- Inventario vivo verificado, no un catálogo genérico de Kali.
-- Búsqueda en English y Español por nombres, fases, objetivos y sinónimos.
-- Búsqueda difusa para nombres olvidados o escritos con errores.
-- Fases orientadas a OSCP: reconocimiento, enumeración, web, explotación, post-explotación, escalada, Active Directory, pivoting y más.
-- Una ficha completa para las 201 herramientas: propósito, sintaxis, opciones o controles clave, plantilla operativa y procedencia.
-- Las guías operativas revisadas son contenido propio del repositorio; el resto del inventario se identifica como referencia de paquete y no como documentación copiada.
-- Modo de lectura activado por defecto, navegación completa por teclado y movimiento reducido.
-- PWA instalable con 16 rutas públicas interactivas, progreso y notas locales al dispositivo y fallback offline verificado.
-- Sin telemetría, CDN, fuentes remotas ni necesidad de red durante el uso.
+También incluye rutas públicas de metodología interactiva con progreso y notas locales al dispositivo. Nada se sube: la PWA no contiene telemetría, fuentes remotas, CDN ni backend de runtime.
 
-## Inicio rápido
+### Funciones principales
+
+- 201 fichas completas con propósito, sintaxis, recetas operativas y procedencia.
+- Búsqueda en English y Español por herramientas, fases, objetivos y sinónimos.
+- Búsqueda difusa tolerante a errores, con entrada limitada y navegación por teclado.
+- 16 rutas interactivas sobre evaluación, reconocimiento, enumeración, web, credenciales, explotación, escalada, Active Directory, pivoting e informes.
+- PWA instalable con recarga offline verificada.
+- Modo de lectura, temas claro/oscuro y soporte para movimiento reducido.
+- Lector nativo Qt 6/QML para Linux, Windows y Android.
+- Progreso y notas exclusivamente locales, sin cuentas ni sincronización.
+
+### Uso
+
+La opción más rápida es la PWA publicada:
+
+**[Abrir OSCP Arsenal](https://0xcyberberserker.github.io/oscp-tool-cheatsheet/)**
+
+Para usarla offline desde este repositorio:
 
 ```bash
 ./scripts/test.sh
 ./scripts/install.sh
 ```
 
-El instalador crea accesos en el menú de aplicaciones y en el escritorio. La web también funciona directamente mediante `app/index.html`. Servida mediante HTTPS o localhost, puede instalarse como PWA; el flujo `file://` sigue siendo compatible.
+El instalador crea accesos en el menú de aplicaciones y en el escritorio. `app/index.html` también funciona directamente mediante `file://`; la instalación como PWA requiere HTTPS o localhost.
 
-### Vista previa nativa de rutas de conocimiento
-
-El cliente Qt 6/QML lee los paquetes versionados de `knowledge/`, respeta la paleta
-del sistema y guarda el progreso y las notas locales en el perfil actual:
+Vista previa nativa Qt:
 
 ```bash
 ./scripts/test-native.sh
 ./scripts/install-native.sh
 ```
 
-### Artefactos de CI
+### Compilación y verificación
 
-`.github/workflows/build-all.yml` genera artefactos separados para:
+```bash
+python3 scripts/build_data.py
+python3 scripts/build_knowledge.py
+./scripts/test.sh
+```
 
-- PWA web.
-- Linux x86_64 y ARM64.
-- Windows x86_64 portable y MSI.
-- APK Android ARM64, firmado con la clave de release dedicada solo en builds de `main` ajenas a una PR.
-- Procedencia GitHub OIDC/Sigstore para binarios Linux, MSI de Windows y APK de Android en `main`.
+GitHub Actions genera artefactos separados para PWA web, Linux x86_64/ARM64, Windows portable/MSI y Android ARM64. Los builds de release desde `main` incluyen procedencia GitHub OIDC/Sigstore; el APK Android solo se firma para release en builds de `main` ajenos a una PR.
 
-La PWA web es el único artefacto que se despliega automáticamente y solo desde `main`.
-Los artefactos Linux requieren un runtime Qt 6.8 compatible.
-
-La procedencia de release no usa claves persistentes: GitHub Actions solicita un
-certificado Sigstore de vida corta ligado a este repositorio y workflow. No se almacena
-ninguna clave privada. Verifica un binario, MSI o APK descargado mediante:
+Verifica un artefacto descargado:
 
 ```bash
 gh attestation verify ARTEFACTO --repo 0xCyberBerserker/oscp-tool-cheatsheet
 ```
 
-La procedencia del MSI no es un certificado Authenticode comercial embebido; Windows
-puede seguir mostrando el aviso de editor desconocido.
+<details>
+<summary>Huella del certificado de release Android</summary>
 
-Huella SHA-256 del certificado de release Android:
-`08:26:6A:81:B6:E4:4E:80:81:42:CD:9E:2D:BB:D6:3E:7A:EF:16:01:98:25:12:EB:7A:69:BC:3C:FD:45:66:66`.
+```text
+08:26:6A:81:B6:E4:4E:80:81:42:CD:9E:2D:BB:D6:3E:7A:EF:16:01:98:25:12:EB:7A:69:BC:3C:FD:45:66:66
+```
 
-## Actualizar el inventario
+</details>
 
-Ejecuta el recolector de inventario en Kali, copia el JSON dentro de `data/` y reconstruye:
+### Estructura del repositorio
+
+```text
+app/          PWA estática
+data/         Inventario verificado y recetas revisadas
+knowledge/    Paquetes públicos portables y esquemas
+native/       Lector Qt 6/QML
+packaging/    Lanzadores de escritorio
+scripts/      Comandos de build, pruebas e instalación
+tests/        Comprobaciones de datos, HTML, búsqueda y conocimiento
+```
+
+### Actualizar el inventario de Kali
+
+Ejecuta el recolector en Kali, revisa los datos generados y reconstruye:
 
 ```bash
 python3 scripts/inventory_kali.py /tmp/kali-tools.json
@@ -148,8 +213,10 @@ python3 scripts/build_data.py
 ./scripts/test.sh
 ```
 
-## Seguridad
+### Solo para uso autorizado
 
-Los comandos usan placeholders y están destinados únicamente a sistemas y laboratorios donde exista autorización explícita.
+Los comandos utilizan placeholders y están destinados únicamente a sistemas y laboratorios donde exista autorización explícita. Los writeups personales, objetivos privados, credenciales e integraciones específicas de una infraestructura no pertenecen a este repositorio público.
 
-Made with 🖤 in Barcelona City 🇪🇸
+<div align="center">
+  <strong>Made with 🖤 in Barcelona City 🇪🇸</strong>
+</div>
