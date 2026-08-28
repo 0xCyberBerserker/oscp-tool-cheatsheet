@@ -18,7 +18,7 @@ Select a phase in the left navigation. Enable **Detailed recipes only** to show 
 
 ### Readability
 
-The readable mode is enabled by default. `Aa · Readable` toggles wider spacing and a highly distinguishable font stack. The sun/moon button changes theme and `EN/ES` changes language. Preferences remain in the local browser profile.
+The monospaced mode is enabled by default. `Aa · Mono` toggles a local monospace font stack and wider spacing. The sun/moon button changes theme and `EN/ES` changes language. Preferences remain in the local browser profile.
 
 ### Troubleshooting
 
@@ -44,7 +44,7 @@ Selecciona una fase en la navegación lateral. Activa **Solo recetas detalladas*
 
 ### Legibilidad
 
-El modo de lectura está activado por defecto. `Aa · Dislexia` alterna un espaciado mayor y una pila tipográfica más distinguible. El botón de sol/luna cambia el tema y `EN/ES` cambia el idioma. Las preferencias permanecen en el perfil local del navegador.
+El modo monoespaciado está activado por defecto. `Aa · Mono` alterna una pila de fuentes monoespaciadas locales y un espaciado mayor. El botón de sol/luna cambia el tema y `EN/ES` cambia el idioma. Las preferencias permanecen en el perfil local del navegador.
 
 ### Resolución de problemas
 

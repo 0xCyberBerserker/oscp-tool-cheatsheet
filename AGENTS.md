@@ -15,7 +15,7 @@ This repository contains a dependency-free, offline-first OSCP tool reference ge
 - Never include real credentials, private targets, customer data or internal infrastructure details.
 - Commands are examples for authorized labs. Use placeholders such as `TARGET`, `DOMAIN`, `USER` and `PASSWORD`.
 - Do not replace classic shell commands through aliases.
-- Preserve keyboard navigation, reduced-motion support and the readable mode.
+- Preserve keyboard navigation, reduced-motion support and the monospaced mode.
 
 ## Español
 
@@ -32,4 +32,4 @@ Este repositorio contiene una referencia OSCP sin dependencias y preparada para 
 - Nunca incluyas credenciales reales, objetivos privados, datos de clientes o detalles internos de infraestructura.
 - Los comandos son ejemplos para laboratorios autorizados. Usa placeholders como `TARGET`, `DOMAIN`, `USER` y `PASSWORD`.
 - No sustituyas comandos clásicos de shell mediante aliases.
-- Conserva navegación por teclado, soporte para movimiento reducido y el modo de lectura.
+- Conserva navegación por teclado, soporte para movimiento reducido y el modo monoespaciado.

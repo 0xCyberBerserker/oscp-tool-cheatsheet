@@ -43,7 +43,7 @@ body {
 [data-readable="true"] body,
 [data-readable="true"] input,
 [data-readable="true"] button {
-  font-family: Verdana, "Segoe UI", sans-serif;
+  font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", "Noto Sans Mono", monospace;
   letter-spacing: 0.025em;
   word-spacing: 0.075em;
 }

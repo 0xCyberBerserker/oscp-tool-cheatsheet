@@ -46,7 +46,7 @@ It also includes interactive public methodology paths with device-local progress
 - Typo-tolerant fuzzy matching with bounded input and keyboard navigation.
 - 16 interactive paths covering assessment, reconnaissance, enumeration, web, credentials, exploitation, privilege escalation, Active Directory, pivoting and reporting.
 - Installable PWA with verified offline reload.
-- Readable mode, light/dark themes and reduced-motion support.
+- Monospaced mode, light/dark themes and reduced-motion support.
 - Native Qt 6/QML reader for Linux, Windows and Android.
 - Local-only progress and notes; no accounts or synchronization.
 
@@ -140,7 +140,7 @@ También incluye rutas públicas de metodología interactiva con progreso y nota
 - Búsqueda difusa tolerante a errores, con entrada limitada y navegación por teclado.
 - 16 rutas interactivas sobre evaluación, reconocimiento, enumeración, web, credenciales, explotación, escalada, Active Directory, pivoting e informes.
 - PWA instalable con recarga offline verificada.
-- Modo de lectura, temas claro/oscuro y soporte para movimiento reducido.
+- Modo monoespaciado, temas claro/oscuro y soporte para movimiento reducido.
 - Lector nativo Qt 6/QML para Linux, Windows y Android.
 - Progreso y notas exclusivamente locales, sin cuentas ni sincronización.
 

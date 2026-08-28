@@ -421,7 +421,7 @@
     nodes["empty-state"].textContent = text.empty;
     nodes["scope-note"].textContent = text.scope;
     nodes["language-toggle"].textContent = state.language === "es" ? "EN" : "ES";
-    nodes["readable-toggle"].textContent = state.language === "es" ? "Aa · Dislexia" : "Aa · Readable";
+    nodes["readable-toggle"].textContent = "Aa · Mono";
     nodes["tools-mode"].textContent = text.toolsMode;
     nodes["paths-mode"].textContent = text.pathsMode;
     nodes["path-index-title"].textContent = text.pathIndex;
