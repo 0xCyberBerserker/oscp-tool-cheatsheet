@@ -9,6 +9,7 @@
   const params = new URLSearchParams(window.location.search);
   const requestedLanguage = params.get("lang");
   const requestedPhase = params.get("phase");
+  const SYNC_ORIGIN = "https://oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev";
 
   function storedObject(key) {
     try {
@@ -48,6 +49,8 @@
   let syncedVaultId = "";
   let profileSyncConflict = false;
   let profileStorageFailed = false;
+  let profileCreationReady = false;
+  let selectedProfileSubject = "";
 
   const copy = {
     es: {
@@ -101,20 +104,26 @@
       profile: "Perfil cifrado",
       profileLocked: "Perfil cifrado bloqueado.",
       profileUnlocked: "Perfil cifrado desbloqueado.",
-      profileAnonymous: "Sin sesión GitHub. Los datos locales aún no están cifrados.",
-      profileUnavailable: "La sincronización cifrada aún no está desplegada en este origen.",
+      profileAnonymous: "Elige GitHub para sincronizar o continúa anónimamente en este dispositivo.",
+      profileAnonymousReady: "Modo anónimo. Crea un perfil cifrado local con la clave generada.",
       profileChecking: "Comprobando el perfil local cifrado…",
       profileConflict: "Conflicto de sincronización: se conserva la copia local sin sobrescribir la nube.",
       profileReady: "Cuenta GitHub verificada. Crea el perfil cifrado.",
-      connectGithub: "Conectar GitHub",
-      passphrase: "Frase de cifrado independiente",
-      confirmPassphrase: "Repetir frase",
-      createProfile: "Crear y migrar",
+      connectGithub: "Entrar con GitHub",
+      continueAnonymous: "Continuar anónimamente",
+      passphrase: "Clave de recuperación",
+      showKey: "Mostrar",
+      hideKey: "Ocultar",
+      copyKey: "Copiar clave",
+      downloadKey: "Descargar clave",
+      keyCopied: "Clave copiada",
+      createProfile: "Crear perfil",
       unlockProfile: "Desbloquear",
       lockProfile: "Bloquear",
       logoutGithub: "Cerrar sesión GitHub",
-      profileWarning: "GitHub identifica la cuenta, pero no puede descifrar tus datos. Si pierdes la frase, pierdes el acceso.",
-      passphraseMismatch: "Las frases no coinciden o tienen menos de 16 caracteres.",
+      profileWarning: "Guarda esta clave. Cifra tus datos y no puede recuperarse desde GitHub.",
+      anonymousWarning: "Modo anónimo: el perfil cifrado solo existe en este navegador.",
+      passphraseMismatch: "La clave debe tener al menos 16 caracteres.",
       profileError: "No se pudo abrir el perfil cifrado.",
       profileStorageError: "Almacenamiento cifrado no disponible. Edición bloqueada para evitar guardar datos en claro.",
     },
@@ -169,20 +178,26 @@
       profile: "Encrypted profile",
       profileLocked: "Encrypted profile locked.",
       profileUnlocked: "Encrypted profile unlocked.",
-      profileAnonymous: "No GitHub session. Local data is not encrypted yet.",
-      profileUnavailable: "Encrypted sync is not deployed on this origin yet.",
+      profileAnonymous: "Choose GitHub sync or continue anonymously on this device.",
+      profileAnonymousReady: "Anonymous mode. Create a local encrypted profile with the generated key.",
       profileChecking: "Checking the local encrypted profile…",
       profileConflict: "Synchronization conflict: the local copy is preserved without overwriting cloud data.",
       profileReady: "GitHub account verified. Create the encrypted profile.",
-      connectGithub: "Connect GitHub",
-      passphrase: "Independent encryption passphrase",
-      confirmPassphrase: "Repeat passphrase",
-      createProfile: "Create and migrate",
+      connectGithub: "Log in with GitHub",
+      continueAnonymous: "Continue anonymously",
+      passphrase: "Recovery key",
+      showKey: "Show",
+      hideKey: "Hide",
+      copyKey: "Copy key",
+      downloadKey: "Download key",
+      keyCopied: "Key copied",
+      createProfile: "Create profile",
       unlockProfile: "Unlock",
       lockProfile: "Lock",
       logoutGithub: "Sign out from GitHub",
-      profileWarning: "GitHub identifies the account but cannot decrypt your data. Losing the passphrase means losing access.",
-      passphraseMismatch: "Passphrases do not match or contain fewer than 16 characters.",
+      profileWarning: "Save this key. It encrypts your data and cannot be recovered through GitHub.",
+      anonymousWarning: "Anonymous mode: the encrypted profile only exists in this browser.",
+      passphraseMismatch: "The key must contain at least 16 characters.",
       profileError: "Unable to open the encrypted profile.",
       profileStorageError: "Encrypted storage is unavailable. Editing is blocked to prevent plaintext fallback.",
     },
@@ -199,9 +214,9 @@
     "path-title", "step-count", "path-summary", "path-body", "path-source", "notes-title",
     "notes-scope", "local-note", "save-note",
     "previous-step", "complete-step", "next-step", "offline-status", "profile-open",
-    "profile-dialog", "profile-title", "profile-status", "github-connect", "profile-unlock",
-    "profile-passphrase", "profile-passphrase-confirm", "profile-passphrase-label",
-    "profile-confirm-label", "profile-action", "profile-lock", "github-logout", "profile-warning",
+    "profile-dialog", "profile-title", "profile-status", "github-connect", "anonymous-connect", "profile-unlock",
+    "profile-passphrase", "profile-passphrase-label", "profile-key-toggle", "profile-key-actions",
+    "profile-key-copy", "profile-key-download", "profile-action", "profile-lock", "github-logout", "profile-warning",
   ].map((id) => [id, document.getElementById(id)]));
 
   function element(tag, className, text) {
@@ -249,7 +264,7 @@
     showToast.timer = window.setTimeout(() => nodes.toast.classList.remove("visible"), 1600);
   }
 
-  async function copyCommand(command) {
+  async function copyCommand(command, confirmation = copy[state.language].copied) {
     try {
       await navigator.clipboard.writeText(command);
     } catch (_) {
@@ -260,7 +275,40 @@
       document.execCommand("copy");
       area.remove();
     }
-    showToast(copy[state.language].copied);
+    showToast(confirmation);
+  }
+
+  function randomBase64Url(size) {
+    const bytes = crypto.getRandomValues(new Uint8Array(size));
+    let binary = "";
+    for (const byte of bytes) binary += String.fromCharCode(byte);
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/u, "");
+  }
+
+  function generateRecoveryKey() {
+    return `oscp-${randomBase64Url(24)}`;
+  }
+
+  function prepareProfileCreation(subject) {
+    selectedProfileSubject = subject;
+    profileCreationReady = true;
+    profileStore.selectSubject(subject);
+    nodes["profile-passphrase"].value = generateRecoveryKey();
+    nodes["profile-passphrase"].type = "password";
+    renderProfile();
+  }
+
+  function downloadRecoveryKey() {
+    const key = nodes["profile-passphrase"].value;
+    if ([...key].length < 16) return;
+    const label = state.language === "es" ? "Clave de recuperación" : "Recovery key";
+    const blob = new Blob([`OSCP Arsenal\n${label}: ${key}\n`], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = element("a");
+    link.href = url;
+    link.download = "oscp-arsenal-recovery-key.txt";
+    link.click();
+    URL.revokeObjectURL(url);
   }
 
   function renderTool(tool) {
@@ -615,14 +663,18 @@
 
   function renderProfile() {
     const text = copy[state.language];
+    const anonymousProfile = selectedProfileSubject.startsWith("local1_");
     nodes["profile-open"].textContent = text.profile;
     nodes["profile-title"].textContent = text.profile;
     nodes["github-connect"].textContent = text.connectGithub;
+    nodes["anonymous-connect"].textContent = text.continueAnonymous;
     nodes["profile-passphrase-label"].textContent = text.passphrase;
-    nodes["profile-confirm-label"].textContent = text.confirmPassphrase;
+    nodes["profile-key-toggle"].textContent = nodes["profile-passphrase"].type === "password" ? text.showKey : text.hideKey;
+    nodes["profile-key-copy"].textContent = text.copyKey;
+    nodes["profile-key-download"].textContent = text.downloadKey;
     nodes["profile-lock"].textContent = text.lockProfile;
     nodes["github-logout"].textContent = text.logoutGithub;
-    nodes["profile-warning"].textContent = text.profileWarning;
+    nodes["profile-warning"].textContent = anonymousProfile ? text.anonymousWarning : text.profileWarning;
     nodes["profile-status"].textContent = profileStorageFailed
       ? text.profileStorageError
       : profileSyncConflict
@@ -635,14 +687,15 @@
         ? text.profileLocked
           : authenticatedSubject
           ? text.profileReady
-          : syncAvailable
-            ? text.profileAnonymous
-            : text.profileUnavailable;
-    nodes["github-connect"].hidden = Boolean(authenticatedSubject) || !syncAvailable;
+          : profileCreationReady
+            ? text.profileAnonymousReady
+            : text.profileAnonymous;
+    nodes["github-connect"].hidden = Boolean(authenticatedSubject) || profileHasVault || profileCreationReady;
+    nodes["anonymous-connect"].hidden = Boolean(authenticatedSubject) || profileHasVault || profileCreationReady;
     nodes["github-logout"].hidden = !authenticatedSubject;
-    nodes["profile-unlock"].hidden = profileUnlocked || (!profileHasVault && !authenticatedSubject);
-    nodes["profile-passphrase-confirm"].hidden = profileHasVault;
-    nodes["profile-confirm-label"].hidden = profileHasVault;
+    nodes["profile-unlock"].hidden = profileUnlocked || (!profileHasVault && !profileCreationReady);
+    nodes["profile-key-actions"].hidden = profileHasVault;
+    nodes["profile-passphrase"].autocomplete = profileHasVault ? "current-password" : "new-password";
     nodes["profile-action"].textContent = profileHasVault ? text.unlockProfile : text.createProfile;
     nodes["profile-lock"].hidden = !profileUnlocked;
     const privateStateLocked = !profileInitialized || profileStorageFailed || (profileHasVault && !profileUnlocked);
@@ -774,30 +827,49 @@
   });
   nodes["profile-open"].addEventListener("click", () => nodes["profile-dialog"].showModal());
   nodes["profile-dialog"].addEventListener("close", () => {
-    nodes["profile-passphrase"].value = "";
-    nodes["profile-passphrase-confirm"].value = "";
+    if (profileHasVault) nodes["profile-passphrase"].value = "";
+    nodes["profile-passphrase"].type = "password";
+    nodes["profile-key-toggle"].setAttribute("aria-pressed", "false");
   });
-  nodes["github-connect"].addEventListener("click", () => window.location.assign("/auth/github/start"));
+  nodes["github-connect"].addEventListener("click", () => window.location.assign(`${SYNC_ORIGIN}/auth/github/start`));
+  nodes["anonymous-connect"].addEventListener("click", () => {
+    if (!profileStore || profileStorageFailed) {
+      showToast(copy[state.language].profileStorageError);
+      return;
+    }
+    prepareProfileCreation(`local1_${randomBase64Url(32)}`);
+  });
+  nodes["profile-key-toggle"].addEventListener("click", () => {
+    const reveal = nodes["profile-passphrase"].type === "password";
+    nodes["profile-passphrase"].type = reveal ? "text" : "password";
+    nodes["profile-key-toggle"].setAttribute("aria-pressed", String(reveal));
+    renderProfile();
+  });
+  nodes["profile-key-copy"].addEventListener("click", () => {
+    copyCommand(nodes["profile-passphrase"].value, copy[state.language].keyCopied);
+  });
+  nodes["profile-key-download"].addEventListener("click", downloadRecoveryKey);
   nodes["profile-action"].addEventListener("click", async () => {
     const text = copy[state.language];
     const passphrase = nodes["profile-passphrase"].value;
-    const confirmation = nodes["profile-passphrase-confirm"].value;
     nodes["profile-action"].disabled = true;
     try {
       if (profileHasVault) {
         const unlocked = await profileStore.unlock(passphrase);
-        if (authenticatedSubject && unlocked.subject !== authenticatedSubject) throw new Error("Account mismatch");
+        if (selectedProfileSubject && unlocked.subject !== selectedProfileSubject) throw new Error("Account mismatch");
       } else {
-        if (!authenticatedSubject || passphrase !== confirmation || [...passphrase].length < 16) {
+        const subject = authenticatedSubject || selectedProfileSubject;
+        if (!subject || [...passphrase].length < 16) {
           showToast(text.passphraseMismatch);
           return;
         }
-        await profileStore.create(authenticatedSubject, passphrase, { private_state: privateSnapshot() });
+        await profileStore.create(subject, passphrase, { private_state: privateSnapshot() });
         const verified = await profileStore.load("private_state");
         if (JSON.stringify(verified) !== JSON.stringify(privateSnapshot())) throw new Error("Migration verification failed");
         localStorage.removeItem("oscp-path-notes");
         localStorage.removeItem("oscp-path-completed");
         profileHasVault = true;
+        profileCreationReady = false;
         try {
           const localVault = await profileStore.exportVault();
           const response = await syncPut("/api/v1/vault", { revision: 1, baseRevision: 0, envelope: localVault });
@@ -816,13 +888,13 @@
       try { await pushPrivateRecord(); } catch (_) { /* Retry remains backed by the local encrypted record. */ }
       profileUnlocked = true;
       render();
+      nodes["profile-dialog"].close();
     } catch (_) {
       if (profileStore) profileStore.lock();
       profileUnlocked = false;
       showToast(text.profileError);
     } finally {
       nodes["profile-passphrase"].value = "";
-      nodes["profile-passphrase-confirm"].value = "";
       nodes["profile-action"].disabled = false;
     }
   });
@@ -897,7 +969,10 @@
         crypto: window.OSCPProfileCrypto,
       });
       const localSubject = await profileStore.activeSubject();
-      if (localSubject) profileStore.selectSubject(localSubject);
+      if (localSubject) {
+        selectedProfileSubject = localSubject;
+        profileStore.selectSubject(localSubject);
+      }
       profileHasVault = localSubject ? await profileStore.hasVault(localSubject) : false;
       if (profileHasVault) {
         state.notes = {};
@@ -916,6 +991,7 @@
           authenticatedSubject = typeof session.subject === "string" ? session.subject : "";
           if (/^gh1_[A-Za-z0-9_-]{43}$/u.test(authenticatedSubject)) {
             profileStore.lock();
+            selectedProfileSubject = authenticatedSubject;
             profileStore.selectSubject(authenticatedSubject);
             profileHasVault = await profileStore.hasVault(authenticatedSubject);
             if (profileHasVault) {
@@ -924,6 +1000,8 @@
             } else {
               state.notes = legacyNotes;
               state.completed = legacyCompleted;
+              profileCreationReady = true;
+              nodes["profile-passphrase"].value = generateRecoveryKey();
             }
             const vaultResponse = await fetch("/api/v1/vault", { credentials: "include", cache: "no-store" });
             if (vaultResponse.ok && vaultResponse.headers.get("Content-Type")?.includes("application/json")) {
@@ -932,6 +1010,7 @@
                 if (!profileHasVault) {
                   await profileStore.importVault(remote.envelope);
                   profileHasVault = true;
+                  profileCreationReady = false;
                   state.notes = {};
                   state.completed = {};
                 }
@@ -956,6 +1035,12 @@
     }
     profileInitialized = true;
     render();
+    if (params.get("auth") === "connected") {
+      nodes["profile-dialog"].showModal();
+      const next = new URL(window.location.href);
+      next.searchParams.delete("auth");
+      window.history.replaceState(null, "", next);
+    }
   })();
   if (window.location.protocol.startsWith("http") && "serviceWorker" in navigator) {
     navigator.serviceWorker.register("service-worker.js");

@@ -8,6 +8,7 @@ const profileCrypto = require("../app/profile-crypto.js");
 
 const subject = `gh1_${Buffer.alloc(32, 7).toString("base64url")}`;
 const otherSubject = `gh1_${Buffer.alloc(32, 8).toString("base64url")}`;
+const localSubject = `local1_${Buffer.alloc(32, 9).toString("base64url")}`;
 const passphrase = "correct horse battery staple for OSCP";
 
 async function rejects(operation) {
@@ -25,6 +26,14 @@ async function rejects(operation) {
   assert.ok(!JSON.stringify(first).includes("private target note"), "envelope leaked plaintext");
   assert.equal(vault.kdf.iterations, 600000);
   assert.equal((await crypto.subtle.exportKey("raw", key).catch(() => null)), null, "DEK must not be extractable");
+
+  const localVault = await profileCrypto.createVault(localSubject, passphrase);
+  assert.equal(localVault.vault.binding.provider, "local");
+  await profileCrypto.unlockVault(localVault.vault, passphrase);
+  await assert.rejects(
+    profileCrypto.unlockVault({ ...localVault.vault, binding: { provider: "github", subject: localSubject } }, passphrase),
+    /Unsupported identity provider/u,
+  );
 
   await rejects(profileCrypto.unlockVault(vault, "this passphrase is definitely wrong"));
   await rejects(profileCrypto.unlockVault({ ...vault, binding: { provider: "github", subject: otherSubject } }, passphrase));

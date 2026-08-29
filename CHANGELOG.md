@@ -6,6 +6,11 @@ Todos los cambios relevantes siguen [Keep a Changelog](https://keepachangelog.co
 
 ## [Unreleased]
 
+### Added / Añadido
+
+- Added generated recovery keys with reveal, copy and download controls, plus a local-only anonymous encrypted mode.
+- Añadidas claves de recuperación generadas con controles para mostrar, copiar y descargar, además de un modo cifrado anónimo solo local.
+
 ## [0.3.0] - 2026-08-29
 
 ### Changed / Cambiado

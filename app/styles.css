@@ -48,6 +48,24 @@
   display: none;
 }
 
+.profile-entry-actions,
+.profile-key-actions,
+.profile-key-field {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.profile-entry-actions,
+.profile-key-actions {
+  flex-wrap: wrap;
+  margin-block: 1rem;
+}
+
+.profile-key-field input {
+  flex: 1;
+  min-width: 0;
+}
+
 .profile-dialog input {
   width: 100%;
   box-sizing: border-box;

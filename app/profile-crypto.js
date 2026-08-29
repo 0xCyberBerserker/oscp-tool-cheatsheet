@@ -12,7 +12,7 @@
   const SALT_BYTES = 32;
   const IV_BYTES = 12;
   const VAULT_ID_BYTES = 16;
-  const SUBJECT_PATTERN = /^gh1_[A-Za-z0-9_-]{43}$/;
+  const SUBJECT_PATTERN = /^(?:gh1|local1)_[A-Za-z0-9_-]{43}$/;
   const encoder = new TextEncoder();
   const decoder = new TextDecoder("utf-8", { fatal: true });
 
@@ -44,7 +44,11 @@
   }
 
   function validateSubject(subject) {
-    if (!SUBJECT_PATTERN.test(subject)) throw new Error("Invalid GitHub account subject");
+    if (!SUBJECT_PATTERN.test(subject)) throw new Error("Invalid profile subject");
+  }
+
+  function identityProvider(subject) {
+    return subject.startsWith("gh1_") ? "github" : "local";
   }
 
   function validatePassphrase(passphrase) {
@@ -63,7 +67,7 @@
     return encoder.encode(JSON.stringify({
       kind: "oscp-profile-key",
       schemaVersion: SCHEMA_VERSION,
-      provider: "github",
+      provider: identityProvider(subject),
       subject,
       vaultId,
     }));
@@ -113,7 +117,7 @@
     }
     validateSubject(vault.binding?.subject);
     validateVaultId(vault.vaultId);
-    if (vault.binding.provider !== "github") throw new Error("Unsupported identity provider");
+    if (vault.binding.provider !== identityProvider(vault.binding.subject)) throw new Error("Unsupported identity provider");
     if (vault.kdf?.name !== "PBKDF2" || vault.kdf.hash !== "SHA-256") {
       throw new Error("Unsupported key derivation function");
     }
@@ -148,7 +152,7 @@
       schemaVersion: SCHEMA_VERSION,
       cipher: "AES-256-GCM",
       vaultId,
-      binding: { provider: "github", subject },
+      binding: { provider: identityProvider(subject), subject },
       kdf: {
         name: "PBKDF2",
         hash: "SHA-256",

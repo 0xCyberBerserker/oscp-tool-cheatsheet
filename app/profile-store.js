@@ -76,8 +76,8 @@
     }
 
     function validateSubject(subject) {
-      if (typeof subject !== "string" || !/^gh1_[A-Za-z0-9_-]{43}$/u.test(subject)) {
-        throw new Error("Invalid GitHub account subject");
+      if (typeof subject !== "string" || !/^(?:gh1|local1)_[A-Za-z0-9_-]{43}$/u.test(subject)) {
+        throw new Error("Invalid profile subject");
       }
       return subject;
     }

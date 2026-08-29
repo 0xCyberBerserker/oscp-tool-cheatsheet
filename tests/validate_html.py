@@ -40,6 +40,8 @@ def main() -> int:
         "search", "phase-list", "results", "result-count", "language-toggle", "readable-toggle",
         "tools-mode", "paths-mode", "paths-view", "path-list", "step-roadmap", "path-progress",
         "path-body", "path-source", "local-note", "profile-open", "profile-dialog",
+        "github-connect", "anonymous-connect", "profile-passphrase", "profile-key-toggle",
+        "profile-key-copy", "profile-key-download",
     }
     assert required_ids <= parser.ids, f"missing ids: {required_ids - parser.ids}"
     for asset in parser.scripts + parser.stylesheets:
@@ -53,6 +55,9 @@ def main() -> int:
     assert (app_dir / "service-worker.js").is_file(), "missing service worker"
     service_worker = (app_dir / "service-worker.js").read_text(encoding="utf-8")
     assert 'key.startsWith("oscp-arsenal-")' in service_worker, "cache cleanup is not scoped"
+    app_script = (app_dir / "app.js").read_text(encoding="utf-8")
+    assert "oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev" in app_script, "missing sync origin"
+    assert "local1_" in app_script, "missing anonymous encrypted profile"
     assert "profile-crypto.js" in parser.scripts, "missing encrypted-profile runtime"
     assert "profile-store.js" in parser.scripts, "missing encrypted-profile storage"
     print("html checks: OK")

@@ -22,7 +22,7 @@ When an enhanced workflow command has a direct classic Linux fallback, both are 
 
 Open **Interactive paths**, choose a path and select any node in its visual roadmap. Completion is stored per path and step. Notes are stored after pressing **Save note**; switching steps also preserves the draft. Without an encrypted profile this remains plain browser-local data and must not contain secrets.
 
-At the [dedicated encrypted origin](https://oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev), open **Encrypted profile**, connect GitHub and create an independent passphrase of at least 16 characters. Existing notes and progress are encrypted, verified and only then removed from legacy storage. GitHub is identity only: its password or token cannot unlock the profile. Lock the profile before leaving the device. Losing the encryption passphrase currently loses access permanently.
+Open **Encrypted profile** and choose **Log in with GitHub** for synchronization or **Continue anonymously** for a local-only encrypted profile. A strong recovery key is generated automatically: reveal, copy or download it before creating the profile. Existing notes and progress are encrypted, verified and only then removed from legacy storage. GitHub is identity only and cannot recover the key. Lock the profile before leaving the device. Losing the recovery key means losing access permanently.
 
 ### Readability
 
@@ -56,7 +56,7 @@ Cuando un comando de flujo mejorado tiene una alternativa clásica directa de Li
 
 Abre **Rutas interactivas**, elige una ruta y selecciona cualquier nodo del roadmap visual. El progreso se guarda por ruta y paso. Las notas se guardan al pulsar **Guardar nota**; cambiar de paso también conserva el borrador. Sin perfil cifrado siguen siendo datos locales en claro del navegador y no deben contener secretos.
 
-En [el origen cifrado dedicado](https://oscp-arsenal-sync.0xcyberberserker-arsenal.workers.dev), abre **Perfil cifrado**, conecta GitHub y crea una frase independiente de al menos 16 caracteres. Las notas y progreso existentes se cifran, se verifican y solo entonces se eliminan del almacenamiento legacy. GitHub solo aporta identidad: su contraseña o token no abren el perfil. Bloquea el perfil al dejar el dispositivo. Perder la frase implica actualmente perder el acceso para siempre.
+Abre **Perfil cifrado** y elige **Entrar con GitHub** para sincronizar o **Continuar anónimamente** para crear un perfil cifrado solo local. Se genera automáticamente una clave de recuperación fuerte: muéstrala, cópiala o descárgala antes de crear el perfil. Las notas y el progreso existentes se cifran, se verifican y solo entonces se eliminan del almacenamiento legacy. GitHub solo aporta identidad y no puede recuperar la clave. Bloquea el perfil al dejar el dispositivo. Perder la clave implica perder el acceso para siempre.
 
 ### Legibilidad
 

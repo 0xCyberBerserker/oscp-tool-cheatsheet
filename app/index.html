@@ -145,12 +145,20 @@
       <button id="profile-close" type="submit" aria-label="Cerrar">×</button>
     </form>
     <p id="profile-status"></p>
-    <button id="github-connect" type="button">Conectar GitHub</button>
+    <div id="profile-entry-actions" class="profile-entry-actions">
+      <button id="github-connect" type="button">Entrar con GitHub</button>
+      <button id="anonymous-connect" type="button">Continuar anónimamente</button>
+    </div>
     <div id="profile-unlock" hidden>
-      <label for="profile-passphrase" id="profile-passphrase-label">Frase de cifrado</label>
-      <input id="profile-passphrase" type="password" minlength="16" maxlength="1024" autocomplete="current-password">
-      <label for="profile-passphrase-confirm" id="profile-confirm-label">Repetir frase</label>
-      <input id="profile-passphrase-confirm" type="password" minlength="16" maxlength="1024" autocomplete="new-password">
+      <label for="profile-passphrase" id="profile-passphrase-label">Clave de recuperación</label>
+      <div class="profile-key-field">
+        <input id="profile-passphrase" type="password" minlength="16" maxlength="1024" autocomplete="current-password">
+        <button id="profile-key-toggle" type="button" aria-pressed="false">Mostrar</button>
+      </div>
+      <div id="profile-key-actions" class="profile-key-actions" hidden>
+        <button id="profile-key-copy" type="button">Copiar clave</button>
+        <button id="profile-key-download" type="button">Descargar clave</button>
+      </div>
       <button id="profile-action" type="button">Desbloquear</button>
     </div>
     <button id="profile-lock" type="button" hidden>Bloquear</button>
