@@ -70,7 +70,7 @@ function memoryBackend() {
   failingBackend.putMany = async (entries) => {
     await original(entries);
     const record = failingBackend.values.get(`record:${subject}:notes`);
-    if (record) record.ciphertext = `${record.ciphertext.slice(0, -1)}A`;
+    if (record) record.ciphertext = `${record.ciphertext[0] === "A" ? "B" : "A"}${record.ciphertext.slice(1)}`;
   };
   await assert.rejects(
     failingStore.migrateLegacy({ notes: legacy.notes }, async () => { unsafeClear = true; }),
