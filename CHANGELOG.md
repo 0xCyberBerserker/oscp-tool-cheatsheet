@@ -6,6 +6,8 @@ Todos los cambios relevantes siguen [Keep a Changelog](https://keepachangelog.co
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-08-29
+
 ### Changed / Cambiado
 
 - Renamed the repository and desktop web application to OSCP Arsenal.

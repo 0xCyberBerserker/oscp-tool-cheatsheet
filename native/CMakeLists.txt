@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(oscp_knowledge_paths VERSION 0.2.0 LANGUAGES CXX)
+project(oscp_knowledge_paths VERSION 0.3.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
@@ -24,7 +24,7 @@ if(ANDROID)
         QT_ANDROID_PACKAGE_NAME "io.github.cyberberserker.oscpknowledgepaths"
         QT_ANDROID_APP_NAME "OSCP Knowledge Paths"
         QT_ANDROID_VERSION_NAME "${PROJECT_VERSION}"
-        QT_ANDROID_VERSION_CODE 2
+        QT_ANDROID_VERSION_CODE 3
         QT_ANDROID_MIN_SDK_VERSION 28
         QT_ANDROID_TARGET_SDK_VERSION 36
     )

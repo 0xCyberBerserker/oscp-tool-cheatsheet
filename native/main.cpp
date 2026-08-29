@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QCoreApplication::setOrganizationName(QStringLiteral("0xCyberBerserker"));
     QCoreApplication::setApplicationName(QStringLiteral("OSCP Knowledge Paths"));
-    QCoreApplication::setApplicationVersion(QStringLiteral("0.2.0"));
+    QCoreApplication::setApplicationVersion(QStringLiteral("0.3.0"));
 
     QFile packFile(QStringLiteral(":/knowledge/packs/oscp-interactive.json"));
     if (!packFile.open(QIODevice::ReadOnly)) {

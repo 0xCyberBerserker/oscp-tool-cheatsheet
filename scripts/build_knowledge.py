@@ -43,7 +43,7 @@ def main() -> int:
     phase_labels = {phase["id"]: phase for phase in PHASES}
 
     pack["id"] = "oscp-interactive"
-    pack["version"] = "0.2.0"
+    pack["version"] = "0.3.0"
     pack["title"] = {
         "en": "OSCP Interactive Reference",
         "es": "Referencia interactiva OSCP",
