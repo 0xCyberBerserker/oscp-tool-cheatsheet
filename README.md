@@ -5,16 +5,16 @@
   Referencia OSCP offline con buscador y rutas interactivas.</p>
 
   <p>
-    <a href="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/actions/workflows/build-all.yml"><img alt="Build" src="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/actions/workflows/build-all.yml/badge.svg"></a>
-    <a href="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/releases"><img alt="Release" src="https://img.shields.io/github/v/release/0xCyberBerserker/oscp-tool-cheatsheet?color=58a6ff"></a>
+    <a href="https://github.com/0xCyberBerserker/OSCP-Arsenal/actions/workflows/build-all.yml"><img alt="Build" src="https://github.com/0xCyberBerserker/OSCP-Arsenal/actions/workflows/build-all.yml/badge.svg"></a>
+    <a href="https://github.com/0xCyberBerserker/OSCP-Arsenal/releases"><img alt="Release" src="https://img.shields.io/github/v/release/0xCyberBerserker/OSCP-Arsenal?color=58a6ff"></a>
     <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-58a6ff.svg"></a>
     <img alt="No telemetry" src="https://img.shields.io/badge/telemetry-none-2ea043.svg">
   </p>
 
   <p>
-    <a href="https://0xcyberberserker.github.io/oscp-tool-cheatsheet/"><strong>Open the PWA</strong></a>
+    <a href="https://0xcyberberserker.github.io/OSCP-Arsenal/"><strong>Open the PWA</strong></a>
     ·
-    <a href="https://github.com/0xCyberBerserker/oscp-tool-cheatsheet/releases/latest">Downloads</a>
+    <a href="https://github.com/0xCyberBerserker/OSCP-Arsenal/releases/latest">Downloads</a>
     ·
     <a href="#español">Español</a>
   </p>
@@ -55,7 +55,7 @@ It also includes interactive public methodology paths with browser-profile-local
 
 The fastest option is the hosted PWA:
 
-**[Launch OSCP Arsenal](https://0xcyberberserker.github.io/oscp-tool-cheatsheet/)**
+**[Launch OSCP Arsenal](https://0xcyberberserker.github.io/OSCP-Arsenal/)**
 
 For offline desktop use from this repository:
 
@@ -86,7 +86,7 @@ GitHub Actions builds separate Web PWA, Linux x86_64/ARM64, Windows portable/MSI
 Verify a downloaded artifact:
 
 ```bash
-gh attestation verify ARTIFACT --repo 0xCyberBerserker/oscp-tool-cheatsheet
+gh attestation verify ARTIFACT --repo 0xCyberBerserker/OSCP-Arsenal
 ```
 
 <details>
@@ -109,16 +109,6 @@ sync/         Optional GitHub identity Worker and ciphertext-only D1 schema
 packaging/    Desktop launchers
 scripts/      Build, test and installation commands
 tests/        Data, HTML, search and knowledge checks
-```
-
-### Refresh the Kali inventory
-
-Run the collector on Kali, review the generated data, then rebuild:
-
-```bash
-python3 scripts/inventory_kali.py /tmp/kali-tools.json
-python3 scripts/build_data.py
-./scripts/test.sh
 ```
 
 ### Authorized use only
@@ -151,7 +141,7 @@ También incluye rutas públicas de metodología interactiva con progreso y nota
 
 La opción más rápida es la PWA publicada:
 
-**[Abrir OSCP Arsenal](https://0xcyberberserker.github.io/oscp-tool-cheatsheet/)**
+**[Abrir OSCP Arsenal](https://0xcyberberserker.github.io/OSCP-Arsenal/)**
 
 Para usarla offline desde este repositorio:
 
@@ -182,7 +172,7 @@ GitHub Actions genera artefactos separados para PWA web, Linux x86_64/ARM64, Win
 Verifica un artefacto descargado:
 
 ```bash
-gh attestation verify ARTEFACTO --repo 0xCyberBerserker/oscp-tool-cheatsheet
+gh attestation verify ARTEFACTO --repo 0xCyberBerserker/OSCP-Arsenal
 ```
 
 <details>
@@ -205,16 +195,6 @@ sync/         Worker opcional de identidad GitHub y esquema D1 solo para ciphert
 packaging/    Lanzadores de escritorio
 scripts/      Comandos de build, pruebas e instalación
 tests/        Comprobaciones de datos, HTML, búsqueda y conocimiento
-```
-
-### Actualizar el inventario de Kali
-
-Ejecuta el recolector en Kali, revisa los datos generados y reconstruye:
-
-```bash
-python3 scripts/inventory_kali.py /tmp/kali-tools.json
-python3 scripts/build_data.py
-./scripts/test.sh
 ```
 
 ### Solo para uso autorizado

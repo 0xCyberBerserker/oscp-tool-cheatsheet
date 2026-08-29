@@ -8,6 +8,8 @@ Todos los cambios relevantes siguen [Keep a Changelog](https://keepachangelog.co
 
 ### Changed / Cambiado
 
+- Renamed the repository and desktop web application to OSCP Arsenal.
+- Renombrados el repositorio y la aplicación web de escritorio como OSCP Arsenal.
 - Replaced the broadly named readable mode with an explicit local-font monospaced mode.
 - Sustituido el modo de lectura genérico por un modo monoespaciado explícito con fuentes locales.
 - Added a visual step roadmap, graph-aware next navigation and contextual per-step notes.

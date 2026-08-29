@@ -4,7 +4,7 @@
 
 ### Search
 
-Open **OSCP Tool Cheatsheet** from the application menu or desktop. Search using:
+Open **OSCP Arsenal** from the application menu or desktop. Search using:
 
 - a program name: `nmap`, `ferox`, `evil winrm`;
 - an audit phase: `reconnaissance`, `post-exploitation`, `pivoting`;
@@ -38,7 +38,7 @@ The monospaced mode is enabled by default. `Aa · Mono` toggles a local monospac
 
 ### Búsqueda
 
-Abre **Cheatsheet de herramientas OSCP** desde el menú de aplicaciones o el escritorio. Puedes buscar mediante:
+Abre **OSCP Arsenal** desde el menú de aplicaciones o el escritorio. Puedes buscar mediante:
 
 - nombre del programa: `nmap`, `ferox`, `evil winrm`;
 - fase de auditoría: `reconocimiento`, `post-explotación`, `pivoting`;

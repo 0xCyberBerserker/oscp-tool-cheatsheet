@@ -1,12 +1,12 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=OSCP Tool Cheatsheet
-Name[es]=Cheatsheet de herramientas OSCP
+Name=OSCP Arsenal
+Name[es]=OSCP Arsenal
 Comment=Search installed Kali tools by name, phase or intent
 Comment[es]=Busca herramientas instaladas en Kali por nombre, fase o intención
-Exec=sh -c 'exec "$HOME/.local/share/oscp-tool-cheatsheet/open.sh"'
-Icon=oscp-tool-cheatsheet
+Exec=sh -c 'exec "$HOME/.local/share/oscp-arsenal/open.sh"'
+Icon=oscp-arsenal
 Terminal=false
 Categories=Education;Development;Security;
 Keywords=OSCP;Kali;Security;Cheatsheet;Pentest;

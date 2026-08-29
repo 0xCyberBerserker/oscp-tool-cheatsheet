@@ -13,7 +13,7 @@ desktop_dir="${desktop_dir:-$HOME/Desktop}"
 
 mkdir -p "$bin_dir" "$applications_dir" "$icons_dir" "$desktop_dir"
 install -m 0755 "$build_dir/oscp-knowledge-paths" "$bin_dir/oscp-knowledge-paths"
-install -m 0644 "$repo_dir/app/icon.svg" "$icons_dir/oscp-tool-cheatsheet.svg"
+install -m 0644 "$repo_dir/app/icon.svg" "$icons_dir/oscp-arsenal.svg"
 install -m 0644 "$repo_dir/packaging/oscp-knowledge-paths.desktop" \
     "$applications_dir/oscp-knowledge-paths.desktop"
 install -m 0755 "$repo_dir/packaging/oscp-knowledge-paths.desktop" \

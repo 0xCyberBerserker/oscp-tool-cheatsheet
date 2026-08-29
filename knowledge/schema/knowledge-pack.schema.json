@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://0xcyberberserker.github.io/oscp-tool-cheatsheet/schema/knowledge-pack-v1.json",
+  "$id": "https://0xcyberberserker.github.io/OSCP-Arsenal/schema/knowledge-pack-v1.json",
   "title": "OSCP Knowledge Pack",
   "type": "object",
   "required": ["schemaVersion", "id", "version", "defaultLanguage", "languages", "title", "cards", "paths"],
